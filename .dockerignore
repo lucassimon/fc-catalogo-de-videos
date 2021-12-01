@@ -1,0 +1,17 @@
+*.py[cod]
+.env
+.git/
+.gitignore
+.venv/
+.local/
+README.md
+tests/
+__pycache__/
+*.pytest_cache/
+.ipython/
+Dockerfile
+Dockerfile-prd
+Dockerfile-prd-multistage
+.sqlite3
+.vscode/
+.docker/
