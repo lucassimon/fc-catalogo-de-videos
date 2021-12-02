@@ -1,8 +1,9 @@
-from rest_framework import viewsets, status, filters
+from rest_framework import viewsets, filters
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
+
 
 from apps.categories import models, serializers
+from apps.core import utils
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -17,13 +18,16 @@ class CategoryViewSet(viewsets.ModelViewSet):
         "created",
     ]
 
+    def get_object(self):
+        obj = super().get_object()
+        utils.raises_not_found_when_inactive_or_deleted(obj)
+
+        return obj
+
     def get_queryset(self):
         qs = models.Category.objects.active().undeleted()
 
         return qs
 
-    def destroy(self, request, *args, **kwargs):
-        object = self.get_object()
-        object.soft_delete()
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def perform_destroy(self, instance):
+        instance.soft_delete()

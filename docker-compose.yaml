@@ -28,7 +28,6 @@ services:
       - static_volume:/home/api/static
     environment:
       DJANGO_SETTINGS_MODULE: main.settings.dev
-      DJANGO_READ_DOT_ENV_FILE: "off"
       DJANGO_DEBUG: "on"
       SECRET_KEY: your-secret-key
       POSTGRES_DB: postgres

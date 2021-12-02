@@ -3,15 +3,10 @@
 ## Executar o ambiente de desenvolvimento
 
 ```shell
-❯ DJANGO_READ_DOT_ENV_FILE="on" python manage.py runserver --settings=main.settings.dev
-Watching for file changes with StatReloader
-Performing system checks...
+❯ make run_dev
 
-System check identified no issues (0 silenced).
-November 30, 2021 - 23:41:11
-Django version 3.2.6, using settings 'main.settings.dev'
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CONTROL-C.
+❯ python manage.py runserver --settings=main.settings.dev
+
 ```
 
 ## Gerar mensagens de tradução

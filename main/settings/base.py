@@ -15,16 +15,22 @@ from email.utils import getaddresses
 from django.utils.translation import gettext_lazy as _
 import environ
 
+
 env = environ.Env()
+
+
+def read_dot_env():
+    dot_env_file = Path(".env")
+    if dot_env_file.exists():
+        # OS environment variables take precedence over variables from .env
+        env.read_env(env_file=".env")
+
+
+read_dot_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 APPS_DIR = BASE_DIR / "apps"
-
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(env_file=".env")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

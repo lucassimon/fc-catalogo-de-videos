@@ -56,5 +56,5 @@ test:
 	@python manage.py compilemessages
 	@pytest -s --verbose --cov=apps tests/
 
-runserver:
-	DJANGO_READ_DOT_ENV_FILE="on" python manage.py runserver --settings=main.settings.dev
+run_dev:
+	python manage.py runserver --settings=main.settings.dev

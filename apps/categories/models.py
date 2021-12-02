@@ -46,10 +46,6 @@ class Category(
         return f"{self.title}"
 
     class Meta:
-        """
-        Seta a ordenação da listagem pelo campo `created` ascendente
-        """
-
         ordering = ["created"]
         verbose_name = CATEGORY_TEXT
         verbose_name_plural = CATEGORIES
