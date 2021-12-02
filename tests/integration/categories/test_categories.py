@@ -7,7 +7,7 @@ from rest_framework import status
 
 @pytest.mark.django_db
 def test_create_a_category(api_client):
-    url = reverse("categories:category-list")
+    url = reverse("v1:categories:category-list")
     title = "Some category"
     response = api_client.post(
         url,
@@ -27,7 +27,7 @@ def test_list_the_categories(
     categories_count = 3
     category_factory.create_batch(categories_count)
 
-    url = reverse("categories:category-list")
+    url = reverse("v1:categories:category-list")
 
     response = api_client.get(
         url,
@@ -43,7 +43,7 @@ def test_list_the_categories(
 def test_get_the_category_by_id(api_client, category_factory):
     category = category_factory.create()
 
-    url = reverse("categories:category-detail", kwargs={"pk": category.pk})
+    url = reverse("v1:categories:category-detail", kwargs={"pk": category.pk})
 
     response = api_client.get(
         url,
@@ -59,7 +59,7 @@ def test_get_the_category_by_id(api_client, category_factory):
 def test_raise_http_404_when_get_the_category_is_deleted(api_client, category_factory):
     category = category_factory.create(is_deleted=True)
 
-    url = reverse("categories:category-detail", kwargs={"pk": category.pk})
+    url = reverse("v1:categories:category-detail", kwargs={"pk": category.pk})
 
     response = api_client.get(
         url,
@@ -75,7 +75,7 @@ def test_raise_http_404_when_get_the_category_is_deleted(api_client, category_fa
 def test_raise_http_404_when_get_the_category_is_inactive(api_client, category_factory):
     category = category_factory.create(status=ActivatorModel.INACTIVE_STATUS)
 
-    url = reverse("categories:category-detail", kwargs={"pk": category.pk})
+    url = reverse("v1:categories:category-detail", kwargs={"pk": category.pk})
 
     response = api_client.get(
         url,
@@ -92,7 +92,7 @@ def test_update_the_category_by_id(api_client, category_factory):
     category = category_factory.create()
     new_title = "category changed"
 
-    url = reverse("categories:category-detail", kwargs={"pk": category.pk})
+    url = reverse("v1:categories:category-detail", kwargs={"pk": category.pk})
 
     response = api_client.put(
         url,
@@ -109,7 +109,7 @@ def test_update_the_category_by_id(api_client, category_factory):
 def test_delete_the_category_by_id(api_client, category_factory):
     category = category_factory.create()
 
-    url = reverse("categories:category-detail", kwargs={"pk": category.pk})
+    url = reverse("v1:categories:category-detail", kwargs={"pk": category.pk})
 
     response = api_client.delete(
         url,

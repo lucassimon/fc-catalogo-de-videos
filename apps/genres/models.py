@@ -5,17 +5,19 @@ from django_extensions.db.models import (
     TimeStampedModel,
 )
 from apps.core.models import SoftDeleteModel, UUIDModel
-from apps.core.messages import CATEGORIES, CATEGORY as CATEGORY_TEXT
+from apps.core.messages import GENRES, GENRE as GENRE_TEXT
 from apps.core.managers import SoftDeleteAndInactiveManager
+from apps.categories.models import Category
 
 
-class Category(
+class Genre(
     TitleSlugDescriptionModel,
     UUIDModel,
     ActivatorModel,
     SoftDeleteModel,
     TimeStampedModel,
 ):
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     objects = SoftDeleteAndInactiveManager()
 
@@ -24,8 +26,8 @@ class Category(
 
     class Meta:
         ordering = ["created"]
-        verbose_name = CATEGORY_TEXT
-        verbose_name_plural = CATEGORIES
+        verbose_name = GENRE_TEXT
+        verbose_name_plural = GENRES
         indexes = [
             models.Index(
                 fields=[

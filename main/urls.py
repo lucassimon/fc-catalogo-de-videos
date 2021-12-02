@@ -19,13 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+from django.urls import path, include
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("health/alive/", include("apps.healthcheck.urls")),
     path(
-        "v1/categories/",
-        include(("apps.categories.api.v1.urls", "categories"), namespace="v1"),
+        "v1/",
+        include(("apps.core.v1_urls", "core"), namespace="v1"),
     ),
 ]
 

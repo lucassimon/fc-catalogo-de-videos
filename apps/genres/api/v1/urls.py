@@ -1,10 +1,10 @@
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from apps.categories.api.v1 import views
+from apps.genres.api.v1 import views
 
 router = routers.SimpleRouter(trailing_slash=True)
-router.register("", views.CategoryViewSet, basename="category")
+router.register("", views.GenreViewSet, basename="genre")
 
 urlpatterns = router.urls
 
