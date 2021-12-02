@@ -31,12 +31,29 @@ processing locale es
 processing locale de
 
 ❯ django-admin compilemessages -l de
+
+```
+
+ou
+
+```shell
+❯ python manage.py makemessages --all
+❯ python manage.py compilemessages
 ```
 
 ## Executar testes
 
-```shell
+Comandos disponíveis
 
+```shell
+❯ make test
+❯ pytest
+❯ pytest tests/integration/categories/test_categories.py::test_list_the_categories
+```
+
+```shell
+❯ coverage report
+❯ coverage html
 ```
 
 # Links e tutoriais

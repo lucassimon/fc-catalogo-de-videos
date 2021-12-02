@@ -8,7 +8,7 @@ from django.urls import reverse
     "language_code, language_text",
     [("es", "Hola mundo"), ("de", "Hallo Welt"), ("pt-br", "Olá mundo")],
 )
-def test_health_check_en(language_code, language_text, api_client):
+def test_health_check(language_code, language_text, api_client):
     url = reverse("healthcheck")
     response = api_client.get(
         url,

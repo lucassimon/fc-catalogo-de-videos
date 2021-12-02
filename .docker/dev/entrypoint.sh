@@ -36,10 +36,8 @@ source /opt/venv/bin/activate
 echo "Making migrations and migrating the database. "
 python manage.py migrate --noinput
 
-for language in pt_BR es de
-do
-  echo "Compile translations. $language "
-  python manage.py compilemessages -l $language
-done
+echo "Compile translations."
+python manage.py compilemessages
+
 
 exec "$@"

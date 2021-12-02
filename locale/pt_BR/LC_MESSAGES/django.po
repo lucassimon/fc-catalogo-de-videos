@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-30 20:38-0300\n"
+"POT-Creation-Date: 2021-11-30 20:27-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,18 +37,18 @@ msgstr "Deletar"
 msgid "Status"
 msgstr "Status"
 
-#: main/settings/base.py:136
+#: main/settings/base.py:129
 msgid "English"
 msgstr "Inglês"
 
-#: main/settings/base.py:137
+#: main/settings/base.py:130
 msgid "German"
 msgstr "Alemão"
 
-#: main/settings/base.py:138
+#: main/settings/base.py:131
 msgid "Portuguese Brazil"
 msgstr "Português do Brasil"
 
-#: main/settings/base.py:139
+#: main/settings/base.py:132
 msgid "Spanish"
 msgstr "Espanhol"

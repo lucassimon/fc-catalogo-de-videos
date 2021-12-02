@@ -11,9 +11,23 @@ class UUIDModel(models.Model):
         abstract = True
 
 
+class SoftDeleteQuerySet(models.query.QuerySet):
+    def deleted(self):
+        return self.filter(is_deleted=True)
+
+    def undeleted(self):
+        return self.filter(is_deleted=False)
+
+
 class SoftDeleteManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(deleted_at__isnull=True)
+        return SoftDeleteQuerySet(model=self.model, using=self._db)
+
+    def deleted(self):
+        return self.get_queryset().deleted()
+
+    def undeleted(self):
+        return self.get_queryset().undeleted()
 
 
 class SoftDeleteModel(models.Model):
