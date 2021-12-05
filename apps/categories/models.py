@@ -1,12 +1,17 @@
 from django.db import models
+
+# Third
 from django_extensions.db.models import (
-    TitleSlugDescriptionModel,
     ActivatorModel,
     TimeStampedModel,
+    TitleSlugDescriptionModel,
 )
-from apps.core.models import SoftDeleteModel, UUIDModel
-from apps.core.messages import CATEGORIES, CATEGORY as CATEGORY_TEXT
+
+# Apps
 from apps.core.managers import SoftDeleteAndInactiveManager
+from apps.core.messages import CATEGORIES
+from apps.core.messages import CATEGORY as CATEGORY_TEXT
+from apps.core.models import SoftDeleteModel, UUIDModel
 
 
 class Category(

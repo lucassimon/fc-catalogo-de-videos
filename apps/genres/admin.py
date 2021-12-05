@@ -1,7 +1,8 @@
 from django.contrib import admin
 
+# Apps
+from apps.core.messages import DELETE_ADMIN_FIELDSET, STATUS_ADMIN_FIELDSET
 from apps.genres.models import Genre
-from apps.core.messages import STATUS_ADMIN_FIELDSET, DELETE_ADMIN_FIELDSET
 
 
 @admin.register(Genre)

@@ -1,4 +1,5 @@
-from django.urls import path, include
+from django.urls import include, path
+
 
 urlpatterns = [
     path(
@@ -8,5 +9,9 @@ urlpatterns = [
     path(
         "genres/",
         include(("apps.genres.api.v1.urls", "genres")),
+    ),
+    path(
+        "castmembers/",
+        include(("apps.castmembers.api.v1.urls", "castmembers")),
     ),
 ]

@@ -1,9 +1,10 @@
-from rest_framework import viewsets, filters
+# Third
+from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
 
-
-from apps.genres import models, serializers
+# Apps
 from apps.core import utils
+from apps.genres import models, serializers
 
 
 class GenreViewSet(viewsets.ModelViewSet):

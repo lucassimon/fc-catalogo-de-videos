@@ -3,16 +3,16 @@ from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
 
 # Apps
-from apps.categories import models, serializers
+from apps.castmembers import models, serializers
 from apps.core import utils
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.CategorySerializer
+class CastMemberViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CastMemberSerializer
     permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = [
-        "title",
+        "name",
     ]
     ordering_fields = [
         "id",
@@ -26,7 +26,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        qs = models.Category.objects.active().undeleted()
+        qs = models.CastMember.objects.all().undeleted()
 
         return qs
 

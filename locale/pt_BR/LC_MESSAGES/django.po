@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-30 20:27-0600\n"
+"POT-Creation-Date: 2021-12-05 09:28-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,18 +37,50 @@ msgstr "Deletar"
 msgid "Status"
 msgstr "Status"
 
-#: main/settings/base.py:129
+#: apps/core/messages.py:8 apps/core/messages.py:10
+msgid "Genre"
+msgstr ""
+
+#: apps/core/messages.py:9 apps/core/messages.py:11
+msgid "Genres"
+msgstr ""
+
+#: apps/core/messages.py:12
+msgid "Cast Members"
+msgstr ""
+
+#: apps/core/messages.py:13
+msgid "Cast Member"
+msgstr ""
+
+#: apps/core/messages.py:14
+msgid "Name"
+msgstr ""
+
+#: apps/core/messages.py:15
+msgid "Kind"
+msgstr ""
+
+#: apps/core/messages.py:16
+msgid "Director"
+msgstr ""
+
+#: apps/core/messages.py:17
+msgid "Actor"
+msgstr ""
+
+#: main/settings/base.py:141
 msgid "English"
 msgstr "Inglês"
 
-#: main/settings/base.py:130
+#: main/settings/base.py:142
 msgid "German"
 msgstr "Alemão"
 
-#: main/settings/base.py:131
+#: main/settings/base.py:143
 msgid "Portuguese Brazil"
 msgstr "Português do Brasil"
 
-#: main/settings/base.py:132
+#: main/settings/base.py:144
 msgid "Spanish"
 msgstr "Espanhol"

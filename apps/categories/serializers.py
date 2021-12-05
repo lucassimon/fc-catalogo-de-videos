@@ -1,5 +1,7 @@
+# Third
 from rest_framework import serializers
 
+# Apps
 from apps.categories import models
 
 

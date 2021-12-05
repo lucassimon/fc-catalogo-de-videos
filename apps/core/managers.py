@@ -1,6 +1,9 @@
 from django.db import models
 
+# Third
 from django_extensions.db.models import ActivatorQuerySet
+
+# Apps
 from apps.core.models import SoftDeleteQuerySet
 
 

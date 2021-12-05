@@ -12,6 +12,7 @@ trim_trailing_whitespace = true
 
 # 4 space indentation
 [*.py]
+profile = black
 indent_style = space
 indent_size = 4
 skip = build,.tox,.venv
