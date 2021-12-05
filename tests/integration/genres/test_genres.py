@@ -4,6 +4,8 @@ from django.urls import reverse
 from django_extensions.db.models import ActivatorModel
 from rest_framework import status
 
+from tests.factories.categories import CategoryFactory
+
 
 @pytest.mark.django_db
 def test_create_a_genre(api_client, category_factory):
@@ -12,7 +14,7 @@ def test_create_a_genre(api_client, category_factory):
     title = "Some item"
     response = api_client.post(
         url,
-        data={"category": category.pk, "title": title, "description": "some item"},
+        data={"categories": [category.pk], "title": title, "description": "some item"},
         format="json",
     )
     assert response.status_code == status.HTTP_201_CREATED
@@ -24,7 +26,8 @@ def test_create_a_genre(api_client, category_factory):
 @pytest.mark.django_db
 def test_list_the_genres(api_client, genre_factory):
     count = 3
-    genre_factory.create_batch(count)
+    categories = CategoryFactory.create_batch(2)
+    genre_factory.create_batch(count, categories=(categories[0], categories[1]))
 
     url = reverse("v1:genres:genre-list")
 

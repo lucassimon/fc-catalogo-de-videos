@@ -22,7 +22,7 @@ class Genre(
     SoftDeleteModel,
     TimeStampedModel,
 ):
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    categories = models.ManyToManyField(Category)
 
     objects = SoftDeleteAndInactiveManager()
 

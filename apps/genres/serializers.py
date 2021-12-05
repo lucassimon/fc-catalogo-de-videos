@@ -8,4 +8,4 @@ from apps.genres import models
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Genre
-        fields = ["id", "code", "category", "title", "slug", "description", "created"]
+        fields = ["id", "code", "categories", "title", "slug", "description", "created"]
