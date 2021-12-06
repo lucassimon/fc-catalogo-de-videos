@@ -25,7 +25,7 @@ class GenreHasCategoryFactory(factory.django.DjangoModelFactory):
     category = factory.SubFactory(CategoryFactory)
 
 
-class GenreWithGategoryFactory(GenreFactory):
+class GenreWithCategoryFactory(GenreFactory):
     categories = factory.RelatedFactory(
         GenreHasCategoryFactory,
         factory_related_name="genre",

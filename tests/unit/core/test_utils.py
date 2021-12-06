@@ -97,5 +97,20 @@ def test_check_all_items_are_available_raises_exception_when_is_deleted_is_true(
 
 
 @pytest.mark.django_db
-def test_check_genres_are_in_categories(category_factory, genre_factory, genre_with_gategory_factory):
-    assert 1 == 2
+def test_check_genres_are_in_categories(genre_with_category_factory):
+    genre = genre_with_category_factory.create()
+    categories_pks = genre.categories.all().values_list("pk", flat=True)
+
+    exists = utils.check_genres_are_in_categories(genre.pk, categories_pks)
+
+    assert exists == True
+
+
+@pytest.mark.django_db
+def test_check_genres_are_in_categories_raises_exception(genre_factory, category_factory):
+    categories = category_factory.create_batch(3)
+    genre = genre_factory.create()
+    categories_pks = [categories[0].pk, categories[1].pk, categories[2].pk]
+
+    with pytest.raises(Exception):
+        utils.check_genres_are_in_categories(genre.pk, categories_pks)
