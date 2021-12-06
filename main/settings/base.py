@@ -74,6 +74,7 @@ LOCAL_APPS = [
     "apps.categories",
     "apps.genres",
     "apps.castmembers",
+    "apps.videos",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

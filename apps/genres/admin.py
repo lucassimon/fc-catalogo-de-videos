@@ -5,15 +5,20 @@ from apps.core.messages import DELETE_ADMIN_FIELDSET, STATUS_ADMIN_FIELDSET
 from apps.genres.models import Genre
 
 
+class GenreHasCategoriesInlineAdmin(admin.TabularInline):
+    model = Genre.categories.through
+
+
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ["title", "status", "is_deleted"]
-    list_filter = ["status", "is_deleted"]
+    list_filter = ["status", "is_deleted", "categories"]
     date_hierarchy = "created"
     search_fields = ["title"]
     readonly_fields = [
         "slug",
     ]
+    inlines = [GenreHasCategoriesInlineAdmin]
     fieldsets = [
         (
             None,

@@ -1,11 +1,7 @@
 from django.db import models
 
 # Third
-from django_extensions.db.models import (
-    ActivatorModel,
-    TimeStampedModel,
-    TitleSlugDescriptionModel,
-)
+from django_extensions.db.models import ActivatorModel, TimeStampedModel, TitleSlugDescriptionModel
 
 # Apps
 from apps.categories.models import Category
@@ -22,7 +18,7 @@ class Genre(
     SoftDeleteModel,
     TimeStampedModel,
 ):
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, through="GenreHasCategory")
 
     objects = SoftDeleteAndInactiveManager()
 
@@ -40,3 +36,11 @@ class Genre(
                 ]
             ),
         ]
+
+
+class GenreHasCategory(models.Model):
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{}_{}".format(self.genre.__str__(), self.category.__str__())

@@ -1,11 +1,7 @@
 from django.db import models
 
 # Third
-from django_extensions.db.models import (
-    ActivatorModel,
-    TimeStampedModel,
-    TitleSlugDescriptionModel,
-)
+from django_extensions.db.models import ActivatorModel, TimeStampedModel, TitleSlugDescriptionModel
 
 # Apps
 from apps.core.managers import SoftDeleteAndInactiveManager

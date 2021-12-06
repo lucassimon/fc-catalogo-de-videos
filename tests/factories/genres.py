@@ -1,7 +1,6 @@
 import factory
 from faker import Factory as FakerFactory
 
-from apps.categories.models import Category
 from apps.genres import models
 from tests.factories.categories import CategoryFactory
 
@@ -17,12 +16,17 @@ class GenreFactory(factory.django.DjangoModelFactory):
     status = 1
     is_deleted = False
 
-    @factory.post_generation
-    def categories(self, create, extracted, **kwargs):
-        if not create:
-            return
 
-        if extracted:
-            for item in extracted:
-                if isinstance(item, Category):
-                    self.categories.add(item)
+class GenreHasCategoryFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.GenreHasCategory
+
+    genre = factory.SubFactory(GenreFactory)
+    category = factory.SubFactory(CategoryFactory)
+
+
+class GenreWithGategoryFactory(GenreFactory):
+    categories = factory.RelatedFactory(
+        GenreHasCategoryFactory,
+        factory_related_name="genre",
+    )
