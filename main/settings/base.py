@@ -15,6 +15,8 @@ from email.utils import getaddresses
 from django.utils.translation import gettext_lazy as _
 import environ
 
+from google.oauth2 import service_account
+
 
 env = environ.Env()
 
@@ -176,10 +178,42 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+# https://docs.djangoproject.com/en/4.0/ref/settings/#media-root
+MEDIA_ROOT = str(BASE_DIR / "media")
+
+# https://docs.djangoproject.com/en/4.0/ref/settings/#media-url
+MEDIA_URL = "/media/"
+
 # FIXTURES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
+
+USE_S3 = env.bool("USE_S3", False)
+USE_GCS = env.bool("USE_GCS", False)
+
+if USE_S3:
+    STATICFILES_STORAGE = "apps.core.storages.S3StaticStorage"
+    DEFAULT_FILE_STORAGE = "apps.core.storages.S3MediaStorage"
+    # aws settings
+    AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    # s3 static settings
+    AWS_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+
+elif USE_GCS:
+    DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+    STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+    # gcs settings
+    GS_BUCKET_NAME = "YOUR_BUCKET_NAME_GOES_HERE"
+    GS_DEFAULT_ACL = ""
+    GS_PROJECT_ID = ""
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file("path/to/credentials.json")
 
 
 # django-rest-framework
@@ -198,6 +232,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.MultiPartRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
     ],
     "DEFAULT_PARSER_CLASSES": [
@@ -209,5 +244,6 @@ REST_FRAMEWORK = {
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
     "TEST_REQUEST_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.MultiPartRenderer",
     ],
 }

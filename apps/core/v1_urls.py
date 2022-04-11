@@ -14,4 +14,8 @@ urlpatterns = [
         "castmembers/",
         include(("apps.castmembers.api.v1.urls", "castmembers")),
     ),
+    path(
+        "videos/",
+        include(("apps.videos.api.v1.urls", "videos")),
+    ),
 ]

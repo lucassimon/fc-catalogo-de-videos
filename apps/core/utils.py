@@ -1,3 +1,6 @@
+import datetime
+from django.utils import timezone
+
 # Third
 from django_extensions.db.models import ActivatorModel
 from rest_framework import status
@@ -33,16 +36,28 @@ def get_genres_by_ids(genres_ids):
     return Genre.objects.filter(pk__in=genres_ids)
 
 
+def unique_elements_on_list(array):
+    return list(set(array))
+
+
 def check_genres_are_in_categories(genre_id, categories_id):
     """
     Verificar se os generos pertence a qualquer categoria informada
     """
-    exists = GenreHasCategory.objects.filter(genre_id=genre_id, category_id__in=categories_id).exists()
+    uniques_categories_ids = unique_elements_on_list(categories_id)
 
-    if not exists:
+    genre_with_categories = GenreHasCategory.objects.filter(genre_id=genre_id, category_id__in=uniques_categories_ids)
+
+    if not genre_with_categories.exists():
         genre = Genre.objects.get(pk=genre_id)
         message = GENRE_NOT_BELONGS_FOR_ANY_CATEGORIES % {"title": genre.title}
         raise Exception(message)
+
+    # categories_found = genre_with_categories.values_list("category_id", flat=True)
+
+    # if categories_found != categories_id:
+    #     message = GENRE_NOT_BELONGS_FOR_ANY_CATEGORIES % {"title": genre.title}
+    #     raise Exception(message)
 
     return True
 
@@ -74,3 +89,14 @@ def check_all_items_are_available(objects_ids, model="Category"):
             raise Exception(message)
 
     return True
+
+
+def now():
+    return timezone.now()
+
+
+def utc_converter(dt):
+    dt = datetime.datetime.now(timezone.utc)
+    utc_time = dt.replace(tzinfo=timezone.utc)
+    utc_timestamp = utc_time.timestamp()
+    return utc_timestamp
