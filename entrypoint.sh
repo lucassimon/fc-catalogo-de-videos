@@ -31,7 +31,11 @@ until postgres_ready; do
 done
 >&2 echo 'PostgreSQL is available'
 
+echo "Activate venv"
 source /opt/venv/bin/activate
+
+echo "Collect static files. "
+python manage.py collectstatic --noinput
 
 echo "Making migrations and migrating the database. "
 python manage.py migrate --noinput

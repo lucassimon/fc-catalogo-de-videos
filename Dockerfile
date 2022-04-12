@@ -13,7 +13,12 @@ RUN rm -rf /var/cache/apk/* && \
     apk add gettext-dev && \
     apk add musl-dev && \
     apk add openssl-dev && \
-    apk del build-base && \
+    apk add jpeg-dev && \
+    apk add zlib-dev && \
+    apk add libwebp-dev && \
+    apk add libpng-dev && \
+    apk add tiff-dev && \
+    apk add --no-cache --virtual .build-deps build-base linux-headers && \
     rm -rf /var/cache/apk/*
 
 ## virtualenv
@@ -24,26 +29,37 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ## add and install requirements
 RUN pip install --upgrade pip
 COPY ./requirements .
-RUN pip install -r dev.txt
+RUN pip install -r prod.txt
+
 
 ## build-image
 FROM python:3.9-alpine AS runtime-image
 
-## install dependencies
-RUN apk add --no-cache libpq
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/home/api PATH="/opt/venv/bin:$PATH" LIBRARY_PATH=/lib:/usr/lib
 
 ## copy Python dependencies from build image
 COPY --from=compile-image /opt/venv /opt/venv
 
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/home/api PATH="/opt/venv/bin:$PATH"
+
+## install dependencies
+RUN apk update && \
+    apk add --no-cache libpq && \
+    apk add --no-cache gettext && \
+    apk add --no-cache jpeg-dev && \
+    apk add --no-cache zlib-dev && \
+    apk add --no-cache libwebp-dev && \
+    apk add --no-cache libpng-dev && \
+    apk add --no-cache tiff-dev && \
+    apk add --no-cache --virtual .build-deps build-base linux-headers
+
 
 ## add user
 RUN adduser -D api
 USER api:api
 WORKDIR $HOME
 COPY --chown=api:api . $HOME
-COPY --chown=api:api ./.docker/entrypoint.sh /entrypoint.sh
-COPY --chown=api:api ./.docker/start.sh /start.sh
+COPY --chown=api:api ./entrypoint.sh /entrypoint.sh
+COPY --chown=api:api ./start.sh /start.sh
 
 EXPOSE 5000
 ENTRYPOINT [ "/entrypoint.sh" ]
