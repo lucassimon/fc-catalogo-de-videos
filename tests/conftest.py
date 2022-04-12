@@ -1,4 +1,5 @@
 import pytest
+import factory
 
 from pytest_factoryboy import register
 from django_extensions.db.models import ActivatorModel
@@ -21,7 +22,14 @@ register(CastMemberFactory, "cast_member_deleted", is_deleted=True)
 register(VideoFactory)
 register(VideoFactory, "video_inactive", status=ActivatorModel.INACTIVE_STATUS)
 register(VideoFactory, "video_deleted", is_deleted=True)
-register(VideoFactory, "video_without_files", thumb_file=None, banner_file=None, trailer_file=None, video_file=None)
+register(
+    VideoFactory,
+    "video_with_files",
+    thumb_file=factory.django.ImageField(width=200, height=200),
+    banner_file=factory.django.ImageField(width=200, height=200),
+    trailer_file=factory.django.FileField(filename="trailler.mp4"),
+    video_file=factory.django.FileField(filename="video.mpeg"),
+)
 
 
 @pytest.fixture

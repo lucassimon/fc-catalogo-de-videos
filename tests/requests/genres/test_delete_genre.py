@@ -1,16 +1,15 @@
 import pytest
 
 from django.urls import reverse
-
 from rest_framework import status
 
 
 @pytest.mark.webtest
 @pytest.mark.django_db
-def test_delete_the_video_by_id(api_client, video_factory):
-    obj = video_factory.create()
+def test_delete_the_genre_by_id(api_client, genre_factory):
+    obj = genre_factory.create()
 
-    url = reverse("v1:videos:video-detail", kwargs={"pk": obj.pk})
+    url = reverse("v1:genres:genre-detail", kwargs={"pk": obj.pk})
 
     response = api_client.delete(
         url,

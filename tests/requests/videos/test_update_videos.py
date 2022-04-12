@@ -51,6 +51,7 @@ def make_post_video_request(api_client, video_factory, genre_with_category_facto
     return response, video_data
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_update_the_video_by_id(api_client, video_factory):
     obj = video_factory.create()
@@ -69,6 +70,7 @@ def test_update_the_video_by_id(api_client, video_factory):
     assert new_title == res["title"]
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_update_a_video_with_thumb_file(api_client, video_factory):
     video = video_factory.create()

@@ -54,6 +54,7 @@ def make_post_video_request(api_client, video_factory, genre_with_category_facto
     return response, video_data
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_simple_video(api_client, video_factory, genre_with_category_factory):
     video_data = video_factory.build()
@@ -82,6 +83,7 @@ def test_create_a_simple_video(api_client, video_factory, genre_with_category_fa
     assert title == res["title"]
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_invalid_category(
     api_client, video_factory, genre_with_category_factory, category_inactive
@@ -113,6 +115,7 @@ def test_create_a_video_with_invalid_category(
     assert res == {"categories": ['Invalid pk "1" - object does not exist.']}
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_deleted_genre(api_client, video_factory, genre_factory, genre_with_category_factory):
 
@@ -143,6 +146,7 @@ def test_create_a_video_with_deleted_genre(api_client, video_factory, genre_fact
     assert res == {"genres": ['Invalid pk "1" - object does not exist.']}
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_genre_do_not_belongs_for_any_category(
     api_client, video_factory, genre_factory, category_factory
@@ -177,6 +181,7 @@ def test_create_a_video_with_genre_do_not_belongs_for_any_category(
     assert res == {"genres": [f"The {genre.title} genre does not belonging for any category"]}
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_thumb_file(api_client, video_factory, genre_with_category_factory):
     tmp_file = create_temporary_image_to_upload()
@@ -191,6 +196,7 @@ def test_create_a_video_with_thumb_file(api_client, video_factory, genre_with_ca
     assert video_data.title == res["title"]
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_banner_file(api_client, video_factory, genre_with_category_factory):
     tmp_file = create_temporary_image_to_upload()
@@ -205,6 +211,7 @@ def test_create_a_video_with_banner_file(api_client, video_factory, genre_with_c
     assert video_data.title == res["title"]
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_trailler_file(api_client, video_factory, genre_with_category_factory):
     tmp_file = create_temporary_video_to_upload()
@@ -219,6 +226,7 @@ def test_create_a_video_with_trailler_file(api_client, video_factory, genre_with
     assert video_data.title == res["title"]
 
 
+@pytest.mark.webtest
 @pytest.mark.django_db
 def test_create_a_video_with_video_file(api_client, video_factory, genre_with_category_factory):
     tmp_file = create_temporary_video_to_upload()
