@@ -1,5 +1,5 @@
 import pytest
-from dataclasses import is_dataclass
+from dataclasses import is_dataclass, FrozenInstanceError
 
 
 from django_extensions.db.models import ActivatorModel
@@ -40,3 +40,14 @@ def test_category_constructor():
     assert category.description == data["description"]
     assert category.status == data["status"]
     assert category.code == data["code"]
+
+
+@pytest.mark.unit
+def test_is_immutable():
+    data = dict(
+        title="some test",
+        slug="some-test",
+    )
+    category = entities.Category(**data)
+    with pytest.raises(FrozenInstanceError):
+        category.name = 'set name'
