@@ -39,5 +39,5 @@ class VideoFactory(factory.django.DjangoModelFactory):
     # )
     thumb_file = factory.django.ImageField(width=200, height=200)
     banner_file = factory.django.ImageField(width=200, height=200)
-    trailer_file = factory.django.FileField(filename="trailler.dat")
+    trailer_file = factory.django.FileField(filename="trailler.mp4")
     video_file = factory.django.FileField(filename="video.mpeg")

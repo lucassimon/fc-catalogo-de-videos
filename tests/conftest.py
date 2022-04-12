@@ -1,9 +1,7 @@
 import pytest
-import tempfile
 
 from pytest_factoryboy import register
 from django_extensions.db.models import ActivatorModel
-from PIL import Image
 
 from apps.castmembers import models
 
@@ -23,6 +21,7 @@ register(CastMemberFactory, "cast_member_deleted", is_deleted=True)
 register(VideoFactory)
 register(VideoFactory, "video_inactive", status=ActivatorModel.INACTIVE_STATUS)
 register(VideoFactory, "video_deleted", is_deleted=True)
+register(VideoFactory, "video_without_files", thumb_file=None, banner_file=None, trailer_file=None, video_file=None)
 
 
 @pytest.fixture
