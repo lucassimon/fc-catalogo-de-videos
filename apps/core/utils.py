@@ -1,5 +1,7 @@
 # Python
 import datetime
+from typing import Any, Union, List, NoReturn
+import uuid
 
 from django.utils import timezone
 
@@ -14,35 +16,35 @@ from apps.core.messages import GENRE_NOT_BELONGS_FOR_ANY_CATEGORIES, ITEM_IS_INA
 from apps.genres.models import Genre, GenreHasCategory
 
 
-def check_is_deleted(obj):
+def check_is_deleted(obj: Any):
     return obj.is_deleted == True
 
 
-def check_is_inactive(obj):
+def check_is_inactive(obj: Any) -> bool:
     return obj.status == ActivatorModel.INACTIVE_STATUS
 
 
-def check_is_inactive_or_deleted(obj):
+def check_is_inactive_or_deleted(obj: Any) -> bool:
     is_deleted = check_is_deleted(obj) if hasattr(obj, "is_deleted") else False
     is_inactive = check_is_inactive(obj) if hasattr(obj, "status") else False
 
     return is_inactive or is_deleted
 
 
-def raises_not_found_when_inactive_or_deleted(obj, detail="Not found."):
+def raises_not_found_when_inactive_or_deleted(obj: Any, detail: str = "Not found.") -> NoReturn:
     if check_is_inactive_or_deleted(obj):
         raise NotFound(detail=detail, code=status.HTTP_404_NOT_FOUND)
 
 
-def get_genres_by_ids(genres_ids):
+def get_genres_by_ids(genres_ids: List[int]) -> List[Genre]:
     return Genre.objects.filter(pk__in=genres_ids)
 
 
-def unique_elements_on_list(array):
+def unique_elements_on_list(array: List[Any]) -> List[Any]:
     return list(set(array))
 
 
-def check_genres_are_in_categories(genre_id, categories_id):
+def check_genres_are_in_categories(genre_id: int, categories_id: int) -> Union[bool, NoReturn]:
     """
     Verificar se os generos pertence a qualquer categoria informada
     """
@@ -64,11 +66,11 @@ def check_genres_are_in_categories(genre_id, categories_id):
     return True
 
 
-def get_categories_by_ids(categories_id):
+def get_categories_by_ids(categories_id: List[int]) -> List[Category]:
     return Category.objects.filter(pk__in=categories_id)
 
 
-def get_items_by_model_and_ids(objects_ids, model):
+def get_items_by_model_and_ids(objects_ids: List[int], model: str) -> Union[Category, Genre]:
     items = []
 
     if model == "Category":
@@ -79,7 +81,7 @@ def get_items_by_model_and_ids(objects_ids, model):
     return items
 
 
-def check_all_items_are_available(objects_ids, model="Category"):
+def check_all_items_are_available(objects_ids: List[int], model: str = "Category") -> Union[bool, NoReturn]:
     """
     Verificar se os items estão ativos e não está deletado
     """
@@ -93,12 +95,9 @@ def check_all_items_are_available(objects_ids, model="Category"):
     return True
 
 
-def now():
+def now() -> datetime:
     return timezone.now()
 
 
-def utc_converter(dt):
-    dt = datetime.datetime.now(timezone.utc)
-    utc_time = dt.replace(tzinfo=timezone.utc)
-    utc_timestamp = utc_time.timestamp()
-    return utc_timestamp
+def uuidv4() -> uuid.UUID:
+    return uuid.uuid4()
