@@ -28,7 +28,7 @@ def check_is_inactive_or_deleted(obj: Any) -> bool:
     is_deleted = check_is_deleted(obj) if hasattr(obj, "is_deleted") else False
     is_inactive = check_is_inactive(obj) if hasattr(obj, "status") else False
 
-    return is_inactive or is_deleted
+    return is_inactive and is_deleted
 
 
 def raises_not_found_when_inactive_or_deleted(obj: Any, detail: str = "Not found.") -> NoReturn:
