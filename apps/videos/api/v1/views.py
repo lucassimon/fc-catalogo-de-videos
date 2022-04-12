@@ -3,11 +3,8 @@ from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
 
 # Apps
-from apps.videos import models, serializers, views
 from apps.core import utils
-
-# debug
-import ipdb
+from apps.videos import models, serializers, views
 
 
 class VideoViewSet(viewsets.ModelViewSet):

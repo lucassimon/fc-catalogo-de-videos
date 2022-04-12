@@ -52,10 +52,10 @@ lint_black:
 lint_isort:
 	@isort ${ISORT_FLAGS} --check apps/
 
-
 ## @ formatacao
 black:
 	@black apps/
+
 isort:
 	@isort ${ISORT_FLAGS} apps/
 

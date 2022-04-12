@@ -3,9 +3,9 @@ from rest_framework import serializers
 
 # Apps
 from apps.categories.models import Category
+from apps.core import utils
 from apps.genres.models import Genre
 from apps.videos import models
-from apps.core import utils
 
 
 class VideoCreateSerializer(serializers.ModelSerializer):
