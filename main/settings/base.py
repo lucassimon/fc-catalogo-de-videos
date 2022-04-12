@@ -63,12 +63,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "django_extensions",
-    "django_filters",
-    "corsheaders",
-]
+THIRD_PARTY_APPS = ["rest_framework", "django_extensions", "django_filters", "corsheaders", "drf_spectacular"]
 
 LOCAL_APPS = [
     "apps.core",
@@ -246,4 +241,13 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.MultiPartRenderer",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Catalago de videos",
+    "DESCRIPTION": "Administração do catalogo de videos",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
 }
