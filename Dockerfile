@@ -60,6 +60,7 @@ WORKDIR $HOME
 COPY --chown=api:api . $HOME
 COPY --chown=api:api ./entrypoint.sh /entrypoint.sh
 COPY --chown=api:api ./start.sh /start.sh
+COPY --chown=api:api ./start-gunicorn.sh /start-gunicorn.sh
 
 EXPOSE 5000
 ENTRYPOINT [ "/entrypoint.sh" ]

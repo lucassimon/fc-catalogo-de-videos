@@ -2,5 +2,5 @@
 set -e
 
 
-echo "Running runserver"
+echo "Running gunicorn"
 python manage.py runserver 5000
