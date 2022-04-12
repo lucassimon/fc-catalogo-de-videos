@@ -1,7 +1,7 @@
 # Third
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
-from django_filters.rest_framework import DjangoFilterBackend
 
 # Apps
 from apps.videos import models, serializers, views

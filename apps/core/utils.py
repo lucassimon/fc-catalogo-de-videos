@@ -1,7 +1,7 @@
 # Python
 import datetime
-from typing import Any, Union, List, NoReturn
 import uuid
+from typing import Any, List, NoReturn, Union
 
 from django.utils import timezone
 

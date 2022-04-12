@@ -1,9 +1,12 @@
-from datetime import datetime
+# Python
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Optional
 
+# Third
 from django_extensions.db.models import ActivatorModel
 
+# Apps
 from apps.core.utils import now, uuidv4
 from apps.videos.models import Video as VideoModel
 
