@@ -1,17 +1,18 @@
 # Third
 from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Apps
-from apps.core import utils
 from apps.videos import models, serializers, views
 
 
 class VideoViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["status", "opened", "is_deleted"]
     search_fields = [
-        "title",
+        "@title",
     ]
     ordering_fields = [
         "id",
@@ -20,13 +21,10 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     def get_object(self):
         obj = super().get_object()
-        utils.raises_not_found_when_inactive_or_deleted(obj)
-
         return obj
 
     def get_queryset(self):
-        qs = models.Video.objects.active().undeleted()
-
+        qs = models.Video.objects.all()
         return qs
 
     def perform_create(self, serializer):

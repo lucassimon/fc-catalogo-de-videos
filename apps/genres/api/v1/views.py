@@ -3,7 +3,6 @@ from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
 
 # Apps
-from apps.core import utils
 from apps.genres import models, serializers
 
 
@@ -21,13 +20,10 @@ class GenreViewSet(viewsets.ModelViewSet):
 
     def get_object(self):
         obj = super().get_object()
-        utils.raises_not_found_when_inactive_or_deleted(obj)
-
         return obj
 
     def get_queryset(self):
-        qs = models.Genre.objects.active().undeleted()
-
+        qs = models.Genre.objects.all()
         return qs
 
     def perform_destroy(self, instance):
