@@ -13,7 +13,7 @@ class CastMemberViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = [
-        "name",
+        "@name",
     ]
     ordering_fields = [
         "id",
@@ -41,7 +41,6 @@ class CastMemberViewSet(viewsets.ModelViewSet):
     @extend_schema(
         # extra parameters added to the schema
         parameters=[
-            OpenApiParameter(name="artist", description="Filter by artist", required=False, type=str),
             OpenApiParameter(
                 name="created",
                 type=OpenApiTypes.DATE,
@@ -74,7 +73,7 @@ class CastMemberViewSet(viewsets.ModelViewSet):
         tags=["Members"],
     )
     def update(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+        return super().update(request, *args, **kwargs)
 
     @extend_schema(
         request=serializers.CastMemberSerializer,
