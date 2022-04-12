@@ -8,11 +8,12 @@ from typing import Optional
 from django_extensions.db.models import ActivatorModel
 
 # Apps
+from apps.core import entities
 from apps.core.utils import now, uuidv4
 
 
-@dataclass(kw_only=True)
-class Category:
+@dataclass(kw_only=True, frozen=True)
+class Category(entities.Entity):
     title: str
     slug: str
     description: Optional[str] = ""
