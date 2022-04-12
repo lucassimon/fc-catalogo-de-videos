@@ -1,17 +1,21 @@
 -r base.txt
 
-black==21.7b0
-flake8==3.9.2
-flake8-blind-except==0.2.0
+# https://stackoverflow.com/questions/71769191/incompatibility-click-and-black-versions-with-poetry-importerror-cannot-impor
+# black==21.7b0
+# black==21.10b0
+# black==22.3.0
+# typed-ast==1.5.2
+flake8==4.0.1
+flake8-blind-except==0.2.1
 flake8-builtins==1.5.3
+flake8-isort==4.1.1
 flake8-logging-format==0.6.0
-flake8-rst-docstrings==0.2.3
-flake8-isort
+flake8-rst-docstrings==0.2.5
 ipdb==0.13.9
-isort==5.9.3
-pytest==6.2.4
-pytest-cov==2.12.1
-pytest-django==4.4.0
-coverage==5.5
-factory-boy==3.2.0
+isort==5.10.1
+pytest==7.1.1
+pytest-cov==3.0.0
+pytest-django==4.5.2
+coverage==6.3.2
+factory-boy==3.2.1
 pytest-factoryboy==2.1.0
