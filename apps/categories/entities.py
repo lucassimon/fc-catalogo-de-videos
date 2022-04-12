@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional
@@ -14,5 +15,5 @@ class Category:
     description: Optional[str] = ""
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS
     is_deleted: bool = False
-    code: Optional[str] = field(default_factory=lambda: uuidv4())
+    code: Optional[uuid.UUID] = field(default_factory=lambda: uuidv4())
     created_at: Optional[datetime] = field(default_factory=lambda: now())
