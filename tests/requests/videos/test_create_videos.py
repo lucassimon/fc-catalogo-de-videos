@@ -8,8 +8,6 @@ from rest_framework import status
 
 from PIL import Image
 
-import ipdb
-
 
 def create_temporary_image_to_upload():
     image = Image.new("RGB", (100, 100))

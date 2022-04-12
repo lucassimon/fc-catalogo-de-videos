@@ -11,8 +11,8 @@ class GenreFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Genre
 
-    title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
-    description = factory.LazyAttribute(lambda x: faker.text())
+    title = factory.Sequence(lambda n: "genre-%s" % n)
+    description = factory.LazyAttribute(lambda _: faker.text())
     status = 1
     is_deleted = False
 
