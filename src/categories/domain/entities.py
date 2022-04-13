@@ -1,24 +1,33 @@
 # Python
-from dataclasses import dataclass, field
+import dataclasses
 from datetime import datetime
 from typing import Optional
 
 # Third
 from django_extensions.db.models import ActivatorModel
+from pydantic import BaseModel, constr
 
+from pydantic.dataclasses import dataclass
+from enum import IntEnum
 # Apps
 from src.core.domain import entities
 from apps.core.utils import now
 
+class StatusEnum(IntEnum):
+    active = ActivatorModel.ACTIVE_STATUS
+    inactive = ActivatorModel.INACTIVE_STATUS
 
-@dataclass(kw_only=True, frozen=True, slots=True)
-class Category(entities.Entity):
-    title: str
-    slug: str
+@dataclass(frozen=True)
+class Category:
+    title: constr(min_length=5, max_length=255)
+    slug: constr(min_length=5, max_length=255)
     description: Optional[str] = ""
-    status: Optional[int] = ActivatorModel.ACTIVE_STATUS
+    status: Optional[StatusEnum] = StatusEnum.active
     is_deleted: bool = False
-    created_at: Optional[datetime] = field(default_factory=lambda: now())
+    created_at: Optional[datetime] = dataclasses.field(default_factory=lambda: now())
+
+    class Config:
+        allow_mutation = False
 
     def update(self, data: dict):
         for field_name, value in data.items():

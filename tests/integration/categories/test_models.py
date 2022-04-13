@@ -4,13 +4,13 @@ from django_extensions.db.models import ActivatorModel
 
 from apps.categories import models
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_dunder_str(category_factory):
     category = category_factory.create(title="Test Str")
     assert category.__str__() == "Test Str"
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_soft_deleted(category_factory):
     category = category_factory.create()
@@ -18,7 +18,7 @@ def test_soft_deleted(category_factory):
 
     assert category.is_deleted == True
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_restore_the_deleted_instance(category_factory):
     category = category_factory.create()
@@ -29,7 +29,7 @@ def test_restore_the_deleted_instance(category_factory):
     assert category.is_deleted == False
     assert category.deleted_at is None
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_queryset_inactive(category_factory):
     category_factory.create_batch(2, status=ActivatorModel.INACTIVE_STATUS)
@@ -37,7 +37,7 @@ def test_queryset_inactive(category_factory):
 
     assert categories.count() == 2
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_queryset_deleted(category_factory):
     category_factory.create_batch(2, is_deleted=True)
@@ -45,7 +45,7 @@ def test_queryset_deleted(category_factory):
 
     assert categories.count() == 2
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_queryset_undeleted(category_factory):
     category_factory.create_batch(2)

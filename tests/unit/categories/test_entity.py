@@ -49,7 +49,6 @@ def test_is_immutable():
     with pytest.raises(FrozenInstanceError):
         category.title = 'set name'
 
-
 @pytest.mark.unit
 def test_category_set_some_attribute():
     data = dict(
