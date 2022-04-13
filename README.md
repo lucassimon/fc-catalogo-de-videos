@@ -1,5 +1,12 @@
 # API de catalogos
 
+## Docker
+
+```shell
+❯ docker-compose up --build --force-recreate
+❯ docker-compose exec catalog-svc sh
+```
+
 ## Executar o ambiente de desenvolvimento
 
 ```shell
@@ -44,6 +51,9 @@ Comandos disponíveis
 ❯ make test
 ❯ pytest
 ❯ pytest tests/integration/categories/test_categories.py::test_list_the_categories
+❯ pytest -k "webtest"
+❯ pytest -k "integration"
+❯ pytest -k "unit"
 ```
 
 ```shell
