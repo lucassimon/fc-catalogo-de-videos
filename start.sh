@@ -3,4 +3,4 @@ set -e
 
 
 echo "Running runserver"
-python manage.py runserver 5000
+python manage.py runserver 0.0.0.0:5000
