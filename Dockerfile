@@ -50,7 +50,8 @@ RUN apk update && \
     apk add --no-cache libwebp-dev && \
     apk add --no-cache libpng-dev && \
     apk add --no-cache tiff-dev && \
-    apk add --no-cache --virtual .build-deps build-base linux-headers
+    apk add --no-cache --virtual .build-deps build-base linux-headers && \
+    rm -rf /var/cache/apk/*
 
 
 ## add user
