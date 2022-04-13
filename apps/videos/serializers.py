@@ -29,6 +29,8 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "code",
+            "status",
+            "is_deleted",
             "categories",
             "genres",
             "title",

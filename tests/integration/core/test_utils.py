@@ -3,6 +3,7 @@ import pytest
 from apps.core import utils
 
 
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_get_genres_by_ids(genre_factory):
     genres_created = genre_factory.create_batch(3)
@@ -15,6 +16,7 @@ def test_get_genres_by_ids(genre_factory):
         assert pk in expected_pks
 
 
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_get_categories_by_ids(category_factory):
     categories_created = category_factory.create_batch(3)
@@ -27,6 +29,7 @@ def test_get_categories_by_ids(category_factory):
         assert pk in expected_pks
 
 
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_get_items_by_model_and_ids_returns_categories_list(category_factory):
     categories_created = category_factory.create_batch(3)
@@ -37,7 +40,7 @@ def test_get_items_by_model_and_ids_returns_categories_list(category_factory):
     for pk in pks:
         assert pk in items.values_list("id", flat=True)
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_get_items_by_model_and_ids_returns_genres_list(genre_factory):
     genres_created = genre_factory.create_batch(3)
@@ -49,6 +52,7 @@ def test_get_items_by_model_and_ids_returns_genres_list(genre_factory):
         assert pk in items.values_list("id", flat=True)
 
 
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_check_all_items_are_available_returns_true(category_factory):
     categories_created = category_factory.create_batch(3)
@@ -59,6 +63,7 @@ def test_check_all_items_are_available_returns_true(category_factory):
     assert expected == True
 
 
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_check_all_items_are_available_raises_exception_when_is_deleted_is_true(category_deleted):
     pks = [category_deleted.pk]
@@ -66,7 +71,7 @@ def test_check_all_items_are_available_raises_exception_when_is_deleted_is_true(
     with pytest.raises(Exception):
         utils.check_all_items_are_available(pks, "Category")
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_check_genres_are_in_categories(genre_with_category_factory):
     genre = genre_with_category_factory.create()
@@ -76,7 +81,7 @@ def test_check_genres_are_in_categories(genre_with_category_factory):
 
     assert exists == True
 
-
+@pytest.mark.integration
 @pytest.mark.django_db
 def test_check_genres_are_in_categories_raises_exception(genre_factory, category_factory):
     categories = category_factory.create_batch(3)

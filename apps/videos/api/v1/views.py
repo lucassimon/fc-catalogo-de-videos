@@ -6,13 +6,12 @@ from rest_framework.permissions import AllowAny
 # Apps
 from apps.videos import models, serializers, views
 
-
 class VideoViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ["status", "opened", "is_deleted"]
+    filterset_fields = ["status", "opened", "is_deleted", "rating"]
     search_fields = [
-        "@title",
+        "title",
     ]
     ordering_fields = [
         "id",

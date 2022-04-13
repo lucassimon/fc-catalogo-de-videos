@@ -2,14 +2,28 @@ import pytest
 
 from django.urls import reverse
 
+from django_extensions.db.models import ActivatorModel
 from rest_framework import status
+
+from apps.videos import models
+
+import ipdb
+from devtools import debug as dev_debug
+
+def make_videos(video_factory):
+    common_video = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS)
+    video_inactive = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.INACTIVE_STATUS, is_deleted=False)
+    video_deleted = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, is_deleted=True)
+    video_not_opened = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, opened=False)
+
+    return common_video, video_inactive, video_deleted, video_not_opened
+
 
 
 @pytest.mark.webtest
 @pytest.mark.django_db
 def test_list_the_videos(api_client, video_factory):
-    count = 3
-    video_factory.create_batch(count)
+    make_videos(video_factory)
 
     url = reverse("v1:videos:video-list")
 
@@ -20,58 +34,195 @@ def test_list_the_videos(api_client, video_factory):
     assert response.status_code == status.HTTP_200_OK
     res = response.json()
 
-    assert count == res["count"]
+    assert 4 == res["count"]
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_ordering_by_id_ascending():
-    pass
+@pytest.mark.django_db
+def test_list_the_videos_ordering_by_id_ascending(api_client, video_factory):
+    make_videos(video_factory)
 
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?ordering=id"
 
-@pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_ordering_by_id_descending():
-    pass
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
 
+    assert response.status_code == status.HTTP_200_OK
+    assert 4 == res["count"]
 
-@pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_search_by_title_icontains():
-    pass
-
-
-@pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_status_active():
-    pass
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_status_inactive():
-    pass
+@pytest.mark.django_db
+def test_list_the_videos_ordering_by_id_descending(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?ordering=-id"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 4 == res["count"]
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_status_is_deleted():
-    pass
+@pytest.mark.django_db
+def test_list_the_videos_search_by_title_icontains(api_client, video_factory):
+    make_videos(video_factory)
+    video_factory.create(title="Some strange title ")
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?search=strange"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 1 == res["count"]
+
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_status_is_not_deleted():
-    pass
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_status_active(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?status={ActivatorModel.ACTIVE_STATUS}"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 3 == res["count"]
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_opened():
-    pass
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_status_inactive(api_client, video_factory):
+    common_video, video_inactive, video_deleted, video_not_opened = make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?status={ActivatorModel.INACTIVE_STATUS}"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 1 == res["count"]
 
 
 @pytest.mark.webtest
-@pytest.mark.skip(reason="not implemented yet")
-def test_list_the_videos_filter_by_is_not_opened():
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_is_deleted(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?is_deleted=true"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 1 == res["count"]
+
+
+@pytest.mark.webtest
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_is_not_deleted(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?is_deleted=false"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 3 == res["count"]
+
+
+@pytest.mark.webtest
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_opened(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?opened=true"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 3 == res["count"]
+
+
+@pytest.mark.webtest
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_is_not_opened(api_client, video_factory):
+    make_videos(video_factory)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?opened=false"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 1 == res["count"]
+
+
+
+@pytest.mark.webtest
+@pytest.mark.django_db
+def test_list_the_videos_filter_by_rating(api_client, video_factory):
+    make_videos(video_factory)
+    video_factory.create(rating=models.Video.RATING_TEN_YEARS)
+    video_factory.create(rating=models.Video.RATING_TEN_YEARS)
+
+    url = reverse("v1:videos:video-list")
+    url =f"{url}?rating={models.Video.RATING_TEN_YEARS}"
+
+    response = api_client.get(
+        url,
+        format="json",
+    )
+    res = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert 2 == res["count"]
+
+
+@pytest.mark.skip("Not implemented yet")
+def test_list_the_videos_filter_by_year_launched():
     pass
