@@ -13,9 +13,10 @@ flake8-logging-format==0.6.0
 flake8-rst-docstrings==0.2.5
 ipdb==0.13.9
 isort==5.10.1
+devtools[pygments]==0.8.0
 pytest==7.1.1
 pytest-cov==3.0.0
 pytest-django==4.5.2
-coverage==6.3.2
 factory-boy==3.2.1
 pytest-factoryboy==2.1.0
+coverage==6.3.2
