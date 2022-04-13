@@ -6,6 +6,7 @@ from rest_framework.permissions import AllowAny
 # Apps
 from apps.videos import models, serializers, views
 
+
 class VideoViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]

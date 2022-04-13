@@ -1,6 +1,9 @@
+# Third
 import django_filters
 
+# Apps
 from apps.videos import models
+
 
 class VideoFilter(django_filters.FilterSet):
 
