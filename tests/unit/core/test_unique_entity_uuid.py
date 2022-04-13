@@ -3,8 +3,8 @@ import uuid
 from dataclasses import is_dataclass, FrozenInstanceError
 from unittest.mock import patch
 
-from apps.core import value_objects
-from apps.core import exceptions
+from src.core.domain import value_objects
+from src.core.domain import exceptions
 from apps.core import utils
 
 @pytest.mark.unit

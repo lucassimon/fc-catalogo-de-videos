@@ -4,8 +4,7 @@ from dataclasses import is_dataclass, FrozenInstanceError
 
 from django_extensions.db.models import ActivatorModel
 
-from apps.categories import entities
-from apps.core.utils import uuidv4
+from src.categories.domain import entities
 
 
 @pytest.mark.unit

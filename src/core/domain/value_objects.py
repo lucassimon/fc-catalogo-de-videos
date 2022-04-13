@@ -5,7 +5,7 @@ from abc import ABC
 from dataclasses import dataclass, field, fields
 
 # Apps
-from apps.core.exceptions import InvalidUUIDException
+from src.core.domain.exceptions import InvalidUUIDException
 from apps.core.utils import uuidv4
 
 

@@ -7,7 +7,7 @@ from typing import Optional
 from django_extensions.db.models import ActivatorModel
 
 # Apps
-from apps.core import entities
+from src.core.domain import entities
 from apps.core.utils import now
 
 

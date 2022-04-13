@@ -2,7 +2,7 @@ from abc import ABC
 import pytest
 
 from dataclasses import dataclass, is_dataclass, FrozenInstanceError
-from apps.core import value_objects
+from src.core.domain import value_objects
 
 @dataclass(frozen=True)
 class StubOneProp(value_objects.ValueObject):

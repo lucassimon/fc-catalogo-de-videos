@@ -3,8 +3,8 @@ import pytest
 
 from dataclasses import dataclass, is_dataclass
 
-from apps.core import entities
-from apps.core import value_objects
+from src.core.domain import entities
+from src.core.domain import value_objects
 
 
 @dataclass(kw_only=True, frozen=True)

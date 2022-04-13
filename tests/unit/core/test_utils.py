@@ -4,7 +4,7 @@ from rest_framework.exceptions import NotFound
 from django_extensions.db.models import ActivatorModel
 
 from apps.core import utils
-from apps.categories import entities
+from src.categories.domain import entities
 
 
 @pytest.mark.unit
