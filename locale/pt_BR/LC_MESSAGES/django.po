@@ -39,35 +39,35 @@ msgstr "Status"
 
 #: apps/core/messages.py:8 apps/core/messages.py:10
 msgid "Genre"
-msgstr ""
+msgstr "Genero"
 
 #: apps/core/messages.py:9 apps/core/messages.py:11
 msgid "Genres"
-msgstr ""
+msgstr "Generos"
 
 #: apps/core/messages.py:12
 msgid "Cast Members"
-msgstr ""
+msgstr "Elenco"
 
 #: apps/core/messages.py:13
 msgid "Cast Member"
-msgstr ""
+msgstr "Membro do elenco"
 
 #: apps/core/messages.py:14
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: apps/core/messages.py:15
 msgid "Kind"
-msgstr ""
+msgstr "Tipo"
 
 #: apps/core/messages.py:16
 msgid "Director"
-msgstr ""
+msgstr "Diretor"
 
 #: apps/core/messages.py:17
 msgid "Actor"
-msgstr ""
+msgstr "Ator"
 
 #: main/settings/base.py:141
 msgid "English"
