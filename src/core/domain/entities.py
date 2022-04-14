@@ -3,7 +3,7 @@ from abc import ABC
 from dataclasses import asdict, dataclass, field
 
 # Apps
-from src.core.domain.value_objects import UniqueEntityId
+from src.core.domain.unique_entity_id import UniqueEntityId
 
 
 @dataclass(kw_only=True, frozen=True)

@@ -1,33 +1,31 @@
 # Python
-import dataclasses
+from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Dict, Any
+
 
 # Third
 from django_extensions.db.models import ActivatorModel
-from pydantic import BaseModel, constr
 
-from pydantic.dataclasses import dataclass
 from enum import IntEnum
 # Apps
-from src.core.domain import entities
 from apps.core.utils import now
+from apps.categories.serializers import CategorySerializer
+from src.categories.domain.factories import CategoryValidatorFactory
+from src.core.domain.entities import Entity
 
 class StatusEnum(IntEnum):
     active = ActivatorModel.ACTIVE_STATUS
     inactive = ActivatorModel.INACTIVE_STATUS
 
-@dataclass(frozen=True)
-class Category:
-    title: constr(min_length=5, max_length=255)
-    slug: constr(min_length=5, max_length=255)
+@dataclass(kw_only=True, frozen=True, slots=True)
+class Category(Entity):
+    title: str
+    slug: Optional[str] = ""
     description: Optional[str] = ""
     status: Optional[StatusEnum] = StatusEnum.active
     is_deleted: bool = False
-    created_at: Optional[datetime] = dataclasses.field(default_factory=lambda: now())
-
-    class Config:
-        allow_mutation = False
+    created_at: Optional[datetime] = field(default_factory=lambda: now())
 
     def update(self, data: dict):
         for field_name, value in data.items():
@@ -43,3 +41,8 @@ class Category:
 
     def deactivate(self):
         self._set('status', ActivatorModel.INACTIVE_STATUS)
+
+    @classmethod
+    def validate(cls, data: Dict[str, Any]):
+        validator = CategoryValidatorFactory.create()
+        return validator.validate(serializer_class=CategorySerializer, data=data)

@@ -4,7 +4,7 @@ import pytest
 from dataclasses import dataclass, is_dataclass
 
 from src.core.domain import entities
-from src.core.domain import value_objects
+from src.core.domain.unique_entity_id import UniqueEntityId
 
 
 @dataclass(kw_only=True, frozen=True)
@@ -28,14 +28,14 @@ def test_entity_props():
     entity = StubEntity(foo="bar", marco="polo")
     assert entity.foo == "bar"
     assert entity.marco == "polo"
-    assert isinstance(entity.unique_entity_id, value_objects.UniqueEntityId)
+    assert isinstance(entity.unique_entity_id, UniqueEntityId)
     assert entity.unique_entity_id.id == entity.id
 
 @pytest.mark.unit
 def test_entity_set_valid_id():
     uuid = 'dcc13d20-e91d-437d-a6ac-2fd60605a271'
     entity = StubEntity(
-        unique_entity_id=value_objects.UniqueEntityId(uuid),
+        unique_entity_id=UniqueEntityId(uuid),
         foo="bar",
         marco="polo"
     )
@@ -46,7 +46,7 @@ def test_entity_set_valid_id():
 def test_entity_to_dict():
     uuid = 'dcc13d20-e91d-437d-a6ac-2fd60605a271'
     entity = StubEntity(
-        unique_entity_id=value_objects.UniqueEntityId(uuid),
+        unique_entity_id=UniqueEntityId(uuid),
         foo="bar",
         marco="polo"
     )
