@@ -3,12 +3,13 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
+from tests.factories import categories as factories
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_categories(api_client, category_factory):
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_categories(api_client):
     categories_count = 3
-    category_factory.create_batch(categories_count)
+    factories.CategoryFactory.create_batch(categories_count)
 
     url = reverse("v1:categories:category-list")
 

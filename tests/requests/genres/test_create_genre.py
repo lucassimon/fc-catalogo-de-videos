@@ -3,11 +3,13 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
+from tests.factories import categories as factories
+
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_create_a_genre(api_client, category_factory):
-    category = category_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_create_a_genre(api_client):
+    category = factories.CategoryFactory.create()
     url = reverse("v1:genres:genre-list")
     title = "Some item"
     response = api_client.post(

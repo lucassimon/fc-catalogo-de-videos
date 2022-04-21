@@ -7,7 +7,7 @@ from apps.castmembers import models
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
+@pytest.mark.django_db(reset_sequences=True)
 def test_create_actor_cast_member(api_client):
     url = reverse("v1:castmembers:castmembers-list")
     name = "Some name"
@@ -25,7 +25,7 @@ def test_create_actor_cast_member(api_client):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
+@pytest.mark.django_db(reset_sequences=True)
 def test_create_director_cast_member(api_client):
     url = reverse("v1:castmembers:castmembers-list")
     name = "Some name"

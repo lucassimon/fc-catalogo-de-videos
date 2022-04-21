@@ -1,19 +1,21 @@
 import pytest
 
+from tests import factories
 from apps.genres import models
 
+
 @pytest.mark.integration
-@pytest.mark.django_db
-def test_dunder_str(genre_factory):
-    genre = genre_factory.create(title="Test Str")
+@pytest.mark.django_db(reset_sequences=True)
+def test_dunder_str():
+    genre = factories.GenreFactory.create(title="Test Str")
     assert genre.__str__() == "Test Str"
 
 
 @pytest.mark.integration
-@pytest.mark.django_db
-def test_dunder_str_on_genre_has_category(genre_with_category_factory):
+@pytest.mark.django_db(reset_sequences=True)
+def test_dunder_str_on_genre_has_category():
     genre_title = "Test Str"
-    genre = genre_with_category_factory.create(title=genre_title)
+    genre = factories.GenreWithCategoryFactory.create(title=genre_title)
     category_title = genre.categories.first().title
 
     genre_has_category = models.GenreHasCategory.objects.first()

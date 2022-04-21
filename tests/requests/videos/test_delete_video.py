@@ -4,11 +4,13 @@ from django.urls import reverse
 
 from rest_framework import status
 
+from tests import factories
+
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_delete_the_video_by_id(api_client, video_factory):
-    obj = video_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_delete_the_video_by_id(api_client):
+    obj = factories.VideoFactory.create()
 
     url = reverse("v1:videos:video-detail", kwargs={"pk": obj.pk})
 

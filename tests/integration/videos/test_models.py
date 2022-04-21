@@ -1,8 +1,10 @@
 import pytest
 
+from tests import factories
+
 
 @pytest.mark.integration
-@pytest.mark.django_db
-def test_dunder_str(video_factory):
-    obj = video_factory.create(title="Test Str")
+@pytest.mark.django_db(reset_sequences=True)
+def test_dunder_str():
+    obj = factories.VideoFactory.create(title="Test Str")
     assert obj.__str__() == "Test Str"

@@ -9,6 +9,9 @@ from rest_framework import status
 from PIL import Image
 
 
+from tests import factories
+
+
 def create_temporary_image_to_upload():
     image = Image.new("RGB", (100, 100))
     tmp_file = tempfile.NamedTemporaryFile(suffix=".jpg")
@@ -24,9 +27,9 @@ def create_temporary_video_to_upload():
     return tmp_file
 
 
-def make_post_video_request(api_client, video_factory, genre_with_category_factory, tmp_file, field):
-    video_data = video_factory.build()
-    genre = genre_with_category_factory.create()
+def make_post_video_request(api_client, tmp_file, field):
+    video_data = factories.VideoFactory.build()
+    genre = factories.GenreWithCategoryFactory.create()
     category_pk = genre.categories.first().pk
     url = reverse("v1:videos:video-list")
 
@@ -52,9 +55,9 @@ def make_post_video_request(api_client, video_factory, genre_with_category_facto
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_update_the_video_by_id(api_client, video_factory):
-    obj = video_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_update_the_video_by_id(api_client):
+    obj = factories.VideoFactory.create()
     new_title = "item changed"
 
     url = reverse("v1:videos:video-detail", kwargs={"pk": obj.pk})
@@ -71,9 +74,9 @@ def test_update_the_video_by_id(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_update_a_video_with_thumb_file(api_client, video_factory):
-    video = video_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_update_a_video_with_thumb_file(api_client):
+    video = factories.VideoFactory.create()
     url = reverse("v1:videos:video-detail", kwargs={"pk": video.pk})
 
     updated_tmp_file = create_temporary_image_to_upload()

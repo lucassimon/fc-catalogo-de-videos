@@ -5,25 +5,26 @@ from django.urls import reverse
 from django_extensions.db.models import ActivatorModel
 from rest_framework import status
 
+from tests import factories
 from apps.videos import models
 
 import ipdb
 from devtools import debug as dev_debug
 
-def make_videos(video_factory):
-    common_video = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS)
-    video_inactive = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.INACTIVE_STATUS, is_deleted=False)
-    video_deleted = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, is_deleted=True)
-    video_not_opened = video_factory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, opened=False)
+def make_videos():
+    common_video = factories.VideoFactory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS)
+    video_inactive = factories.VideoFactory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.INACTIVE_STATUS, is_deleted=False)
+    video_deleted = factories.VideoFactory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, is_deleted=True)
+    video_not_opened = factories.VideoFactory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS, opened=False)
 
     return common_video, video_inactive, video_deleted, video_not_opened
 
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
 
@@ -38,9 +39,9 @@ def test_list_the_videos(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_ordering_by_id_ascending(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_ordering_by_id_ascending(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?ordering=id"
@@ -57,9 +58,9 @@ def test_list_the_videos_ordering_by_id_ascending(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_ordering_by_id_descending(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_ordering_by_id_descending(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?ordering=-id"
@@ -75,10 +76,10 @@ def test_list_the_videos_ordering_by_id_descending(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_search_by_title_icontains(api_client, video_factory):
-    make_videos(video_factory)
-    video_factory.create(title="Some strange title ")
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_search_by_title_icontains(api_client):
+    make_videos()
+    factories.VideoFactory.create(title="Some strange title ")
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?search=strange"
@@ -95,9 +96,9 @@ def test_list_the_videos_search_by_title_icontains(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_status_active(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_status_active(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?status={ActivatorModel.ACTIVE_STATUS}"
@@ -113,9 +114,9 @@ def test_list_the_videos_filter_by_status_active(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_status_inactive(api_client, video_factory):
-    common_video, video_inactive, video_deleted, video_not_opened = make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_status_inactive(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?status={ActivatorModel.INACTIVE_STATUS}"
@@ -131,9 +132,9 @@ def test_list_the_videos_filter_by_status_inactive(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_is_deleted(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_is_deleted(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?is_deleted=true"
@@ -149,9 +150,9 @@ def test_list_the_videos_filter_by_is_deleted(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_is_not_deleted(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_is_not_deleted(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?is_deleted=false"
@@ -167,9 +168,9 @@ def test_list_the_videos_filter_by_is_not_deleted(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_opened(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_opened(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?opened=true"
@@ -185,9 +186,9 @@ def test_list_the_videos_filter_by_opened(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_is_not_opened(api_client, video_factory):
-    make_videos(video_factory)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_is_not_opened(api_client):
+    make_videos()
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?opened=false"
@@ -204,11 +205,11 @@ def test_list_the_videos_filter_by_is_not_opened(api_client, video_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_videos_filter_by_rating(api_client, video_factory):
-    make_videos(video_factory)
-    video_factory.create(rating=models.Video.RATING_TEN_YEARS)
-    video_factory.create(rating=models.Video.RATING_TEN_YEARS)
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_videos_filter_by_rating(api_client):
+    make_videos()
+    factories.VideoFactory.create(rating=models.Video.RATING_TEN_YEARS)
+    factories.VideoFactory.create(rating=models.Video.RATING_TEN_YEARS)
 
     url = reverse("v1:videos:video-list")
     url =f"{url}?rating={models.Video.RATING_TEN_YEARS}"

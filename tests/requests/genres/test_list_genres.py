@@ -3,12 +3,13 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
+from tests import factories
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_list_the_genres(api_client, genre_factory):
+@pytest.mark.django_db(reset_sequences=True)
+def test_list_the_genres(api_client):
     count = 3
-    genre_factory.create_batch(count)
+    factories.GenreFactory.create_batch(count)
 
     url = reverse("v1:genres:genre-list")
 

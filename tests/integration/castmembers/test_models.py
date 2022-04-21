@@ -1,8 +1,8 @@
 import pytest
-
+from tests.factories import cast_members as factories
 
 @pytest.mark.integration
-@pytest.mark.django_db
-def test_dunder_str(cast_member_factory):
-    obj = cast_member_factory.create(name="Test Str")
+@pytest.mark.django_db(reset_sequences=True)
+def test_dunder_str():
+    obj = factories.CastMemberFactory(name="Test Str")
     assert obj.__str__() == "Test Str"

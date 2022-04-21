@@ -3,11 +3,12 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
+from tests import factories
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_get_the_genre_by_id(api_client, genre_factory):
-    obj = genre_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_get_the_genre_by_id(api_client):
+    obj = factories.GenreFactory.create()
 
     url = reverse("v1:genres:genre-detail", kwargs={"pk": obj.pk})
 
@@ -22,7 +23,7 @@ def test_get_the_genre_by_id(api_client, genre_factory):
 
 
 @pytest.mark.webtest
-@pytest.mark.django_db
+@pytest.mark.django_db(reset_sequences=True)
 def test_raise_http_404_when_get_the_genre_that_does_not_exists(api_client):
 
     url = reverse("v1:genres:genre-detail", kwargs={"pk": 99})

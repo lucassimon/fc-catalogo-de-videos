@@ -3,11 +3,13 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
+from tests import factories
+
 
 @pytest.mark.webtest
-@pytest.mark.django_db
-def test_delete_the_cast_member_by_id(api_client, cast_member_factory):
-    obj = cast_member_factory.create()
+@pytest.mark.django_db(reset_sequences=True)
+def test_delete_the_cast_member_by_id(api_client):
+    obj = factories.CastMemberFactory.create()
 
     url = reverse("v1:castmembers:castmembers-detail", kwargs={"pk": obj.pk})
 

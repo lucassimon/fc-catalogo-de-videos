@@ -3,7 +3,7 @@ import pytest
 from django.urls import reverse
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(reset_sequences=True)
 @pytest.mark.parametrize(
     "language_code, language_text",
     [("es", "Hola mundo"), ("de", "Hallo Welt"), ("pt-br", "Olá mundo")],
