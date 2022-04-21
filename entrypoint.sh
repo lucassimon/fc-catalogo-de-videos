@@ -34,14 +34,11 @@ done
 echo "Activate venv"
 source /opt/venv/bin/activate
 
-echo "Collect static files. "
-python manage.py collectstatic --noinput
+echo "Change location"
+cd /home/api/app
+
 
 echo "Making migrations and migrating the database. "
 python manage.py migrate --noinput
-
-echo "Compile translations."
-python manage.py compilemessages
-
 
 exec "$@"

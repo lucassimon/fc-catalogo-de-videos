@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 volumes:
   postgres_data:
@@ -13,8 +13,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
   catalog-svc:
+    user: api
     build:
       context: .
+      dockerfile: ./Dockerfile
     command: /start.sh
     ports:
       - "5000:5000"
@@ -23,8 +25,8 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/home/api
-      - static_volume:/home/api/static
+      - .:/home/api/app
+      - static_volume:/home/api/app/static
     environment:
       DJANGO_SETTINGS_MODULE: main.settings.dev
       DJANGO_DEBUG: "on"

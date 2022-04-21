@@ -5,9 +5,10 @@
 .venv/
 .local/
 README.md
-tests/
 __pycache__/
-*.pytest_cache/
+__pypackages__/
+.pytest_cache/
+.devcontainer/
 .ipython/
 Dockerfile
 media/

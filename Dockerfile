@@ -1,5 +1,5 @@
 ## base image
-FROM python:3.9-alpine AS compile-image
+FROM python:3.10-alpine AS compile-image
 
 ## install dependencies
 RUN rm -rf /var/cache/apk/* && \
@@ -29,11 +29,11 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ## add and install requirements
 RUN pip install --upgrade pip
 COPY ./requirements .
-RUN pip install -r prod.txt
+RUN pip install -r dev.txt
 
 
 ## build-image
-FROM python:3.9-alpine AS runtime-image
+FROM python:3.10-alpine AS runtime-image
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/home/api PATH="/opt/venv/bin:$PATH" LIBRARY_PATH=/lib:/usr/lib
 
@@ -58,7 +58,7 @@ RUN apk update && \
 RUN adduser -D api
 USER api:api
 WORKDIR $HOME
-COPY --chown=api:api . $HOME
+
 COPY --chown=api:api ./entrypoint.sh /entrypoint.sh
 COPY --chown=api:api ./start.sh /start.sh
 COPY --chown=api:api ./start-gunicorn.sh /start-gunicorn.sh
