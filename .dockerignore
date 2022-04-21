@@ -8,7 +8,6 @@ README.md
 __pycache__/
 __pypackages__/
 .pytest_cache/
-.devcontainer/
 .ipython/
 Dockerfile
 media/
