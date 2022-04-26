@@ -39,9 +39,9 @@ clean:
 
 
 clean-build: clean
-	rm --force --recursive build/
-	rm --force --recursive dist/
-	rm --force --recursive *.egg-info
+	rm -rf build/
+	rm -rf dist/
+	rm -rf *.egg-info
 
 lint:
 	@flake8 ${FLAKE8_FLAGS} .
