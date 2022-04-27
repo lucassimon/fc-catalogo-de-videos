@@ -16,3 +16,8 @@ def test_raise_not_implemented_error():
         "SearchableRepositoryInterface with abstract methods delete, "
         "find_all, find_by_id, insert, search, update"
     )
+
+
+@pytest.mark.unit
+def test_sortable_fields_prop():
+    assert SearchableRepositoryInterface.sortable_fields == []
