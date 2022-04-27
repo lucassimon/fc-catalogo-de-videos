@@ -6,6 +6,10 @@ from django_extensions.db.models import ActivatorModel
 
 from src.categories.domain import entities
 
+import ipdb
+from devtools import debug as ddebug
+
+from src.core.domain.exceptions import EntityValidationException
 
 @pytest.mark.unit
 def test_category_is_a_dataclass():
@@ -108,3 +112,78 @@ def test_category_update():
     assert category.title == new_data["title"]
     assert category.slug == new_data["slug"]
     assert category.description == new_data["description"]
+
+
+@pytest.mark.unit
+def test_category_title_is_invalid():
+    data = dict(
+        title=5,
+        slug="some-test",
+        description="some description",
+        status=ActivatorModel.ACTIVE_STATUS,
+    )
+
+    with pytest.raises(EntityValidationException) as assert_error:
+        entities.Category(**data)
+
+    assert assert_error.value.error['title'] == ['Not a valid string.']
+
+
+@pytest.mark.unit
+def test_category_title_is_too_long():
+    data = dict(
+        title='a' * 256,
+        slug="some-test",
+        description="some description",
+        status=ActivatorModel.ACTIVE_STATUS,
+    )
+
+    with pytest.raises(EntityValidationException) as assert_error:
+        entities.Category(**data)
+
+    assert assert_error.value.error['title'] == ['Ensure this field has no more than 255 characters.']
+
+
+
+@pytest.mark.unit
+def test_category_status_is_invalid():
+    data = dict(
+        title='some test',
+        slug="some-test",
+        description="some description",
+        status=3,
+    )
+
+    with pytest.raises(EntityValidationException) as assert_error:
+        entities.Category(**data)
+
+    assert assert_error.value.error['status'] == ['"3" is not a valid choice.']
+
+
+@pytest.mark.unit
+def test_category_description_is_invalid():
+    data = dict(
+        title='some test',
+        slug="some-test",
+        description=5,
+    )
+
+    with pytest.raises(EntityValidationException) as assert_error:
+        entities.Category(**data)
+
+    assert assert_error.value.error['description'] == ['Not a valid string.']
+
+
+@pytest.mark.unit
+def test_category_is_deleted_is_invalid():
+    data = dict(
+        title='some test',
+        slug="some-test",
+        description='some description',
+        is_deleted='1'
+    )
+
+    with pytest.raises(EntityValidationException) as assert_error:
+        entities.Category(**data)
+
+    assert assert_error.value.error['is_deleted'] == ['Must be a valid boolean.']
