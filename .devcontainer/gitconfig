@@ -1,0 +1,68 @@
+[user]
+	name = Lucas
+	email = lucassrod@gmail.com
+
+[core]
+    editor = 'vim'
+	excludesfile = /home/lucas/.gitignore
+
+[diff]
+	tool = vimdiff
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[difftool]
+	prompt = 0
+
+[color]
+    ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = true
+
+[color "branch"]
+    current = yellow black
+    local = yellow
+    remote = magenta
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red reverse
+    new = green reverse
+    whitespace = white reverse
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan reverse
+    branch = magenta
+
+[pretty]
+    graph = format:%Cblue%h%d%Creset%20%s
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    lp = log -p
+    ll = log --graph --pretty=format:%Cblue%h%d%Creset%x20%s
+    la = log --graph --pretty=format:%Cblue%h%d%Creset%x20%s --all
+    ls = ls-files
+    d = diff dev...HEAD
+    s = status
+    ci = commit --verbose
+    ds = diff --stat
+    diffstat = diff --stat
+    loggraph = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    logg = log --all --graph --decorate --abbrev-commit --date=relative --oneline
+    logb = log --all --graph --decorate --abbrev-commit --date=relative --oneline --first-parent --no-merges
+    vdiff = difftool -t "meld" -y
+    remove-remote-branch = "!sh -c 'git branch -d $0 && git push origin :$0'"
+    diff-blame = "!/usr/bin/perl /home/michel/bin/git-diff-blame.pl"
+[credential]
+	helper = store

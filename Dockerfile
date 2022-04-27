@@ -80,11 +80,12 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p https://github.com/zsh-users/zsh-autosuggestions \
     -p https://github.com/zdharma/fast-syntax-highlighting \
     -a "export TERM=xterm-256color"
+# && echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc
 
 
-COPY --chown=api:api ./entrypoint.sh $HOME//entrypoint.sh
-COPY --chown=api:api ./start.sh $HOME/start.sh
-COPY --chown=api:api ./gitconfig $HOME/.gitconfig
+COPY --chown=api:api ./.devcontainer/entrypoint.sh $HOME/entrypoint.sh
+COPY --chown=api:api ./.devcontainer/start.sh $HOME/start.sh
+COPY --chown=api:api ./.devcontainer/gitconfig $HOME/.gitconfig
 
 EXPOSE 5000
 ENTRYPOINT [ "/home/api/entrypoint.sh" ]

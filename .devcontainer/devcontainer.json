@@ -16,11 +16,12 @@
 
 	// The optional 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
-	"workspaceFolder": "/home/api",
+	"workspaceFolder": "/home/api/app",
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    "terminal.integrated.defaultProfile.linux": "zsh",
+		"python.pythonPath": "/usr/local/bin/python"
   },
 
 	// Add the IDs of extensions you want installed when the container is created.

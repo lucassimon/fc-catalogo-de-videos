@@ -70,3 +70,5 @@ https://django-parler.readthedocs.io/en/stable/quickstart.html
 https://djangostars.com/blog/django-pytest-testing/
 
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
+
+https://bmaingret.github.io/blog/2021-11-15-Docker-and-Poetry
