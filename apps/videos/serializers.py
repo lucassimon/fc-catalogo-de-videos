@@ -1,6 +1,7 @@
 # Third
 from rest_framework import serializers
 from rest_framework.fields import UUIDField
+
 # Apps
 from apps.categories.models import Category
 from apps.core import utils
