@@ -1,4 +1,5 @@
 # Third
+from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
 
@@ -17,6 +18,54 @@ class GenreViewSet(viewsets.ModelViewSet):
         "id",
         "created",
     ]
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={201: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={201: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={201: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={200: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={200: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @extend_schema(
+        request=serializers.GenreSerializer,
+        responses={200: serializers.GenreSerializer},
+        tags=["Genres"],
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
 
     def get_object(self):
         obj = super().get_object()
