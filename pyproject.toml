@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "admin-catalogo-de-videos"
+version = "0.1.0"
+description = "Admin de catalogo de videos"
+authors = ["Lucas <lucassrod@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.0.4"
+djangorestframework = "^3.13.1"
+django-environ = "0.8.1"
+django-filter = "21.1"
+django-storages = "1.12.3"
+django-cors-headers = "3.11.0"
+django-extensions = "3.1.5"
+drf-spectacular = "0.22.0"
+python-dateutil = "2.8.2"
+pytz = "2022.1"
+psycopg2 = "2.9.3"
+Pillow = "9.1.0"
+google-api-python-client = "2.44.0"
+google-auth-httplib2 = "0.1.0"
+google-auth-oauthlib = "0.5.1"
+pydantic = "1.9.0"
+
+[tool.poetry.dev-dependencies]
+ipdb = "0.13.9"
+isort = "5.10.1"
+devtools = {version = "0.8.0", extras = ["pygments"]}
+pytest = "7.1.1"
+pytest-cov = "3.0.0"
+pytest-django = "4.5.2"
+factory-boy = "3.2.1"
+pytest-factoryboy = "2.1.0"
+coverage = "6.3.2"
+flake8 = "4.0.1"
+flake8-isort = "4.1.1"
+flake8-rst-docstrings = "0.2.5"
+flake8-logging-format = "0.6.0"
+flake8-builtins = "1.5.3"
+flake8-blind-except = "0.2.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

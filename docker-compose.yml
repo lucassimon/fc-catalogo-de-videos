@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    command: /home/api/app/start.sh
+    command: /home/api/start.sh
     ports:
       - "5000:5000"
     stdin_open: true

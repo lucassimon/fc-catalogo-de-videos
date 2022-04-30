@@ -50,7 +50,7 @@ lint_black:
 	@black --check apps/
 
 lint_isort:
-	@isort ${ISORT_FLAGS} --check apps/
+	@isort ${ISORT_FLAGS} --check-only --check apps/
 
 ## @ formatacao
 black:

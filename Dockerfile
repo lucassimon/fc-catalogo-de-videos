@@ -29,23 +29,16 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ## add and install requirements
 RUN pip install --upgrade pip
 COPY ./requirements .
-RUN pip install -r dev.txt
+RUN pip install -r prod.txt
 
 
 ## build-image
 FROM python:3.10-alpine AS runtime-image
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    HOME=/home/api \
-    PATH="/opt/venv/bin:$PATH" \
-    LIBRARY_PATH=/lib:/usr/lib \
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/home/api PATH="/opt/venv/bin:$PATH" LIBRARY_PATH=/lib:/usr/lib
 
 ## copy Python dependencies from build image
 COPY --from=compile-image /opt/venv /opt/venv
-
 
 
 ## install dependencies
@@ -57,36 +50,17 @@ RUN apk update && \
     apk add --no-cache libwebp-dev && \
     apk add --no-cache libpng-dev && \
     apk add --no-cache tiff-dev && \
-    apk add --no-cache git && \
-    apk add --no-cache git-flow && \
-    apk add --no-cache curl && \
-    apk add --no-cache wget && \
-    apk add --no-cache vim && \
-    apk add --no-cache zsh && \
-    apk add --no-cache openjdk8-jre && \
     apk add --no-cache --virtual .build-deps build-base linux-headers && \
     rm -rf /var/cache/apk/*
+
 
 ## add user
 RUN adduser -D api
 USER api:api
 WORKDIR $HOME
-
-RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
-    -t "ys" \
-    -p git \
-    -p git-flow \
-    -p https://github.com/zsh-users/zsh-completions \
-    -p https://github.com/zsh-users/zsh-autosuggestions \
-    -p https://github.com/zdharma/fast-syntax-highlighting \
-    -a "export TERM=xterm-256color"
-# && echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc
-
-
-COPY --chown=api:api ./.devcontainer/entrypoint.sh $HOME/entrypoint.sh
-COPY --chown=api:api ./.devcontainer/start.sh $HOME/start.sh
-COPY --chown=api:api ./.devcontainer/gitconfig $HOME/.gitconfig
+COPY --chown=api:api . $HOME
+COPY --chown=api:api ./start-gunicorn.sh /start-gunicorn.sh
 
 EXPOSE 5000
-ENTRYPOINT [ "/home/api/entrypoint.sh" ]
+ENTRYPOINT [ "/start-gunicorn.sh" ]
 

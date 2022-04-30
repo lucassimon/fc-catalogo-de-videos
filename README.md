@@ -260,6 +260,24 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
 
 ![API reference](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/admin-catalogo-api-reference.gif)
 
+## Roadmap
+
+- Adicionar suporte ao black no precommit. Na versão 3.10 do python estava tendo problemas
+
+- Adicionar suporte ao pylint / pylance
+
+- Adicionar a ferramenta sonarcube no dockercompose
+
+- Adicionar github actions e codebuilder como pipeline. Steps:
+
+  1 - Lint,
+  2 - pytest -k "unit",
+  3 - pytest -k "integration",
+  4 - pytest -k "unit"
+  5 - build image
+  6 - deploy image
+  7 - deploy to kubenertes cluster
+
 # Links e tutoriais
 
 http://www.adamwester.me/blog/django-rest-framework-multi-language/
