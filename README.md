@@ -75,12 +75,16 @@ Requisitos
 
 - [x] Python 3.10 instalado
 
-Sugiro a instalar o [asdf](http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies)
+Sugiro instalar o [asdf](http://asdf-vm.com/guide/getting-started.html#_1-install-dependencies)
 
 ```shell
 ❯ asdf plugin-add python
 ❯ asdf install python 3.10.4
 ```
+
+- [x] Dependencias para o pacote Pillow
+
+[dependencias externas](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries)
 
 - [x] Poetry instalado ou virtualenv
 
