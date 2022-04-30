@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+# activate the virtualenv
+# poetry shell
+
+# echo "Activate venv"
+# . /home/api/.venv/bin/activate
+
 if [ -z "${POSTGRES_USER}" ]; then
     base_postgres_image_default_user='postgres'
     export POSTGRES_USER="${base_postgres_image_default_user}"
@@ -31,11 +37,9 @@ until postgres_ready; do
 done
 >&2 echo 'PostgreSQL is available'
 
-echo "Activate venv"
-source /opt/venv/bin/activate
-
 echo "Change location"
 cd /home/api/app
+
 
 
 echo "Making migrations and migrating the database. "
