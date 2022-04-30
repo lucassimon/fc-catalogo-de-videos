@@ -77,10 +77,3 @@ class Video(
         ordering = ["created"]
         verbose_name = VIDEO_TEXT
         verbose_name_plural = VIDEOS
-        indexes = [
-            models.Index(
-                fields=[
-                    "code",
-                ]
-            ),
-        ]

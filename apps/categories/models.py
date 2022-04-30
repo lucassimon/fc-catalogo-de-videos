@@ -27,10 +27,3 @@ class Category(
         ordering = ["created"]
         verbose_name = CATEGORY_TEXT
         verbose_name_plural = CATEGORIES
-        indexes = [
-            models.Index(
-                fields=[
-                    "code",
-                ]
-            ),
-        ]

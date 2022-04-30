@@ -29,13 +29,6 @@ class Genre(
         ordering = ["created"]
         verbose_name = GENRE_TEXT
         verbose_name_plural = GENRES
-        indexes = [
-            models.Index(
-                fields=[
-                    "code",
-                ]
-            ),
-        ]
 
 
 class GenreHasCategory(models.Model):

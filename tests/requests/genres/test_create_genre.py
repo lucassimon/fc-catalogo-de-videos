@@ -14,7 +14,7 @@ def test_create_a_genre(api_client):
     title = "Some item"
     response = api_client.post(
         url,
-        data={"categories": [category.pk], "title": title, "description": "some item"},
+        data={"categories": [category.pk.__str__()], "title": title, "description": "some item"},
         format="json",
     )
     assert response.status_code == status.HTTP_201_CREATED

@@ -13,7 +13,7 @@ class CastMemberViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = [
-        "@name",
+        "name",
     ]
     ordering_fields = [
         "id",

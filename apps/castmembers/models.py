@@ -31,10 +31,3 @@ class CastMember(UUIDModel, SoftDeleteModel, TimeStampedModel):
         ordering = ["created"]
         verbose_name = CAST_MEMBER
         verbose_name_plural = CAST_MEMBERS
-        indexes = [
-            models.Index(
-                fields=[
-                    "code",
-                ]
-            ),
-        ]

@@ -38,8 +38,8 @@ def make_post_video_request(api_client, tmp_file, field):
     data = {
         "title": video_data.title,
         "description": "some item",
-        "categories": [category_pk],
-        "genres": [genre.pk],
+        "categories": [category_pk,],
+        "genres": [genre.pk.__str__()],
         "year_launched": video_data.year_launched,
         "rating": video_data.rating,
         "duration": video_data.duration,
@@ -71,7 +71,7 @@ def test_create_a_simple_video(api_client):
             "title": title,
             "description": "some item",
             "categories": [category_pk],
-            "genres": [genre.pk],
+            "genres": [genre.pk.__str__()],
             "year_launched": video_data.year_launched,
             "rating": video_data.rating,
             "duration": video_data.duration,
@@ -145,7 +145,7 @@ def test_create_a_video_with_deleted_genre(api_client):
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     res = response.json()
 
-    assert res == {"genres": ['Invalid pk "1" - object does not exist.']}
+    assert res == {"genres": [f'Invalid pk "{genre_deleted.pk}" - object does not exist.']}
 
 
 @pytest.mark.webtest

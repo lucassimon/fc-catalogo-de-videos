@@ -2,19 +2,19 @@ from django.db import IntegrityError, transaction
 
 
 def thumb_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/thumb/{1}".format(instance.code, filename)
+    return "catalago-de-videos/{0}/thumb/{1}".format(instance.id.__str__(), filename)
 
 
 def banner_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/banner/{1}".format(instance.code, filename)
+    return "catalago-de-videos/{0}/banner/{1}".format(instance.id.__str__(), filename)
 
 
 def trailer_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/trailer/{1}".format(instance.code, filename)
+    return "catalago-de-videos/{0}/trailer/{1}".format(instance.id.__str__(), filename)
 
 
 def video_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/videos/{1}".format(instance.code, filename)
+    return "catalago-de-videos/{0}/videos/{1}".format(instance.id.__str__(), filename)
 
 
 def create_video(serializer):

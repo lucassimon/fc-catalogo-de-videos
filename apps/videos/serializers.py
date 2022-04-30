@@ -1,6 +1,6 @@
 # Third
 from rest_framework import serializers
-
+from rest_framework.fields import UUIDField
 # Apps
 from apps.categories.models import Category
 from apps.core import utils
@@ -9,8 +9,9 @@ from apps.videos import models
 
 
 class VideoCreateSerializer(serializers.ModelSerializer):
-    categories = serializers.PrimaryKeyRelatedField(many=True, queryset=Category.objects.active().undeleted())
-    genres = serializers.PrimaryKeyRelatedField(many=True, queryset=Genre.objects.active().undeleted())
+    categories = serializers.PrimaryKeyRelatedField(many=True, pk_field=UUIDField(format='hex_verbose'), queryset=Category.objects.active().undeleted())
+
+    genres = serializers.PrimaryKeyRelatedField(many=True, pk_field=UUIDField(format='hex_verbose'), queryset=Genre.objects.active().undeleted())
 
     def validate_genres(self, value):
         """
@@ -18,7 +19,7 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         """
         for genre in value:
             try:
-                utils.check_genres_are_in_categories(genre.pk, self.initial_data["categories"])
+                utils.check_genres_are_in_categories(genre.pk, self.get_initial()["categories"])
             except Exception as exc:
                 raise serializers.ValidationError(exc.__str__())
 
@@ -28,7 +29,6 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         model = models.Video
         fields = [
             "id",
-            "code",
             "status",
             "is_deleted",
             "categories",
@@ -51,4 +51,3 @@ class VideoUpdateSerializer(VideoCreateSerializer):
     title = serializers.CharField(max_length=100, required=False)
     year_launched = serializers.IntegerField(required=False)
     duration = serializers.IntegerField(required=False)
-    pass

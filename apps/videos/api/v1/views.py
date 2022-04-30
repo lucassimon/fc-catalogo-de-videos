@@ -2,6 +2,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 from rest_framework.permissions import AllowAny
+from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 
 # Apps
 from apps.videos import models, serializers, views
@@ -26,6 +27,14 @@ class VideoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         qs = models.Video.objects.all()
         return qs
+
+    @extend_schema(
+        request=serializers.VideoCreateSerializer,
+        responses={201: serializers.VideoCreateSerializer},
+        tags=["Categories"],
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         views.create_video(serializer)

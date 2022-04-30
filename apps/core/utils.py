@@ -44,7 +44,7 @@ def unique_elements_on_list(array: List[Any]) -> List[Any]:
     return list(set(array))
 
 
-def check_genres_are_in_categories(genre_id: int, categories_id: int) -> Union[bool, NoReturn]:
+def check_genres_are_in_categories(genre_id: uuid.UUID, categories_id: List[str]) -> Union[bool, NoReturn]:
     """
     Verificar se os generos pertence a qualquer categoria informada
     """

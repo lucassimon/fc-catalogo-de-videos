@@ -16,4 +16,4 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ["id", "code", "title", "slug", "description", "status", "is_deleted", "created"]
+        fields = ["id", "title", "slug", "description", "status", "is_deleted", "created"]
