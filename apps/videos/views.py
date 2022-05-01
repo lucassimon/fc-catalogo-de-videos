@@ -40,7 +40,12 @@ def delete_old_files(instance):
 
 
 def delete_files(instance):
-    for file in [instance.thumb_file, instance.banner_file, instance.trailler_file, instance.video_file]:
+    for file in [
+        instance.thumb_file,
+        instance.banner_file,
+        instance.trailler_file,
+        instance.video_file,
+    ]:
         deleteFile(file)
 
 

@@ -8,7 +8,11 @@ from apps.genres import models
 
 
 class GenreSerializer(serializers.ModelSerializer):
-    categories = serializers.PrimaryKeyRelatedField(many=True, pk_field=UUIDField(format='hex_verbose'), queryset=Category.objects.active().undeleted())
+    categories = serializers.PrimaryKeyRelatedField(
+        many=True,
+        pk_field=UUIDField(format="hex_verbose"),
+        queryset=Category.objects.active().undeleted(),
+    )
 
     class Meta:
         model = models.Genre

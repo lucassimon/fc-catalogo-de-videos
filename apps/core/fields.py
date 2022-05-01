@@ -5,7 +5,7 @@ from rest_framework.fields import BooleanField, CharField
 class StrictCharField(CharField):
     def to_internal_value(self, data):
         if not isinstance(data, str):
-            self.fail('invalid')
+            self.fail("invalid")
 
         return super().to_internal_value(data)
 
@@ -21,6 +21,4 @@ class StrictBooleanField(BooleanField):
                 return None
         except TypeError:  # Input is an unhashable type
             pass
-        self.fail('invalid', input=data)
-
-
+        self.fail("invalid", input=data)

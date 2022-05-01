@@ -60,12 +60,20 @@ class Video(
 
     year_launched = models.PositiveSmallIntegerField(YEAR_LAUNCHED)
     opened = models.BooleanField(OPENED, default=False)
-    rating = models.CharField(RATING, max_length=2, choices=RATING_CHOICES, default=RATING_FREE)
+    rating = models.CharField(
+        RATING, max_length=2, choices=RATING_CHOICES, default=RATING_FREE
+    )
     duration = models.PositiveSmallIntegerField(DURATION)
 
-    thumb_file = models.ImageField(upload_to=thumb_upload_to_path, blank=True, null=True)
-    banner_file = models.ImageField(upload_to=banner_upload_to_path, blank=True, null=True)
-    trailer_file = models.FileField(upload_to=trailer_upload_to_path, blank=True, null=True)
+    thumb_file = models.ImageField(
+        upload_to=thumb_upload_to_path, blank=True, null=True
+    )
+    banner_file = models.ImageField(
+        upload_to=banner_upload_to_path, blank=True, null=True
+    )
+    trailer_file = models.FileField(
+        upload_to=trailer_upload_to_path, blank=True, null=True
+    )
     video_file = models.FileField(upload_to=video_upload_to_path, blank=True, null=True)
 
     objects = SoftDeleteAndInactiveManager()

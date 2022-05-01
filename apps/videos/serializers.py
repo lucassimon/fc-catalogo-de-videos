@@ -10,9 +10,17 @@ from apps.videos import models
 
 
 class VideoCreateSerializer(serializers.ModelSerializer):
-    categories = serializers.PrimaryKeyRelatedField(many=True, pk_field=UUIDField(format='hex_verbose'), queryset=Category.objects.active().undeleted())
+    categories = serializers.PrimaryKeyRelatedField(
+        many=True,
+        pk_field=UUIDField(format="hex_verbose"),
+        queryset=Category.objects.active().undeleted(),
+    )
 
-    genres = serializers.PrimaryKeyRelatedField(many=True, pk_field=UUIDField(format='hex_verbose'), queryset=Genre.objects.active().undeleted())
+    genres = serializers.PrimaryKeyRelatedField(
+        many=True,
+        pk_field=UUIDField(format="hex_verbose"),
+        queryset=Genre.objects.active().undeleted(),
+    )
 
     def validate_genres(self, value):
         """
@@ -20,7 +28,9 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         """
         for genre in value:
             try:
-                utils.check_genres_are_in_categories(genre.pk, self.get_initial()["categories"])
+                utils.check_genres_are_in_categories(
+                    genre.pk, self.get_initial()["categories"]
+                )
             except Exception as exc:
                 raise serializers.ValidationError(exc.__str__())
 

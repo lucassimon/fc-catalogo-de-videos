@@ -11,42 +11,116 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('categories', '0001_initial'),
+        ("categories", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Genre',
+            name="Genre",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('is_deleted', models.BooleanField(default=False)),
-                ('deleted_at', models.DateTimeField(blank=True, default=None, null=True)),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('description', models.TextField(blank=True, null=True, verbose_name='description')),
-                ('slug', django_extensions.db.fields.AutoSlugField(blank=True, editable=False, populate_from='title', verbose_name='slug')),
-                ('status', models.IntegerField(choices=[(0, 'Inactive'), (1, 'Active')], default=1, verbose_name='status')),
-                ('activate_date', models.DateTimeField(blank=True, help_text='keep empty for an immediate activation', null=True)),
-                ('deactivate_date', models.DateTimeField(blank=True, help_text='keep empty for indefinite activation', null=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("is_deleted", models.BooleanField(default=False)),
+                (
+                    "deleted_at",
+                    models.DateTimeField(blank=True, default=None, null=True),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="title")),
+                (
+                    "description",
+                    models.TextField(blank=True, null=True, verbose_name="description"),
+                ),
+                (
+                    "slug",
+                    django_extensions.db.fields.AutoSlugField(
+                        blank=True,
+                        editable=False,
+                        populate_from="title",
+                        verbose_name="slug",
+                    ),
+                ),
+                (
+                    "status",
+                    models.IntegerField(
+                        choices=[(0, "Inactive"), (1, "Active")],
+                        default=1,
+                        verbose_name="status",
+                    ),
+                ),
+                (
+                    "activate_date",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="keep empty for an immediate activation",
+                        null=True,
+                    ),
+                ),
+                (
+                    "deactivate_date",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="keep empty for indefinite activation",
+                        null=True,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Genre',
-                'verbose_name_plural': 'Genres',
-                'ordering': ['created'],
+                "verbose_name": "Genre",
+                "verbose_name_plural": "Genres",
+                "ordering": ["created"],
             },
         ),
         migrations.CreateModel(
-            name='GenreHasCategory',
+            name="GenreHasCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='categories.category')),
-                ('genre', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='genres.genre')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="categories.category",
+                    ),
+                ),
+                (
+                    "genre",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="genres.genre"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='genre',
-            name='categories',
-            field=models.ManyToManyField(through='genres.GenreHasCategory', to='categories.category'),
+            model_name="genre",
+            name="categories",
+            field=models.ManyToManyField(
+                through="genres.GenreHasCategory", to="categories.category"
+            ),
         ),
     ]
