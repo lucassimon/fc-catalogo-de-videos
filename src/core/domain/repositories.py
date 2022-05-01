@@ -11,14 +11,13 @@ from src.core.domain.exceptions import NotFoundException
 from src.core.domain.unique_entity_id import UniqueEntityId
 
 
-ET = TypeVar('ET', bound=Entity)
-Input = TypeVar('Input')
-Output = TypeVar('Output')
-Filter = TypeVar('Filter', str, Any)
+ET = TypeVar("ET", bound=Entity)
+Input = TypeVar("Input")
+Output = TypeVar("Output")
+Filter = TypeVar("Filter", str, Any)
 
 
 class RepositoryInterface(Generic[ET], abc.ABC):
-
     @abc.abstractmethod
     def insert(self, entity: ET) -> None:
         raise NotImplementedError()
@@ -41,9 +40,7 @@ class RepositoryInterface(Generic[ET], abc.ABC):
 
 
 class SearchableRepositoryInterface(
-    Generic[ET, Input, Output],
-    RepositoryInterface[ET],
-    abc.ABC
+    Generic[ET, Input, Output], RepositoryInterface[ET], abc.ABC
 ):
 
     sortable_fields: List[str] = []
@@ -71,7 +68,7 @@ class SearchParams(Generic[Filter]):
     def _normalize_page(self):
         page = self._convert_to_int(self.page)
         if page <= 0:
-            page = self._get_dataclass_field('page').default
+            page = self._get_dataclass_field("page").default
 
         self.page = page
 
@@ -79,17 +76,12 @@ class SearchParams(Generic[Filter]):
         per_page = self._convert_to_int(self.per_page, default=10)
 
         if per_page <= 0:
-            per_page = self._get_dataclass_field('per_page').default
+            per_page = self._get_dataclass_field("per_page").default
 
         self.per_page = per_page
 
-
     def _normalize_sort(self):
-        self.sort = (
-            None
-            if self.sort == "" or self.sort is None
-            else str(self.sort)
-        )
+        self.sort = None if self.sort == "" or self.sort is None else str(self.sort)
 
     def _normalize_sort_direction(self):
         if not self.sort:
@@ -97,17 +89,16 @@ class SearchParams(Generic[Filter]):
 
         sort_direction = str(self.sort_direction).lower()
 
-        self.sort_direction = 'asc' if sort_direction not in ['asc', 'desc'] else sort_direction
-
+        self.sort_direction = (
+            "asc" if sort_direction not in ["asc", "desc"] else sort_direction
+        )
 
     def _normalize_filters(self):
         self.filters = (
-            None
-            if self.filters == "" or self.filters is None
-            else str(self.filters)
+            None if self.filters == "" or self.filters is None else str(self.filters)
         )
 
-    def _convert_to_int(self, value: Any, default = 1) -> int:
+    def _convert_to_int(self, value: Any, default=1) -> int:
         try:
             return int(value)
         except (ValueError, TypeError):
@@ -129,24 +120,19 @@ class SearchResult(Generic[ET, Filter]):
     total: int = 0
 
     def __post_init__(self):
-        object.__setattr__(
-            self,
-            'last_page',
-            math.ceil(self.total / self.per_page)
-        )
+        object.__setattr__(self, "last_page", math.ceil(self.total / self.per_page))
 
     def to_dict(self):
         return {
-            'items': self.items,
-            'total': self.total,
-            'current_page': self.current_page,
-            'per_page': self.per_page,
-            'last_page': self.last_page,
-            'sort': self.sort,
-            'sort_direction': self.sort_direction,
-            'filters': self.filters
+            "items": self.items,
+            "total": self.total,
+            "current_page": self.current_page,
+            "per_page": self.per_page,
+            "last_page": self.last_page,
+            "sort": self.sort,
+            "sort_direction": self.sort_direction,
+            "filters": self.filters,
         }
-
 
 
 @dataclass(slots=True)
@@ -156,16 +142,13 @@ class InMemoryRepository(RepositoryInterface[ET], abc.ABC):
     def insert(self, entity: ET) -> None:
         self.items.append(entity)
 
-
     def find_by_id(self, entity_id: str | UniqueEntityId) -> ET:
         entity_id_str = str(entity_id)
 
         return self._get(entity_id_str)
 
-
     def find_all(self) -> List[ET]:
         return self.items
-
 
     def update(self, entity: ET) -> None:
 
@@ -173,12 +156,10 @@ class InMemoryRepository(RepositoryInterface[ET], abc.ABC):
         index = self.items.index(entity_founded)
         self.items[index] = entity
 
-
     def delete(self, entity_id: str | UniqueEntityId) -> None:
         entity_id_str = str(entity_id)
         entity_founded = self._get(entity_id_str)
         self.items.remove(entity_founded)
-
 
     def _get(self, entity_id: str):
         entity = next(filter(lambda item: item.id == entity_id, self.items), None)
@@ -192,17 +173,17 @@ class InMemoryRepository(RepositoryInterface[ET], abc.ABC):
 class InMemorySearchableRepository(
     Generic[ET, Filter],
     InMemoryRepository[ET],
-    SearchableRepositoryInterface[
-        ET,
-        SearchParams[Filter],
-        SearchResult[ET, Filter]
-    ],
-    abc.ABC
+    SearchableRepositoryInterface[ET, SearchParams[Filter], SearchResult[ET, Filter]],
+    abc.ABC,
 ):
     def search(self, params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
         items_filtered = self._apply_filter(self.items, params.filters)
-        items_sorted = self._apply_sort(items_filtered, params.sort, params.sort_direction)
-        items_paginated = self._apply_paginate(items_sorted, params.page, params.per_page)
+        items_sorted = self._apply_sort(
+            items_filtered, params.sort, params.sort_direction
+        )
+        items_paginated = self._apply_paginate(
+            items_sorted, params.page, params.per_page
+        )
 
         return SearchResult(
             items=items_paginated,
@@ -211,26 +192,23 @@ class InMemorySearchableRepository(
             per_page=params.per_page,
             sort=params.sort,
             sort_direction=params.sort_direction,
-            filters=params.filters
+            filters=params.filters,
         )
 
     @abc.abstractmethod
     def _apply_filter(self, items: List[ET], filters: Optional[Filter]):
         raise NotImplementedError()
 
-
     def _apply_sort(
-        self,
-        items: List[ET],
-        sort: Optional[str],
-        sort_direction: Optional[str]
+        self, items: List[ET], sort: Optional[str], sort_direction: Optional[str]
     ) -> List[ET]:
         if sort and sort in self.sortable_fields:
-            is_reverse = sort_direction == 'desc'
-            return sorted(items, key=lambda item: getattr(item, sort), reverse=is_reverse)
+            is_reverse = sort_direction == "desc"
+            return sorted(
+                items, key=lambda item: getattr(item, sort), reverse=is_reverse
+            )
 
         return items
-
 
     def _apply_paginate(self, items: List[ET], page: int, per_page: int) -> List[ET]:
         start = (page - 1) * per_page

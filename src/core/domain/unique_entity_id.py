@@ -13,7 +13,7 @@ class UniqueEntityId:
 
     def __post_init__(self):
         id_value = str(self.id) if isinstance(self.id, uuid.UUID) else self.id
-        object.__setattr__(self, 'id', id_value)
+        object.__setattr__(self, "id", id_value)
         self.__validate()
 
     def __validate(self):

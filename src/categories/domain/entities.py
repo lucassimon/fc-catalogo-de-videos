@@ -40,13 +40,15 @@ class Category(Entity):
         return self
 
     def activate(self):
-        self._set('status', ActivatorModel.ACTIVE_STATUS)
+        self._set("status", ActivatorModel.ACTIVE_STATUS)
 
     def deactivate(self):
-        self._set('status', ActivatorModel.INACTIVE_STATUS)
+        self._set("status", ActivatorModel.INACTIVE_STATUS)
 
     def validate(self):
         validator = CategoryValidatorFactory.create()
-        is_valid = validator.validate(serializer_class=CategorySerializer, data=self.to_dict())
+        is_valid = validator.validate(
+            serializer_class=CategorySerializer, data=self.to_dict()
+        )
         if not is_valid:
             raise EntityValidationException(validator.errors)
