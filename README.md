@@ -8,9 +8,23 @@ Como administrador de uma plataforma de exibição de filmes, documentarios ou s
 
 Por ordem de prioridade
 
+### Categorias
+
 - [ ] O administrador pode criar, recuperar, listar, atualizar e deletar as categorias de um video
 
+![Diagrama de classes](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/category_cass_diagram.png)
+
+Criar uma categoria
+
+![Criar uma categoria](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category.png)
+
+![Criar uma categoria](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category_http.png)
+
+### Generos
+
 - [ ] O administrador pode criar, recuperar, listar, atualizar e deletar as generos de um video
+
+### Videos
 
 - [ ] O administrador pode criar, recuperar, listar, atualizar e deletar um video
 
@@ -19,6 +33,8 @@ Por ordem de prioridade
   - [ ] Ao criar o administrador pode fazer upload 4 arquivos: uma thumbnail, uma imagem de capa, um trailler, o video completo
 
   - [ ] Ao deletar um video estes devem ser excluidos da cdn assim como suas variações. Ex: thumbnails_x_y.ext, videos_xyz_144p.ext, videos_xyz_240p.ext, videos_xyz_360p.ext ...
+
+### Elenco
 
 - [ ] O administrador pode criar, recuperar, listar, atualizar e deletar o elenco de um video
 
