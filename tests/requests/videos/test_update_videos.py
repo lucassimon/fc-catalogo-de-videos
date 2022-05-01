@@ -2,10 +2,9 @@ import os
 import pytest
 import tempfile
 
+from unittest.mock import patch
 from django.urls import reverse
-
 from rest_framework import status
-
 from PIL import Image
 
 
@@ -56,7 +55,8 @@ def make_post_video_request(api_client, tmp_file, field):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_update_the_video_by_id(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_update_the_video_by_id(_, api_client):
     obj = factories.VideoFactory.create()
     new_title = "item changed"
 
@@ -75,7 +75,8 @@ def test_update_the_video_by_id(api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_update_a_video_with_thumb_file(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_update_a_video_with_thumb_file(_, api_client):
     video = factories.VideoFactory.create()
     url = reverse("v1:videos:video-detail", kwargs={"pk": video.pk})
 

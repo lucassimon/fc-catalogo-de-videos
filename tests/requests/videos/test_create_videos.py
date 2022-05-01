@@ -2,6 +2,7 @@ import os
 import pytest
 import tempfile
 
+from unittest.mock import patch
 from django.urls import reverse
 from django_extensions.db.models import ActivatorModel
 from rest_framework import status
@@ -58,10 +59,13 @@ def make_post_video_request(api_client, tmp_file, field):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_simple_video(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_create_a_simple_video(apply_async_mocked, api_client):
     video_data = factories.VideoFactory.build()
     genre = factories.GenreWithCategoryFactory.create()
     category_pk = genre.categories.first().pk
+
+    # apply_async_mocked.assert_called_once()
 
     url = reverse("v1:videos:video-list")
     title = "Some item"
@@ -183,7 +187,8 @@ def test_create_a_video_with_genre_do_not_belongs_for_any_category(
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_video_with_thumb_file(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_create_a_video_with_thumb_file(_, api_client):
     tmp_file = create_temporary_image_to_upload()
 
     response, video_data = make_post_video_request(
@@ -198,7 +203,8 @@ def test_create_a_video_with_thumb_file(api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_video_with_banner_file(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_create_a_video_with_banner_file(_, api_client):
     tmp_file = create_temporary_image_to_upload()
 
     response, video_data = make_post_video_request(
@@ -213,7 +219,8 @@ def test_create_a_video_with_banner_file(api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_video_with_trailler_file(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_create_a_video_with_trailler_file(_, api_client):
     tmp_file = create_temporary_video_to_upload()
 
     response, video_data = make_post_video_request(
@@ -228,7 +235,8 @@ def test_create_a_video_with_trailler_file(api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_video_with_video_file(api_client):
+@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+def test_create_a_video_with_video_file(_, api_client):
     tmp_file = create_temporary_video_to_upload()
 
     response, video_data = make_post_video_request(
