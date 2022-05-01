@@ -168,6 +168,10 @@ To run this project, you will need to add the following environment variables to
 
 `POSTGRES_PORT`
 
+`CELERY_BROKER_URL`
+
+`CELERY_RESULT_BACKEND`
+
 Exemplo
 
 ```ini
@@ -179,6 +183,8 @@ POSTGRES_USER=catalogo_videos
 POSTGRES_PASSWORD=teste123
 POSTGRES_HOST=127.0.0.1
 POSTGRES_PORT=25432
+CELERY_BROKER_URL=redis://localhost:6379
+CELERY_RESULT_BACKEND=redis://localhost:6379
 ```
 
 ### Migrations
@@ -198,6 +204,14 @@ Executar o servidor de desenvolvimento
 
 ❯ python manage.py runserver --settings=main.settings.dev
 
+```
+
+### Celery
+
+Necessário informar a variavel de ambiente `DJANGO_SETTINGS_MODULE`
+
+```shell
+DJANGO_SETTINGS_MODULE=main.settings.dev celery -A main.celery worker -l DEBUG
 ```
 
 ### Outros comandos

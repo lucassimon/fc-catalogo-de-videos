@@ -57,6 +57,8 @@ ENV PATH="$POETRY_HOME/bin:$PATH"
 COPY ./poetry.lock ./pyproject.toml /home/api/
 RUN poetry install
 
+
+COPY --chown=api:api ./.devcontainer/start-celery.sh $HOME/start-celery.sh
 COPY --chown=api:api ./.devcontainer/entrypoint.sh $HOME/entrypoint.sh
 COPY --chown=api:api ./.devcontainer/start.sh $HOME/start.sh
 COPY --chown=api:api ./.devcontainer/gitconfig $HOME/.gitconfig
