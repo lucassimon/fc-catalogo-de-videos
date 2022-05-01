@@ -1,6 +1,5 @@
 GIT_CURRENT_BRANCH := ${shell git symbolic-ref --short HEAD}
 FLAKE8_FLAGS = --ignore=W503,E501
-ISORT_FLAGS = --profile=black --lines-after-import=2
 
 .PHONY: help clean test clean-build lint lint_black lint_isort black isort formatter run_dev migrations migrate makemessages coverage show_urls
 
@@ -44,25 +43,25 @@ clean-build: clean
 	rm -rf *.egg-info
 
 lint:
-	@flake8 ${FLAKE8_FLAGS} .
+	@pytlint .
 
 lint_black:
-	@black --check apps/
+	@black --check apps/ src/
 
 lint_isort:
-	@isort ${ISORT_FLAGS} --check-only --check apps/
+	@isort --check-only apps/ src/
 
 ## @ formatacao
 black:
-	@black apps/
+	@black apps/ src/
 
 isort:
-	@isort ${ISORT_FLAGS} apps/
+	@isort apps/ src/
 
 formatter: isort black
 
 run_dev:
-	@python manage.py runserver --settings=main.settings.dev
+	@python manage.py runserver 5000 --settings=main.settings.dev
 
 migrations:
 	@python manage.py makemigrations --settings=main.settings.dev
