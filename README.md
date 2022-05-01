@@ -18,7 +18,7 @@ Criar uma categoria
 
 ![Criar uma categoria](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category.png)
 
-![Criar uma categoria](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category_http.png)
+![Criar uma categoria via http](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category_http.png)
 
 ### Generos
 
@@ -176,9 +176,7 @@ Sugiro instalar o [asdf](http://asdf-vm.com/guide/getting-started.html#_1-instal
 
 - [x] Poetry instalado ou virtualenv
 
-- [x] Criar um virtualenv:
-
-`python3 -m venv .venv`
+`python3 -m venv .venv` ou `poetry shell`
 
 - [x] Postgres ou Postgis instalado.
 
@@ -368,7 +366,9 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
 
 ## Roadmap
 
-- Adiconar autenticação e autorização no app
+- Melhorar o docker-compose para enviar git push dentro do container
+
+- Melhorar o docker-compose para que o venv do poetry (/home/api/.venv) seja igual ao do projeto para que o vscode possa pegar as biblioteca e autocomplete
 
 - Adicionar suporte ao black no precommit. Na versão 3.10 do python estava tendo problemas
 
@@ -376,7 +376,7 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
 
 - Adicionar a ferramenta sonarcube no dockercompose
 
-- Adicionar github actions e codebuilder como pipeline. Steps:
+- Adicionar github actions e cloudbuild.yaml como pipeline. Steps:
 
   1 - Lint,
   2 - pytest -k "unit",
@@ -385,6 +385,10 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
   5 - build image
   6 - deploy image
   7 - deploy to kubenertes cluster
+
+- Adicionar upload em uma cdn
+
+- Adiconar autenticação e autorização no app
 
 # Links e tutoriais
 
