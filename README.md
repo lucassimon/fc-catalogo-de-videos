@@ -45,17 +45,89 @@ Por ordem de prioridade
 }
 ```
 
+## Arquitetura utilizada
+
+Utilizar a arquitetura hexagonal para que a regra de negócio, regra de aplicação e infraestrutura sejam independentes do framework utilizado.
+
+A principio estaremos utilizando o django como framework primario para fazer o projeto funcionar.
+Após sucessivas refatorações separando as devidas regras de negócio do framework poderemos iniciar a adição de outros frameworks
+
+Ficando uma estrutura parecida com essa:
+
+```shell
+adapters/web
+├── django
+│   ├── apps
+│   │   ├── ...../
+│   ├── main
+│   │   ├── wsgi.py
+├── flask
+│   ├── apps
+│   │   ├── ...../
+│   ├── main
+│   │   ├── wsgi.py
+├── fastapi
+│   ├── apps
+│   │   ├── ...../
+│   ├── main
+│   │   ├── wsgi.py
+```
+
+![clean architecture](https://guia.dev/assets/img/pictures/clean-architecture-min.jpg)
+
+A pasta `src` conterá as regras de negócio e casos de uso utilizando python, interfaces (abc.ABC), repositorios, services como proposto pela arquitetura. Ficando idependente do framework
+
+```shell
+
+src
+├── castmembers
+│   ├── domain
+│   │   └── entities.py
+├── categories
+│   ├── application
+│   │   ├── use_cases
+│   │   │   ├── create
+│   │   │   │   ├── create.http
+│   │   │   │   ├── create.py
+│   │   │   │   ├── input.py
+│   │   │   │   └── interface.py
+│   │   │   ├── delete
+│   │   │   ├── get
+│   │   │   ├── search
+│   │   │   └── update
+│   ├── domain
+│   │   ├── entities.py
+│   │   ├── factories.py
+│   │   ├── repositories.py
+│   │   └── validators.py
+├── core
+│   ├── domain
+│   │   ├── entities.py
+│   │   ├── exceptions.py
+│   │   ├── repositories.py
+│   │   ├── unique_entity_id.py
+│   │   ├── validators.py
+│   │   └── value_objects.py
+├── genres
+│   ├── domain
+│   │   └── entities.py
+└── videos
+    ├── domain
+    │   └── entities.py
+```
+
 ## Demo
 
 TODO: Inserir um link para api e nextjs
 
-## Run Locally
+## Run Locally. Two alternatives
 
 ### Docker
 
 Requisitos
 
-- [x] Ter o docker instalado na maquina
+- [x] Ter o docker e docker-compose instalado na maquina
+- [ ] Customizar o arquivo `.devcontainer/gitconfig` para as suas necessidades
 
 Serviços levantados
 
@@ -280,9 +352,11 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
 
 ## Roadmap
 
+- Adiconar autenticação e autorização no app
+
 - Adicionar suporte ao black no precommit. Na versão 3.10 do python estava tendo problemas
 
-- Adicionar suporte ao pylint / pylance
+- Adicionar suporte ao pylint e remover flake8 como linter
 
 - Adicionar a ferramenta sonarcube no dockercompose
 
