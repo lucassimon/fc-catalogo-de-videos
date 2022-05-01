@@ -34,15 +34,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "created",
-                    django_extensions.db.fields.CreationDateTimeField(
-                        auto_now_add=True, verbose_name="created"
-                    ),
+                    django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name="created"),
                 ),
                 (
                     "modified",
-                    django_extensions.db.fields.ModificationDateTimeField(
-                        auto_now=True, verbose_name="modified"
-                    ),
+                    django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name="modified"),
                 ),
                 ("title", models.CharField(max_length=255, verbose_name="title")),
                 (
@@ -110,17 +106,13 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "genre",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="genres.genre"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="genres.genre"),
                 ),
             ],
         ),
         migrations.AddField(
             model_name="genre",
             name="categories",
-            field=models.ManyToManyField(
-                through="genres.GenreHasCategory", to="categories.category"
-            ),
+            field=models.ManyToManyField(through="genres.GenreHasCategory", to="categories.category"),
         ),
     ]

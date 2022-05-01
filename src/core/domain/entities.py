@@ -1,6 +1,6 @@
 # Python
 from abc import ABC
-from dataclasses import asdict, dataclass, field
+from dataclasses import field, asdict, dataclass
 
 # Apps
 from src.core.domain.unique_entity_id import UniqueEntityId

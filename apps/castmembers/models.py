@@ -4,9 +4,9 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
 # Apps
+from apps.core.models import UUIDModel, SoftDeleteModel
 from apps.core.managers import SoftDeleteAndInactiveManager
-from apps.core.messages import ACTOR, CAST_MEMBER, CAST_MEMBERS, DIRECTOR, KIND, NAME
-from apps.core.models import SoftDeleteModel, UUIDModel
+from apps.core.messages import KIND, NAME, ACTOR, DIRECTOR, CAST_MEMBER, CAST_MEMBERS
 
 
 class CastMember(UUIDModel, SoftDeleteModel, TimeStampedModel):

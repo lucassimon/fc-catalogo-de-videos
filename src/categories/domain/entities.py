@@ -1,7 +1,7 @@
 # Python
-from dataclasses import dataclass, field
-from datetime import datetime
 from typing import Any, Dict, Optional
+from datetime import datetime
+from dataclasses import field, dataclass
 
 # Third
 import ipdb
@@ -9,11 +9,11 @@ from devtools import debug as ddebug
 from django_extensions.db.models import ActivatorModel
 
 # Apps
-from apps.categories.serializers import CategorySerializer
 from apps.core.utils import now
-from src.categories.domain.factories import CategoryValidatorFactory
 from src.core.domain.entities import Entity
 from src.core.domain.exceptions import EntityValidationException
+from apps.categories.serializers import CategorySerializer
+from src.categories.domain.factories import CategoryValidatorFactory
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -47,8 +47,6 @@ class Category(Entity):
 
     def validate(self):
         validator = CategoryValidatorFactory.create()
-        is_valid = validator.validate(
-            serializer_class=CategorySerializer, data=self.to_dict()
-        )
+        is_valid = validator.validate(serializer_class=CategorySerializer, data=self.to_dict())
         if not is_valid:
             raise EntityValidationException(validator.errors)

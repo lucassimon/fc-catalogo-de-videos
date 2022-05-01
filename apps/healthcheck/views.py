@@ -1,7 +1,7 @@
 # Third
-from rest_framework import permissions, status
-from rest_framework.response import Response
+from rest_framework import status, permissions
 from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Apps
 from apps.core.messages import HELLO_WORLD

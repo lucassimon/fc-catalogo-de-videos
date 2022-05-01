@@ -1,11 +1,11 @@
 # Third
-from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework import filters, viewsets
+from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework.permissions import AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Apps
-from apps.videos import models, serializers, views
+from apps.videos import views, models, serializers
 
 
 class VideoViewSet(viewsets.ModelViewSet):

@@ -4,12 +4,11 @@ A domain seedwork for validator Interfaces
 
 # Python
 import abc
+from typing import Any, Dict, List, Generic, TypeVar
 from dataclasses import dataclass
-from typing import Any, Dict, Generic, List, TypeVar
 
 # Third
 from rest_framework import serializers
-
 
 ErrorsField = Dict[str, List[str]]
 PropsValidated = TypeVar("PropsValidated")
@@ -36,10 +35,7 @@ class DRFValidator(ValidatorFieldInterface[PropsValidated]):
 
     def validate(self, validator: serializers.Serializer) -> bool:
         if not validator.is_valid():
-            errors = {
-                field: [str(_error) for _error in _errors]
-                for field, _errors in validator.errors.items()
-            }
+            errors = {field: [str(_error) for _error in _errors] for field, _errors in validator.errors.items()}
             object.__setattr__(self, "errors", errors)
             return False
 

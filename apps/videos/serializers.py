@@ -3,10 +3,10 @@ from rest_framework import serializers
 from rest_framework.fields import UUIDField
 
 # Apps
-from apps.categories.models import Category
 from apps.core import utils
-from apps.genres.models import Genre
 from apps.videos import models
+from apps.genres.models import Genre
+from apps.categories.models import Category
 
 
 class VideoCreateSerializer(serializers.ModelSerializer):
@@ -28,9 +28,7 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         """
         for genre in value:
             try:
-                utils.check_genres_are_in_categories(
-                    genre.pk, self.get_initial()["categories"]
-                )
+                utils.check_genres_are_in_categories(genre.pk, self.get_initial()["categories"])
             except Exception as exc:
                 raise serializers.ValidationError(exc.__str__())
 

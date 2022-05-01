@@ -3,8 +3,8 @@ from rest_framework import serializers
 from rest_framework.fields import UUIDField
 
 # Apps
-from apps.categories.models import Category
 from apps.genres import models
+from apps.categories.models import Category
 
 
 class GenreSerializer(serializers.ModelSerializer):

@@ -6,14 +6,12 @@ from rest_framework import serializers
 
 # Apps
 from apps.categories import models
-from apps.core.fields import StrictBooleanField, StrictCharField
+from apps.core.fields import StrictCharField, StrictBooleanField
 
 
 class CategorySerializer(serializers.ModelSerializer):
     title = StrictCharField(max_length=255)
-    description = StrictCharField(
-        required=False, max_length=255, allow_null=True, allow_blank=True
-    )
+    description = StrictCharField(required=False, max_length=255, allow_null=True, allow_blank=True)
     is_deleted = StrictBooleanField(required=False)
 
     class Meta:

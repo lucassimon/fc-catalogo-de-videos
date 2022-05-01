@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Apps
-from apps.categories.models import Category
 from apps.core.messages import DELETE_ADMIN_FIELDSET, STATUS_ADMIN_FIELDSET
+from apps.categories.models import Category
 
 
 @admin.register(Category)

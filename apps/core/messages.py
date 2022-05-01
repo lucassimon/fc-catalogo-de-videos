@@ -1,6 +1,5 @@
 from django.utils.translation import gettext_lazy as _
 
-
 HELLO_WORLD = _("Hello world")
 CATEGORY = _("Category")
 CATEGORIES = _("Categories")
@@ -29,7 +28,5 @@ YEAR_LAUNCHED = _("Year launched")
 OPENED = _("Opened")
 DURATION = _("Duration")
 ITEM_IS_INACTIVE_OR_DELETED = _("The object %(title)s is inactive or deleted")
-GENRE_NOT_BELONGS_FOR_ANY_CATEGORIES = _(
-    "The %(title)s genre does not belonging for any category"
-)
+GENRE_NOT_BELONGS_FOR_ANY_CATEGORIES = _("The %(title)s genre does not belonging for any category")
 FILES = _("Files")

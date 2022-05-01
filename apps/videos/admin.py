@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Apps
-from apps.core.messages import CATEGORIES, DELETE_ADMIN_FIELDSET, FILES, GENRES, STATUS_ADMIN_FIELDSET
+from apps.core.messages import FILES, GENRES, CATEGORIES, DELETE_ADMIN_FIELDSET, STATUS_ADMIN_FIELDSET
 from apps.videos.models import Video
 
 

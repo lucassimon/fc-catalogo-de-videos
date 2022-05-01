@@ -4,11 +4,11 @@ from django.db import models
 from django_extensions.db.models import ActivatorModel, TimeStampedModel, TitleSlugDescriptionModel
 
 # Apps
-from apps.categories.models import Category
+from apps.core.models import UUIDModel, SoftDeleteModel
 from apps.core.managers import SoftDeleteAndInactiveManager
 from apps.core.messages import GENRE as GENRE_TEXT
 from apps.core.messages import GENRES
-from apps.core.models import SoftDeleteModel, UUIDModel
+from apps.categories.models import Category
 
 
 class Genre(

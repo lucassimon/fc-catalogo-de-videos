@@ -1,5 +1,5 @@
 # Third
-from rest_framework.fields import BooleanField, CharField
+from rest_framework.fields import CharField, BooleanField
 
 
 class StrictCharField(CharField):

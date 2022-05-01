@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Apps
-from apps.castmembers.models import CastMember
 from apps.core.messages import DELETE_ADMIN_FIELDSET
+from apps.castmembers.models import CastMember
 
 
 @admin.register(CastMember)

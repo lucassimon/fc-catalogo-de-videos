@@ -1,6 +1,6 @@
 # Python
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import field, dataclass
 
 # Apps
 from apps.core.utils import uuidv4
