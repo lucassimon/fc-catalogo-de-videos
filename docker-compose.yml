@@ -21,7 +21,6 @@ services:
       context: .
       dockerfile: ./Dockerfile-dev
     command: /home/api/start-celery.sh
-    # command: celery -A core worker -l DEBUG
     volumes:
       - .:/home/api/app
     container_name: celery
