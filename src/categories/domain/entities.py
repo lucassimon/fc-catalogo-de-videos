@@ -1,17 +1,16 @@
 # Python
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional, Dict, Any
-
-import ipdb
-from devtools import debug as ddebug
+from typing import Any, Dict, Optional
 
 # Third
+import ipdb
+from devtools import debug as ddebug
 from django_extensions.db.models import ActivatorModel
 
 # Apps
-from apps.core.utils import now
 from apps.categories.serializers import CategorySerializer
+from apps.core.utils import now
 from src.categories.domain.factories import CategoryValidatorFactory
 from src.core.domain.entities import Entity
 from src.core.domain.exceptions import EntityValidationException

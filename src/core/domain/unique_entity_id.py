@@ -1,11 +1,11 @@
+# Python
 import uuid
-
 from dataclasses import dataclass, field
-from src.core.domain.exceptions import InvalidUUIDException
 
 # Apps
-
 from apps.core.utils import uuidv4
+from src.core.domain.exceptions import InvalidUUIDException
+
 
 @dataclass(frozen=True)
 class UniqueEntityId:

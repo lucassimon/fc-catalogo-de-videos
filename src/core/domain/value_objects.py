@@ -1,6 +1,5 @@
 # Python
 import json
-
 from abc import ABC
 from dataclasses import dataclass, fields
 

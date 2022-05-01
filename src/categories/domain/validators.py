@@ -1,8 +1,12 @@
+# Python
 from typing import Dict
 
+# Third
 from rest_framework import serializers
 
+# Apps
 from src.core.domain.validators import DRFValidator
+
 
 class CategoryValidator(DRFValidator):
 

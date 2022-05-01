@@ -2,10 +2,14 @@
 A domain seedwork for validator Interfaces
 """
 
+# Python
 import abc
 from dataclasses import dataclass
-from typing import Any, Dict, List, TypeVar, Generic
+from typing import Any, Dict, Generic, List, TypeVar
+
+# Third
 from rest_framework import serializers
+
 
 ErrorsField = Dict[str, List[str]]
 PropsValidated = TypeVar('PropsValidated')

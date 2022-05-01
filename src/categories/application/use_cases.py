@@ -1,3 +1,4 @@
+# Apps
 from src.categories.domain import entities
 
 

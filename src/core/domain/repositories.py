@@ -1,13 +1,15 @@
+# Python
 import abc
 import math
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from optparse import Option
-from typing import Any, Generic, List, TypeVar, Optional
+from typing import Any, Generic, List, Optional, TypeVar
 
-
-from src.core.domain.unique_entity_id import UniqueEntityId
+# Apps
 from src.core.domain.entities import Entity
 from src.core.domain.exceptions import NotFoundException
+from src.core.domain.unique_entity_id import UniqueEntityId
+
 
 ET = TypeVar('ET', bound=Entity)
 Input = TypeVar('Input')

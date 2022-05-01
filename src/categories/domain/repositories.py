@@ -1,6 +1,10 @@
+# Python
 import abc
 
-from src.core.domain.repositories import RepositoryInterface, InMemoryRepository
+# Apps
+from src.core.domain.repositories import InMemoryRepository, RepositoryInterface
+
+# Local
 from .entities import Category
 
 

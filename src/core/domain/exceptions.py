@@ -1,4 +1,6 @@
+# Apps
 from src.core.domain.validators import ErrorsField
+
 
 class InvalidUUIDException(Exception):
     def __init__(self, error: str = 'Id must be a valid UUID') -> None:
