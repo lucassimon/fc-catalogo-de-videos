@@ -15,6 +15,15 @@ services:
   redis:
     image: redis:alpine
     container_name: redis
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
   celery:
     restart: always
     build:
@@ -35,9 +44,17 @@ services:
       SECRET_KEY: your-secret-key
       CELERY_BROKER_URL: redis://redis:6379
       CELERY_RESULT_BACKEND: redis://redis:6379
+      AMQP_URI: amqp://guest:guest@rabbitmq/
+      EXCHANGE: catalog_videos
+      EXCHANGE_DLX: catalog_videos_dlx
+      CATALOG_VIDEOS_DEAD: catalog_videos_created_dead
+      CATALOG_VIDEOS_DEAD_RK: catalog_videos_created.dead
+      CATALOG_VIDEOS: catalog_videos_created
+      CATALOG_VIDEOS_RK: catalog_videos_created
     depends_on:
       - redis
       - catalog-svc
+      - rabbitmq
   catalog-svc:
     user: api
     build:
@@ -64,3 +81,10 @@ services:
       POSTGRES_PORT: 5432
       CELERY_BROKER_URL: redis://redis:6379
       CELERY_RESULT_BACKEND: redis://redis:6379
+      AMQP_URI: amqp://guest:guest@rabbitmq/
+      EXCHANGE: catalog_videos
+      EXCHANGE_DLX: catalog_videos_dlx
+      CATALOG_VIDEOS_DEAD: catalog_videos_created_dead
+      CATALOG_VIDEOS_DEAD_RK: catalog_videos_created.dead
+      CATALOG_VIDEOS: catalog_videos_created
+      CATALOG_VIDEOS_RK: catalog_videos_created
