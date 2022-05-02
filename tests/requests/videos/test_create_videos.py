@@ -59,8 +59,8 @@ def make_post_video_request(api_client, tmp_file, field):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
-def test_create_a_simple_video(apply_async_mocked, api_client):
+@patch("apps.videos.events.VideoCreated.run")
+def test_create_a_simple_video(_, api_client):
     video_data = factories.VideoFactory.build()
     genre = factories.GenreWithCategoryFactory.create()
     category_pk = genre.categories.first().pk
@@ -91,7 +91,9 @@ def test_create_a_simple_video(apply_async_mocked, api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_invalid_category(
+    _,
     api_client
 ):
     video_data = factories.VideoFactory.build()
@@ -123,7 +125,8 @@ def test_create_a_video_with_invalid_category(
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-def test_create_a_video_with_deleted_genre(api_client):
+@patch("apps.videos.events.VideoCreated.run")
+def test_create_a_video_with_deleted_genre(_, api_client):
 
     video_data = factories.VideoFactory.build()
     genre_deleted = factories.GenreFactory.create(is_deleted=True)
@@ -154,7 +157,9 @@ def test_create_a_video_with_deleted_genre(api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_genre_do_not_belongs_for_any_category(
+    _,
     api_client
 ):
     video_data = factories.VideoFactory.build()
@@ -187,7 +192,7 @@ def test_create_a_video_with_genre_do_not_belongs_for_any_category(
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_thumb_file(_, api_client):
     tmp_file = create_temporary_image_to_upload()
 
@@ -203,7 +208,7 @@ def test_create_a_video_with_thumb_file(_, api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_banner_file(_, api_client):
     tmp_file = create_temporary_image_to_upload()
 
@@ -219,7 +224,7 @@ def test_create_a_video_with_banner_file(_, api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_trailler_file(_, api_client):
     tmp_file = create_temporary_video_to_upload()
 
@@ -235,7 +240,7 @@ def test_create_a_video_with_trailler_file(_, api_client):
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async")
+@patch("apps.videos.events.VideoCreated.run")
 def test_create_a_video_with_video_file(_, api_client):
     tmp_file = create_temporary_video_to_upload()
 

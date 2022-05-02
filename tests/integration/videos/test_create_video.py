@@ -26,27 +26,27 @@ def make_video_data():
 
 @pytest.mark.django_db(reset_sequences=True)
 @pytest.mark.integration
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async", return_value="task-id")
-def test_create_video_call_taks(apply_async):
+@patch("apps.videos.events.VideoCreated.run")
+def test_create_video_call_tasks(run_mocked):
     serializer_class = VideoCreateSerializer
     data = make_video_data()
     serializer = serializer_class(data=data)
     serializer.is_valid()
 
     instance = create_video(serializer=serializer)
-    apply_async.assert_called_with((instance,),)
+    run_mocked.assert_called_once()
 
 
-@patch("apps.videos.tasks.VideoTasks.send_message_to_created_video_queue.apply_async", return_value="task-id")
 @pytest.mark.django_db(reset_sequences=True)
 @pytest.mark.integration
-def test_create_video_returns_an_instance(apply_async):
+@patch("apps.videos.events.VideoCreated.run")
+def test_create_video_returns_an_instance(run_mocked):
     serializer_class = VideoCreateSerializer
     data = make_video_data()
     serializer = serializer_class(data=data)
     serializer.is_valid()
 
     instance = create_video(serializer=serializer)
-    apply_async.assert_called_with((instance,),)
+    run_mocked.assert_called_once()
 
     assert isinstance(instance, Video)
