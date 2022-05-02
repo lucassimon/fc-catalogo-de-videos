@@ -340,7 +340,7 @@ Criar as Exchange Video Created e fazer um bind com a fila catalog_videos_create
 
 Criar a Fila catalog_videos_created_dead
 
-![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/queue_catalog_videos_created.png)
+![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/queue_catalog_videos_created_dead.png)
 
 Sem parametros adicionais
 
