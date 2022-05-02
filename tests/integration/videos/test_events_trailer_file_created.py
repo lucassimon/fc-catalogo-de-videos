@@ -34,11 +34,11 @@ def test_send_with_no_trailer_file(_):
 
 @pytest.mark.django_db(reset_sequences=True)
 @pytest.mark.integration
-@patch('apps.videos.events.celery_send_message_to_created_video_queue')
+@patch('apps.videos.tasks.celery_send_message_to_created_video_queue.apply_async')
 def test_send_with_no_trailer_file(celery_method):
     video = factories.VideoFactory.create(with_files=True, title="Test Str")
     message = VideoCreatedTrailerFileTasks().make_message(video)
     VideoCreatedTrailerFileTasks().send(video)
 
 
-    celery_method.assert_called_with(message)
+    celery_method.assert_called_with((message,))

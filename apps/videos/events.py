@@ -26,9 +26,9 @@ class VideoCreatedTrailerFileTasks:
         message = self.make_message(video)
 
         # sincrono
-        celery_send_message_to_created_video_queue(message)
+        # celery_send_message_to_created_video_queue(message)
         # assincrono
-        # celery_send_message_to_created_video_queue.apply_async((message,))
+        celery_send_message_to_created_video_queue.apply_async((message,))
 
 
 
@@ -53,9 +53,9 @@ class VideoCreatedVideoFileTasks:
         message = self.make_message(video)
 
         # sincrono
-        celery_send_message_to_created_video_queue(message)
+        # celery_send_message_to_created_video_queue(message)
         # assincrono
-        # celery_send_message_to_created_video_queue.apply_async((message,))
+        celery_send_message_to_created_video_queue.apply_async((message,))
 
 
 class VideoCreated:
