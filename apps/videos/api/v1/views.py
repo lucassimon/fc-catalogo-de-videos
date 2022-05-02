@@ -1,6 +1,9 @@
+# Python
+import json
+
 # Third
 from devtools import debug as ddebug
-from rest_framework import filters, viewsets
+from rest_framework import filters, parsers, viewsets
 from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,6 +14,7 @@ from apps.videos import views, models, serializers
 
 class VideoViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
+    parser_classes = [parsers.MultiPartParser, parsers.JSONParser]
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
@@ -39,7 +43,6 @@ class VideoViewSet(viewsets.ModelViewSet):
         tags=["Videos"],
     )
     def create(self, request, *args, **kwargs):
-        ddebug(request.data)
         return super().create(request, *args, **kwargs)
 
     @extend_schema(
