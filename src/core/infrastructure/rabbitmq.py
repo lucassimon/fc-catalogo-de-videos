@@ -95,10 +95,6 @@ class InterfaceRabbitMQ(InterfacePublishToQueue):
 
         body = self.message_to_json(message)
 
-        # Third
-        from devtools import debug as ddebug
-        ddebug(body)
-
         # Send a message
         try:
             self.channel.basic_publish(
