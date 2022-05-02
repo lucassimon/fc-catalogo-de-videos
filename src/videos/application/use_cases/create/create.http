@@ -1,0 +1,15 @@
+# @name create a video
+
+curl
+    -vv
+    -X POST
+    -H 'Content-Type: multipart/form-data'
+    -F title=title
+    -F "description=some description"
+    -F "year_launched=1994"
+    -F "rating=F"
+    -F "duration=145"
+    -F "categories=['ada13f3c-51fb-407f-8a1f-3550a0e921e2']"
+    -F "genres=['68a47624-2571-4125-b05d-1d8d44367c81']"
+    -F "trailer_file=@./neo-fights.mp4"
+    http://0.0.0.0:5000/api/v1/videos/
