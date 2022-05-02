@@ -8,9 +8,9 @@ Como administrador de uma plataforma de exibição de filmes, documentarios ou s
 
 Por ordem de prioridade
 
-### Categorias
+### Categorias Filmes, Documentarios, Series, Animes...
 
-- [ ] O administrador pode criar, recuperar, listar, atualizar e deletar as categorias de um video
+- [x] O administrador pode criar, recuperar, listar, atualizar e deletar as categorias de um video
 
 ![Diagrama de classes](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/category_cass_diagram.png)
 
@@ -20,23 +20,25 @@ Criar uma categoria
 
 ![Criar uma categoria via http](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/use_case_create_category_http.png)
 
-### Generos
+### Generos Terror, ficcção, sci-fi...
 
-- [ ] O administrador pode criar, recuperar, listar, atualizar e deletar as generos de um video
+- [x] O administrador pode criar, recuperar, listar, atualizar e deletar as generos de um video
 
 ### Videos
 
-- [ ] O administrador pode criar, recuperar, listar, atualizar e deletar um video
+- [x] O administrador pode criar, recuperar, listar, atualizar e deletar um video
 
-  - [ ] Ao criar um video uma categoria ou genero não podem estar deletadas ou inativas
+  - [x] Ao criar um video uma categoria ou genero não podem estar deletadas ou inativas
 
-  - [ ] Ao criar o administrador pode fazer upload 4 arquivos: uma thumbnail, uma imagem de capa, um trailler, o video completo
+  - [x] Ao criar o administrador pode fazer upload 4 arquivos: uma thumbnail, uma imagem de capa, um trailler, o video completo
 
   - [ ] Ao deletar um video estes devem ser excluidos da cdn assim como suas variações. Ex: thumbnails_x_y.ext, videos_xyz_144p.ext, videos_xyz_240p.ext, videos_xyz_360p.ext ...
 
 ### Elenco
 
-- [ ] O administrador pode criar, recuperar, listar, atualizar e deletar o elenco de um video
+- [x] O administrador pode criar, recuperar, listar, atualizar e deletar o elenco de um video
+
+  - [ ] Associar aos administrador
 
 ## Requisitos técnicos
 
@@ -51,11 +53,9 @@ Criar uma categoria
 ```json
 {
   "action": "created",
+  "field": "video_file",
   "video": {
     "id": "1a5f631f-d2cc-43b4-ad3b-8608d8b9df7d",
-    "thumb_file": "https://some-provider-and-bucket/catalago-de-videos/some-uuid-hex-verbose/thumb/file.ext",
-    "banner_file": "https://some-provider-and-bucket/catalago-de-videos/some-uuid-hex-verbose/banner/file.ext",
-    "trailer_file": "https://some-provider-and-bucket/catalago-de-videos/some-uuid-hex-verbose/trailer/file.ext",
     "video_file": "https://some-provider-and-bucket/catalago-de-videos/some-uuid-hex-verbose/videos/file.ext"
   }
 }
