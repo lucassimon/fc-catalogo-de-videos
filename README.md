@@ -134,7 +134,7 @@ src
 
 ## Demo
 
-TODO: Inserir um link para api e nextjs
+![Demo com setup local](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/demo_setup_local.gif)
 
 ## Run Locally. Two alternatives
 
@@ -150,11 +150,12 @@ Serviços levantados
 - [x] Redis
 - [x] PostgreSQL
 - [x] Celery
+- [x] RabbitMQ
 - [x] Django
 
 ```shell
 ❯ docker-compose up --build --force-recreate
-❯ docker-compose exec catalog-svc sh
+❯ docker-compose exec catalog-svc zsh
 ```
 
 ### Virtualenv ou poetry
@@ -258,6 +259,20 @@ To run this project, you will need to add the following environment variables to
 
 `CELERY_RESULT_BACKEND`
 
+`AMQP_URI`
+
+`EXCHANGE`
+
+`EXCHANGE_DLX`
+
+`CATALOG_VIDEOS_DEAD`
+
+`CATALOG_VIDEOS_DEAD_RK`
+
+`CATALOG_VIDEOS`
+
+`CATALOG_VIDEOS_RK`
+
 Exemplo
 
 ```ini
@@ -271,6 +286,13 @@ POSTGRES_HOST=127.0.0.1
 POSTGRES_PORT=25432
 CELERY_BROKER_URL=redis://localhost:6379
 CELERY_RESULT_BACKEND=redis://localhost:6379
+AMQP_URI=amqp://guest:guest@localhost/
+EXCHANGE=catalog_videos
+EXCHANGE_DLX=catalog_videos_dlx
+CATALOG_VIDEOS_DEAD=catalog_videos_created_dead
+CATALOG_VIDEOS_DEAD_RK=catalog_videos_created.dead
+CATALOG_VIDEOS=catalog_videos_created
+CATALOG_VIDEOS_RK=catalog_videos_created
 ```
 
 ### Migrations
@@ -288,7 +310,7 @@ Executar o servidor de desenvolvimento
 ```shell
 ❯ make run_dev
 
-❯ python manage.py runserver --settings=main.settings.dev
+❯ python manage.py runserver 5000 --settings=main.settings.dev
 
 ```
 
@@ -299,6 +321,32 @@ Necessário informar a variavel de ambiente `DJANGO_SETTINGS_MODULE`
 ```shell
 DJANGO_SETTINGS_MODULE=main.settings.dev celery -A main.celery worker -l DEBUG
 ```
+
+### RabbitMQ
+
+Criar a Fila catalog_videos_created
+
+![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/queue_catalog_videos_created.png)
+
+Atentar-se aos parametro:
+
+- x-dead-letter-exchange: catalog_videos_dlx
+
+- x-dead-letter-routing-key: catalog_videos_created.dead
+
+Criar as Exchange Video Created e fazer um bind com a fila catalog_videos_created
+
+![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/exchange_catalog_videos.png)
+
+Criar a Fila catalog_videos_created_dead
+
+![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/queue_catalog_videos_created.png)
+
+Sem parametros adicionais
+
+Criar a Exchange catalog_videos_dlx e fazer um bind com a fila catalog_videos_created_dead
+
+![](https://megustaviajar.sfo2.cdn.digitaloceanspaces.com/exchange_catalog_videos_dlx.png)
 
 ### Outros comandos
 
@@ -354,7 +402,7 @@ Serving HTTP on 0.0.0.0 port 9000 (http://0.0.0.0:9000/) ...
 
 ### API Reference
 
-Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger-ui/#/` ou `http://localhost:8000/api/schema/redoc/`
+Com o servidor executando acesse a url `http://localhost:5000/api/schema/swagger-ui/#/` ou `http://localhost:5000/api/schema/redoc/`
 
 ## Screenshots
 
@@ -366,29 +414,7 @@ Com o servidor executando acesse a url `http://localhost:8000/api/schema/swagger
 
 ## Roadmap
 
-- Melhorar o docker-compose para enviar git push dentro do container
-
-- Melhorar o docker-compose para que o venv do poetry (/home/api/.venv) seja igual ao do projeto para que o vscode possa pegar as biblioteca e autocomplete
-
-- Adicionar suporte ao black no precommit. Na versão 3.10 do python estava tendo problemas
-
-- Adicionar suporte ao pylint e remover flake8 como linter
-
-- Adicionar a ferramenta sonarcube no dockercompose
-
-- Adicionar github actions e cloudbuild.yaml como pipeline. Steps:
-
-  1 - Lint,
-  2 - pytest -k "unit",
-  3 - pytest -k "integration",
-  4 - pytest -k "unit"
-  5 - build image
-  6 - deploy image
-  7 - deploy to kubenertes cluster
-
-- Adicionar upload em uma cdn
-
-- Adiconar autenticação e autorização no app
+[Issues](https://github.com/lucassimon/fc-catalogo-de-videos/issues)
 
 # Links e tutoriais
 
