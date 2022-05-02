@@ -1,10 +1,11 @@
 from django.db import IntegrityError, transaction
 
 # Third
+from devtools import debug as ddebug
 from rest_framework import serializers
 
 # Apps
-from apps.videos import tasks
+from apps.videos import events
 
 
 def thumb_upload_to_path(instance, filename):
@@ -29,7 +30,10 @@ def create_video(serializer: serializers.Serializer):
         with transaction.atomic():
             instance = serializer.save()
 
-        tasks.VideoTasks.send_message_to_created_video_queue.apply_async((instance,),)
+        ddebug(instance)
+        # tasks.VideoTasks.send_message_to_created_video_queue.apply_async((instance.id.__str__(),),)
+        task = events.VideoCreated(instance.id.__str__())
+        task.run()
 
         return instance
 

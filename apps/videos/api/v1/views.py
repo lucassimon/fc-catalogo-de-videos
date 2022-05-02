@@ -1,4 +1,5 @@
 # Third
+from devtools import debug as ddebug
 from rest_framework import filters, viewsets
 from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import AllowAny
@@ -38,6 +39,7 @@ class VideoViewSet(viewsets.ModelViewSet):
         tags=["Videos"],
     )
     def create(self, request, *args, **kwargs):
+        ddebug(request.data)
         return super().create(request, *args, **kwargs)
 
     @extend_schema(

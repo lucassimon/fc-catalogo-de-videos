@@ -1,10 +1,10 @@
 from django.conf import settings
 
 # Apps
-from src.core.infrastructure.rabbitmq import InterfacePublishToQueue
+from src.core.infrastructure.rabbitmq import InterfaceRabbitMQ
 
 
-class PublishCreatedVideoToQueue(InterfacePublishToQueue):
+class PublishCreatedVideoToQueue(InterfaceRabbitMQ):
     def __init__(self, rabbitmq_conn, rabbitmq_channel):
         self.conn = rabbitmq_conn
         self.channel = rabbitmq_channel
