@@ -1,8 +1,8 @@
+# Third
 import pytest
 
-
-from src.core.domain.repositories import SearchableRepositoryInterface, SearchParams, Filter
-
+# Apps
+from src.core.domain.repositories import Filter, SearchParams, SearchableRepositoryInterface
 
 
 @pytest.mark.unit

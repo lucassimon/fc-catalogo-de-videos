@@ -1,6 +1,7 @@
-import pytest
-
 from django.urls import reverse
+
+# Third
+import pytest
 
 
 @pytest.mark.django_db(reset_sequences=True)

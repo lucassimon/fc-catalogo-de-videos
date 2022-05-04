@@ -16,4 +16,4 @@ class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Genre
-        fields = ["id", "categories", "title", "slug", "description", "created"]
+        fields = ["id", "categories", "title", "slug", "is_deleted", "description", "created"]

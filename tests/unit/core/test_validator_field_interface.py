@@ -1,5 +1,10 @@
-import pytest
+# Python
 from dataclasses import fields
+
+# Third
+import pytest
+
+# Apps
 from src.core.domain import validators
 
 

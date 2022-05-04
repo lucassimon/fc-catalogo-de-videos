@@ -1,8 +1,13 @@
+# Python
 from abc import ABC
+from dataclasses import FrozenInstanceError, dataclass, is_dataclass
+
+# Third
 import pytest
 
-from dataclasses import dataclass, is_dataclass, FrozenInstanceError
+# Apps
 from src.core.domain import value_objects
+
 
 @dataclass(frozen=True)
 class StubOneProp(value_objects.ValueObject):

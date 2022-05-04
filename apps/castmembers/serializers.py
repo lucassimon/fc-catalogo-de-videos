@@ -8,4 +8,4 @@ from apps.castmembers import models
 class CastMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CastMember
-        fields = ["id", "name", "kind", "created"]
+        fields = ["id", "name", "is_deleted", "kind", "created"]

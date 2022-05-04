@@ -1,10 +1,15 @@
+# Python
 from enum import unique
-import pytest
-from dataclasses import dataclass
 from typing import List, Optional
+from dataclasses import dataclass
 
+# Third
+import pytest
+
+# Apps
 from src.core.domain.entities import Entity
-from src.core.domain.repositories import InMemorySearchableRepository, SearchParams, Filter
+from src.core.domain.repositories import Filter, SearchParams, InMemorySearchableRepository
+
 
 @dataclass(frozen=True, kw_only=True, slots=True)
 class StubEntity(Entity):

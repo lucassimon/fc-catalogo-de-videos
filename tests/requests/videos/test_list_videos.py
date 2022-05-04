@@ -1,15 +1,16 @@
-import pytest
-
 from django.urls import reverse
 
-from django_extensions.db.models import ActivatorModel
+# Third
+import ipdb
+import pytest
+from devtools import debug as dev_debug
 from rest_framework import status
+from django_extensions.db.models import ActivatorModel
 
+# Apps
 from tests import factories
 from apps.videos import models
 
-import ipdb
-from devtools import debug as dev_debug
 
 def make_videos():
     common_video = factories.VideoFactory.create(rating=models.Video.RATING_FREE, status=ActivatorModel.ACTIVE_STATUS)

@@ -1,6 +1,10 @@
-import pytest
+# Python
 from unittest.mock import patch
 
+# Third
+import pytest
+
+# Apps
 from apps.videos.tasks import celery_send_message_to_created_video_queue
 
 
@@ -29,5 +33,3 @@ def test_task_send_message_to_created_video_queue(mock_connect, mock_run):
 
     mock_connect.assert_called_once()
     mock_run.assert_called_with(message)
-
-

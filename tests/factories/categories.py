@@ -1,6 +1,8 @@
+# Third
 import factory
 from faker import Factory as FakerFactory
 
+# Apps
 from apps.categories import models
 
 faker = FakerFactory.create()

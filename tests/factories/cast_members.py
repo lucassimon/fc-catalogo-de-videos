@@ -1,8 +1,9 @@
+# Third
 import factory
 from faker import Factory as FakerFactory
 
+# Apps
 from apps.castmembers import models
-
 
 faker = FakerFactory.create()
 

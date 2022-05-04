@@ -1,8 +1,10 @@
+# Third
 import factory
 from faker import Factory as FakerFactory
-
-from apps.videos import models
 from django_extensions.db.models import ActivatorModel
+
+# Apps
+from apps.videos import models
 
 # from django.core.files.base import ContentFile
 
@@ -46,7 +48,7 @@ class VideoFactory(factory.django.DjangoModelFactory):
         )
 
     # factory.LazyAttribute(
-    #     lambda _: ContentFile(
+    #     lambda: ContentFile(
     #         factory.django.ImageField()._make_data({"width": 1024, "height": 768}), "factory_example.jpg"
     #     )
     # )

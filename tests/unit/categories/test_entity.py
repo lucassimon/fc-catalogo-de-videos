@@ -1,15 +1,16 @@
+# Python
+from dataclasses import FrozenInstanceError, is_dataclass
+
+# Third
+import ipdb
 import pytest
-from dataclasses import is_dataclass, FrozenInstanceError
-
-
+from devtools import debug as ddebug
 from django_extensions.db.models import ActivatorModel
 
+# Apps
 from src.categories.domain import entities
-
-import ipdb
-from devtools import debug as ddebug
-
 from src.core.domain.exceptions import EntityValidationException
+
 
 @pytest.mark.unit
 def test_category_is_a_dataclass():

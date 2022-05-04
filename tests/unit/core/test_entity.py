@@ -1,8 +1,11 @@
+# Python
 from abc import ABC
-import pytest
-
 from dataclasses import dataclass, is_dataclass
 
+# Third
+import pytest
+
+# Apps
 from src.core.domain import entities
 from src.core.domain.unique_entity_id import UniqueEntityId
 

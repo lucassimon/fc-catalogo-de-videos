@@ -1,8 +1,12 @@
-import pytest
+# Python
 from unittest.mock import PropertyMock, patch
-from src.core.domain import validators
 
+# Third
+import pytest
 from rest_framework import serializers
+
+# Apps
+from src.core.domain import validators
 
 
 @pytest.mark.unit

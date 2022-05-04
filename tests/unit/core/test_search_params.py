@@ -1,8 +1,11 @@
-import pytest
+# Python
 import typing
 
+# Third
+import pytest
 
-from src.core.domain.repositories import SearchParams, Filter
+# Apps
+from src.core.domain.repositories import Filter, SearchParams
 
 
 @pytest.mark.unit

@@ -1,8 +1,12 @@
-import pytest
-from tests import factories
-from django_extensions.db.models import ActivatorModel
+# Python
 from unittest.mock import patch
 
+# Third
+import pytest
+from django_extensions.db.models import ActivatorModel
+
+# Apps
+from tests import factories
 from apps.videos.events import VideoCreated
 
 

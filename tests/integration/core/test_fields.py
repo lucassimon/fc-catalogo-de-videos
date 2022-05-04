@@ -1,11 +1,11 @@
+# Third
+import ipdb
 import pytest
-from apps.core import fields
-
+from devtools import debug as ddebug
 from rest_framework.serializers import Serializer, ErrorDetail
 
-import ipdb
-
-from devtools import debug as ddebug
+# Apps
+from apps.core import fields
 
 
 class StubStrictCharFieldSerializer(Serializer):

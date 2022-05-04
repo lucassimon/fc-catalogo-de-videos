@@ -1,10 +1,14 @@
-import pytest
+# Python
 import typing
 from dataclasses import dataclass
 
+# Third
+import pytest
+
+# Apps
 from src.core.domain.entities import Entity
+from src.core.domain.repositories import ET, Filter, SearchResult
 from src.core.domain.unique_entity_id import UniqueEntityId
-from src.core.domain.repositories import SearchResult, Filter, ET
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)

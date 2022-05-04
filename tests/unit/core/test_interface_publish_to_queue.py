@@ -1,7 +1,12 @@
-import pytest
-from django.test import override_settings
+# Python
 from unittest.mock import patch
 
+from django.test import override_settings
+
+# Third
+import pytest
+
+# Apps
 from src.core.infrastructure.rabbitmq import InterfacePublishToQueue
 
 

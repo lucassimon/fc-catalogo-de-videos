@@ -1,9 +1,11 @@
-import pytest
+# Third
 import ipdb
+import pytest
 from devtools import debug as ddebug
-from src.core.domain import validators
-
 from rest_framework import serializers
+
+# Apps
+from src.core.domain import validators
 
 
 class StubSerializer(serializers.Serializer):

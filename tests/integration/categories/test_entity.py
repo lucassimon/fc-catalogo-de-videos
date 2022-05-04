@@ -1,8 +1,10 @@
+# Third
 import pytest
 from pydantic import ValidationError
 
-
+# Apps
 from src.categories.domain import entities
+
 
 @pytest.mark.integration
 @pytest.mark.skip

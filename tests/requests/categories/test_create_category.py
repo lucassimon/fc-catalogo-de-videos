@@ -1,7 +1,7 @@
-import pytest
-
 from django.urls import reverse
 
+# Third
+import pytest
 from rest_framework import status
 
 

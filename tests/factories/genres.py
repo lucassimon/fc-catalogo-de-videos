@@ -1,6 +1,8 @@
+# Third
 import factory
 from faker import Factory as FakerFactory
 
+# Apps
 from apps.genres import models
 from tests.factories.categories import CategoryFactory
 

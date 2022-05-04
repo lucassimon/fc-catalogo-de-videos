@@ -1,7 +1,9 @@
+# Third
 import pytest
 
-from src.categories.domain.validators import CategoryValidator
+# Apps
 from apps.categories.serializers import CategorySerializer
+from src.categories.domain.validators import CategoryValidator
 
 
 @pytest.mark.integration

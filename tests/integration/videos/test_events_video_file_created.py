@@ -1,7 +1,11 @@
-import pytest
-from tests import factories
+# Python
 from unittest.mock import patch
 
+# Third
+import pytest
+
+# Apps
+from tests import factories
 from apps.videos.events import VideoCreatedVideoFileTasks
 
 

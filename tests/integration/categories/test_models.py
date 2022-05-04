@@ -1,10 +1,11 @@
+# Third
 import pytest
-
 from django_extensions.db.models import ActivatorModel
 
-
-from tests.factories import categories as factories
+# Apps
 from apps.categories import models
+from tests.factories import categories as factories
+
 
 @pytest.mark.integration
 @pytest.mark.django_db(reset_sequences=True)

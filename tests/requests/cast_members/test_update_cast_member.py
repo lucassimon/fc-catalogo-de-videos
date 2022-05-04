@@ -1,9 +1,12 @@
-import pytest
-
 from django.urls import reverse
+
+# Third
+import pytest
 from rest_framework import status
 
+# Apps
 from tests import factories
+
 
 @pytest.mark.webtest
 @pytest.mark.django_db(reset_sequences=True)

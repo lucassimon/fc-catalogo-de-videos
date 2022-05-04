@@ -1,14 +1,17 @@
+# Python
 import os
-import pytest
 import tempfile
-
 from unittest.mock import patch
+
 from django.urls import reverse
-from django_extensions.db.models import ActivatorModel
-from rest_framework import status
 
+# Third
+import pytest
 from PIL import Image
+from rest_framework import status
+from django_extensions.db.models import ActivatorModel
 
+# Apps
 from tests import factories
 
 

@@ -1,11 +1,16 @@
-import pytest
+# Python
 import uuid
-from dataclasses import is_dataclass, FrozenInstanceError
+from dataclasses import FrozenInstanceError, is_dataclass
 from unittest.mock import patch
 
-from src.core.domain.unique_entity_id import UniqueEntityId
-from src.core.domain import exceptions
+# Third
+import pytest
+
+# Apps
 from apps.core import utils
+from src.core.domain import exceptions
+from src.core.domain.unique_entity_id import UniqueEntityId
+
 
 @pytest.mark.unit
 def test_unique_entity_uuid_is_a_dataclass():

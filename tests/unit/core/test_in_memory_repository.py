@@ -1,11 +1,16 @@
+# Python
 from ast import In
 from dataclasses import dataclass
-import pytest
-from src.core.domain.exceptions import NotFoundException
 
-from src.core.domain.repositories import InMemoryRepository
+# Third
+import pytest
+
+# Apps
 from src.core.domain.entities import Entity
+from src.core.domain.exceptions import NotFoundException
+from src.core.domain.repositories import InMemoryRepository
 from src.core.domain.unique_entity_id import UniqueEntityId
+
 
 @dataclass(frozen=True, kw_only=True, slots=True)
 class StubEntity(Entity):

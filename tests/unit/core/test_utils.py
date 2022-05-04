@@ -1,8 +1,9 @@
+# Third
 import pytest
-
 from rest_framework.exceptions import NotFound
 from django_extensions.db.models import ActivatorModel
 
+# Apps
 from apps.core import utils
 from src.categories.domain import entities
 

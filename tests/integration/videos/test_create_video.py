@@ -1,11 +1,14 @@
-import pytest
+# Python
 from unittest.mock import patch
 
+# Third
+import pytest
+
+# Apps
+from tests import factories
 from apps.videos.views import create_video
 from apps.videos.models import Video
 from apps.videos.serializers import VideoCreateSerializer
-
-from tests import factories
 
 
 def make_video_data():

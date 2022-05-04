@@ -6,7 +6,6 @@ from apps.videos.tasks import celery_send_message_to_created_video_queue
 
 
 class VideoCreatedTrailerFileTasks:
-
     def make_message(self, video, action="created"):
         return {
             "action": action,
@@ -14,7 +13,7 @@ class VideoCreatedTrailerFileTasks:
             "video": {
                 "id": f"{video.id}",
                 "trailer_file": video.trailer_file.url,
-            }
+            },
         }
 
     def send(self, video):
@@ -31,9 +30,7 @@ class VideoCreatedTrailerFileTasks:
         celery_send_message_to_created_video_queue.apply_async((message,))
 
 
-
 class VideoCreatedVideoFileTasks:
-
     def make_message(self, video, action="created"):
         return {
             "action": action,
@@ -41,7 +38,7 @@ class VideoCreatedVideoFileTasks:
             "video": {
                 "id": f"{video.id}",
                 "video_file": video.video_file.url,
-            }
+            },
         }
 
     def send(self, video):
@@ -59,7 +56,6 @@ class VideoCreatedVideoFileTasks:
 
 
 class VideoCreated:
-
     def __init__(self, video_pk):
 
         # circular imports
@@ -80,4 +76,3 @@ class VideoCreated:
     def run(self):
         VideoCreatedVideoFileTasks().send(self.video)
         VideoCreatedTrailerFileTasks().send(self.video)
-

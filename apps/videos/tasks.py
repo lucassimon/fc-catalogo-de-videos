@@ -9,7 +9,6 @@ from src.videos.infrastructure.publish_video_to_queue import PublishCreatedVideo
 logger = get_task_logger(__name__)
 
 
-
 @shared_task
 def celery_send_message_to_created_video_queue(message):
     logger.info("Start send message")
