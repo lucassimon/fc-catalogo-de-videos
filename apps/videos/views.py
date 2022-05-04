@@ -1,7 +1,6 @@
 from django.db import IntegrityError, transaction
 
 # Third
-from devtools import debug as ddebug
 from rest_framework import serializers
 
 # Apps
@@ -30,7 +29,6 @@ def create_video(serializer: serializers.Serializer):
         with transaction.atomic():
             instance = serializer.save()
 
-        ddebug(instance)
         # tasks.VideoTasks.send_message_to_created_video_queue.apply_async((instance.id.__str__(),),)
         task = events.VideoCreated(instance.id.__str__())
         task.run()

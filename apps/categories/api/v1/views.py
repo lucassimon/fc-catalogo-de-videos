@@ -2,6 +2,7 @@
 from rest_framework import filters, viewsets
 from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Apps
 from apps.categories import models, serializers
@@ -10,7 +11,8 @@ from apps.categories import models, serializers
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CategorySerializer
     permission_classes = [AllowAny]
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ["status", "is_deleted"]
     search_fields = [
         "title",
     ]
@@ -33,6 +35,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
         tags=["Categories"],
     )
     def list(self, request, *args, **kwargs):
+        if "no_page" in request.query_params:
+            self._paginator = None
         return super().list(request, *args, **kwargs)
 
     @extend_schema(
