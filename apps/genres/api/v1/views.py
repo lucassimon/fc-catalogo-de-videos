@@ -72,8 +72,8 @@ class GenreViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        qs = models.Genre.objects.all()
-        return qs
+        queryset = models.Genre.objects.all()
+        return queryset
 
     def perform_destroy(self, instance):
         instance.soft_delete()

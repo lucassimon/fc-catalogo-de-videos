@@ -1,5 +1,3 @@
-from django.db import models
-
 # Third
 from django_extensions.db.models import ActivatorModel, TimeStampedModel, TitleSlugDescriptionModel
 

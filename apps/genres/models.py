@@ -36,4 +36,4 @@ class GenreHasCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}_{}".format(self.genre.__str__(), self.category.__str__())
+        return f"{self.genre.__str__()}_{self.category.__str__()}"

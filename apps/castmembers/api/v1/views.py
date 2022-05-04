@@ -1,7 +1,7 @@
 # Third
 from rest_framework import filters, viewsets
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.permissions import AllowAny
 
 # Apps
@@ -26,9 +26,9 @@ class CastMemberViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        qs = models.CastMember.objects.all()
+        queryset = models.CastMember.objects.all()
 
-        return qs
+        return queryset
 
     @extend_schema(
         request=serializers.CastMemberSerializer,

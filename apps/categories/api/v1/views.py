@@ -72,8 +72,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        qs = models.Category.objects.all()
-        return qs
+        queryset = models.Category.objects.all()
+        return queryset
 
     def perform_destroy(self, instance):
         instance.soft_delete()

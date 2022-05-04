@@ -1,5 +1,4 @@
 # Python
-from unittest.util import _MAX_LENGTH
 
 # Third
 from rest_framework import serializers

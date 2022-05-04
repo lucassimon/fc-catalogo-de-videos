@@ -9,19 +9,19 @@ from apps.videos import events
 
 
 def thumb_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/thumb/{1}".format(instance.id.__str__(), filename)
+    return f"catalago-de-videos/{instance.id.__str__()}/thumb/{filename}"
 
 
 def banner_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/banner/{1}".format(instance.id.__str__(), filename)
+    return f"catalago-de-videos/{instance.id.__str__()}/banner/{filename}"
 
 
 def trailer_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/trailer/{1}".format(instance.id.__str__(), filename)
+    return f"catalago-de-videos/{instance.id.__str__()}/trailer/{filename}"
 
 
 def video_upload_to_path(instance, filename):
-    return "catalago-de-videos/{0}/videos/{1}".format(instance.id.__str__(), filename)
+    return f"catalago-de-videos/{instance.id.__str__()}/videos/{filename}"
 
 
 def create_video(serializer: serializers.Serializer):
@@ -40,18 +40,19 @@ def create_video(serializer: serializers.Serializer):
     except IntegrityError:
         delete_files(instance)
         transaction.rollback()
+        return None
 
 
-def update_video(serializer: serializers.Serializer):
-    pass
+def update_video():
+    raise NotImplementedError()
 
 
 def delete_video(instance):
     instance.soft_delete()
 
 
-def delete_old_files(instance):
-    pass
+def delete_old_files():
+    raise NotImplementedError()
 
 
 def delete_files(instance):
@@ -61,8 +62,8 @@ def delete_files(instance):
         instance.trailler_file,
         instance.video_file,
     ]:
-        deleteFile(file)
+        delete_file(file)
 
 
-def deleteFile(file):
-    pass
+def delete_file(file):
+    raise NotImplementedError()

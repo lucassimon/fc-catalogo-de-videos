@@ -1,8 +1,6 @@
 # Python
-import json
 
 # Third
-from devtools import debug as ddebug
 from rest_framework import filters, parsers, viewsets
 from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import AllowAny
@@ -34,8 +32,8 @@ class VideoViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_queryset(self):
-        qs = models.Video.objects.all()
-        return qs
+        queryset = models.Video.objects.all()
+        return queryset
 
     @extend_schema(
         request=serializers.VideoCreateSerializer,
@@ -97,5 +95,5 @@ class VideoViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in ["PUT", "PATCH"]:
             return serializers.VideoUpdateSerializer
-        else:
-            return serializers.VideoCreateSerializer
+
+        return serializers.VideoCreateSerializer

@@ -13,8 +13,6 @@ logger = get_task_logger(__name__)
 def celery_send_message_to_created_video_queue(message):
     logger.info("Start send message")
 
-    # Third
-    logger.info(f"message: {message}")
     #  Create a connection with pika
     rabbitmq_conn, rabbitmq_channel = RabbitMQ.connect()
 

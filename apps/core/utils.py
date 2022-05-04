@@ -17,7 +17,7 @@ from apps.categories.models import Category
 
 
 def check_is_deleted(obj: Any):
-    return obj.is_deleted == True
+    return obj.is_deleted is True
 
 
 def check_is_inactive(obj: Any) -> bool:
