@@ -1,3 +1,6 @@
+"""
+Define a entidade CastMember ou elenco
+"""
 # Python
 from typing import Optional
 from datetime import datetime
@@ -13,6 +16,9 @@ from apps.castmembers.models import CastMemberModel
 
 @dataclass()
 class CastMember:
+    """
+    Entidade representando um elenco
+    """
     name: str
     kind: str = CastMemberModel.KIND_DIRECTOR
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS

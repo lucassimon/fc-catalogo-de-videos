@@ -1,6 +1,10 @@
+"""
+Modulo para definir tudo que represente uma ligação com o rabbitmq
+"""
 # Python
 from abc import ABC, abstractmethod
 from json import dumps
+from typing import Dict
 
 from django.conf import settings
 
@@ -10,8 +14,14 @@ from pika import URLParameters, BlockingConnection
 
 
 class RabbitMQ:
+    """
+    A class to do a connection
+    """
     @staticmethod
     def connect():
+        """
+        Connect sync to RabbitMQ and returns the connection and channel
+        """
         params = URLParameters(settings.AMQP_URI)
         # number of socket connection attempts
         params.connection_attempts = 7
@@ -28,46 +38,82 @@ class RabbitMQ:
 
             return connect, channel
 
-        except Exception as e:
-            raise e
+        except Exception as exc:
+            raise exc
 
 
 class InterfacePublishToQueue(ABC):
+    """
+    Interface to publish messages
+    """
+    conn = None
+    channel = None
+    exchange = None
+    exchange_dlx = None
+    queue_dl = None
+    routing_key_dl = None
+    queue = None
+    routing_key = None
+
     @abstractmethod
     def __init__(self):
         pass
 
     @abstractmethod
     def connect(self):
+        """
+        Abstract method to connect
+        """
         pass
 
     @abstractmethod
     def publish(self, message: dict):
+        """
+        Abstract method to publish
+        """
         pass
 
     def close_channel(self):
+        """
+        Close a channel
+        """
         self.channel.close()
 
     def close_connection(self):
+        """
+        Close connection
+        """
         self.conn.close()
 
     def teardown(self):
+        """
+        Closes a channel and connection
+        """
         self.close_channel()
         self.close_connection()
 
     def run(self, message):
+        """
+        Connect and publish a message
+        """
         self.connect()
         self.publish(message)
 
-    def message_to_json(self, message):
+    def message_to_json(self, message: Dict):
+        """"
+        Transforms a message dict to a json
+        """
         try:
             body = dumps(message)
             return body
-        except Exception as e:
-            raise e
+        except Exception as exc:
+            raise exc
 
 
 class InterfaceRabbitMQ(InterfacePublishToQueue):
+    """
+    Interface with connect and publish methods
+    """
     def connect(self):
         if self.exchange_dlx and self.queue_dl and self.routing_key_dl:
             arguments = {

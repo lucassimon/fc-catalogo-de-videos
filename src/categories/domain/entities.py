@@ -1,11 +1,12 @@
+"""
+Define a entidade de Categoria
+"""
 # Python
 from typing import Any, Dict, Optional
 from datetime import datetime
 from dataclasses import field, dataclass
 
 # Third
-import ipdb
-from devtools import debug as ddebug
 from django_extensions.db.models import ActivatorModel
 
 # Apps
@@ -18,6 +19,9 @@ from src.categories.domain.factories import CategoryValidatorFactory
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class Category(Entity):
+    """
+    Representa a entidade categoria e seus dados
+    """
     title: str
     slug: Optional[str] = ""
     description: Optional[str] = ""
@@ -29,6 +33,9 @@ class Category(Entity):
         self.validate()
 
     def update(self, data: Dict[str, Any]):
+        """
+        Atualiza os dados internos da entidade
+        """
         for field_name, value in data.items():
             self._set(field_name, value)
 
@@ -40,12 +47,21 @@ class Category(Entity):
         return self
 
     def activate(self):
+        """
+        Seta o atributo status como ativo
+        """
         self._set("status", ActivatorModel.ACTIVE_STATUS)
 
     def deactivate(self):
+        """
+        Seta o atributo status como inativo
+        """
         self._set("status", ActivatorModel.INACTIVE_STATUS)
 
     def validate(self):
+        """
+        Instancia um validador e executa o metodo validate
+        """
         validator = CategoryValidatorFactory.create()
         is_valid = validator.validate(serializer_class=CategorySerializer, data=self.to_dict())
         if not is_valid:

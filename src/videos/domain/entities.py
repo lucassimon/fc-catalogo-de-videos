@@ -1,3 +1,7 @@
+"""
+Define entidades para os videos
+"""
+
 # Python
 from typing import Optional
 from datetime import datetime
@@ -13,6 +17,9 @@ from apps.videos.models import Video as VideoModel
 
 @dataclass()
 class Video:
+    """
+    Entity for a Video
+    """
     title: str
     slug: str
     year_launched: int = 2022

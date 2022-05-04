@@ -1,3 +1,6 @@
+"""
+Modulo seedwork representando um id do tipo UUID
+"""
 # Python
 import uuid
 from dataclasses import field, dataclass
@@ -9,6 +12,11 @@ from src.core.domain.exceptions import InvalidUUIDException
 
 @dataclass(frozen=True)
 class UniqueEntityId:
+    """
+    Classe entidade representando um id como UUID
+    """
+
+    # pylint: disable=C0103
     id: str = field(default_factory=lambda: uuidv4())
 
     def __post_init__(self):

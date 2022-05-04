@@ -1,9 +1,12 @@
+"""
+Modulo seedwork para repositories classes
+"""
+
 # Python
 import abc
 import math
 from typing import Any, List, Generic, TypeVar, Optional
-from optparse import Option
-from dataclasses import field, asdict, dataclass
+from dataclasses import field, dataclass
 
 # Apps
 from src.core.domain.entities import Entity
@@ -17,38 +20,65 @@ Filter = TypeVar("Filter", str, Any)
 
 
 class RepositoryInterface(Generic[ET], abc.ABC):
+    """
+    Interface para definir o contrato dos metodos
+    """
     @abc.abstractmethod
     def insert(self, entity: ET) -> None:
+        """
+        Inserir uma entidade
+        """
         raise NotImplementedError()
 
     @abc.abstractmethod
     def find_by_id(self, entity_id: str | UniqueEntityId) -> ET:
+        """
+        Procurar uma entidade por id
+        """
         raise NotImplementedError()
 
     @abc.abstractmethod
     def find_all(self) -> List[ET]:
+        """
+        Buscar todas as entidades
+        """
         raise NotImplementedError()
 
     @abc.abstractmethod
     def update(self, entity: ET) -> None:
+        """
+        Atualizar uma entidade
+        """
         raise NotImplementedError()
 
     @abc.abstractmethod
     def delete(self, entity_id: str | UniqueEntityId) -> None:
+        """
+        Deletar uma entidade por id
+        """
         raise NotImplementedError()
 
 
 class SearchableRepositoryInterface(Generic[ET, Input, Output], RepositoryInterface[ET], abc.ABC):
+    """
+    Contrato para implementar uma busca
+    """
 
     sortable_fields: List[str] = []
 
     @abc.abstractmethod
     def search(self, params: Input) -> Output:
+        """
+        Buscar um item de acordo com os parametros
+        """
         raise NotImplementedError()
 
 
 @dataclass(slots=True, kw_only=True)
 class SearchParams(Generic[Filter]):
+    """
+    Definição de parametros de busca
+    """
     page: Optional[int] = 1
     per_page: Optional[int] = 10
     sort: Optional[str] = None
@@ -103,6 +133,9 @@ class SearchParams(Generic[Filter]):
 
 @dataclass(slots=True, kw_only=True, frozen=True)
 class SearchResult(Generic[ET, Filter]):
+    """
+    Definição resultados de uma busca
+    """
     items: List[ET]
     current_page: int
     per_page: int
@@ -116,6 +149,9 @@ class SearchResult(Generic[ET, Filter]):
         object.__setattr__(self, "last_page", math.ceil(self.total / self.per_page))
 
     def to_dict(self):
+        """
+        Retorna um dicionario com os dados instanciados
+        """
         return {
             "items": self.items,
             "total": self.total,
@@ -130,6 +166,9 @@ class SearchResult(Generic[ET, Filter]):
 
 @dataclass(slots=True)
 class InMemoryRepository(RepositoryInterface[ET], abc.ABC):
+    """
+    Repositorio com as principais operações CRUD em memória
+    """
     items: List[ET] = field(default_factory=lambda: [])
 
     def insert(self, entity: ET) -> None:
@@ -169,6 +208,9 @@ class InMemorySearchableRepository(
     SearchableRepositoryInterface[ET, SearchParams[Filter], SearchResult[ET, Filter]],
     abc.ABC,
 ):
+    """
+    Repositório que herda as principais operacoes de CRUD mais o SEARCH
+    """
     def search(self, params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
         items_filtered = self._apply_filter(self.items, params.filters)
         items_sorted = self._apply_sort(items_filtered, params.sort, params.sort_direction)

@@ -1,3 +1,6 @@
+"""
+Define uma entidade
+"""
 # Python
 from typing import Optional
 from datetime import datetime
@@ -12,6 +15,9 @@ from apps.core.utils import now, uuidv4
 
 @dataclass()
 class Genre:
+    """
+    Representa os dados da entidade genero
+    """
     title: str
     slug: str
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS

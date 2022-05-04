@@ -25,6 +25,9 @@ class ValidatorFieldInterface(abc.ABC, Generic[PropsValidated]):
 
     @abc.abstractmethod
     def validate(self, validator: Any):
+        """
+        Abstract method for validate the data
+        """
         raise NotImplementedError()
 
 
