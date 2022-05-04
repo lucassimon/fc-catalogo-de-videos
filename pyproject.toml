@@ -36,14 +36,10 @@ pytest-django = "4.5.2"
 factory-boy = "3.2.1"
 pytest-factoryboy = "2.1.0"
 coverage = "6.3.2"
-flake8 = "4.0.1"
-flake8-isort = "4.1.1"
-flake8-rst-docstrings = "0.2.5"
-flake8-logging-format = "0.6.0"
-flake8-builtins = "1.5.3"
-flake8-blind-except = "0.2.1"
-pylint = "^2.13.7"
 black = "^22.3.0"
+mypy = "^0.950"
+pylint = "^2.13.8"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -52,6 +48,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+target-version = ['py310']
 include = '\.pyi?$'
 exclude = '''
 (
