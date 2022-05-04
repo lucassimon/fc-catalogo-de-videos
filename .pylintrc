@@ -20,17 +20,16 @@ fail-on=
 fail-under=10.0
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=migrations
+ignore=migrations, tests, .venv
 
 # Add files or directories matching the regex patterns to the ignore-list. The
 # regex matches against paths and can be in Posix or Windows format.
-ignore-paths=^.venv/.*$,
-            **/tests/**/*.py
+ignore-paths=
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths. The default value ignores emacs file
 # locks
-ignore-patterns=^\.#
+ignore-patterns=["^\\.#"]
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -91,7 +90,15 @@ disable=raw-checker-failed,
         suppressed-message,
         useless-suppression,
         deprecated-pragma,
-        use-symbolic-message-instead
+        use-symbolic-message-instead,
+        too-many-instance-attributes,
+        too-few-public-methods,
+        no-self-use,
+        unnecessary-pass,
+        unnecessary-lambda,
+        missing-module-docstring,
+        missing-function-docstring,
+        missing-class-docstring,
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
