@@ -20,6 +20,7 @@ class Video:
     """
     Entity for a Video
     """
+
     title: str
     slug: str
     year_launched: int = 2022

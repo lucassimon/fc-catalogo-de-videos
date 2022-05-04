@@ -23,6 +23,7 @@ class RepositoryInterface(Generic[ET], abc.ABC):
     """
     Interface para definir o contrato dos metodos
     """
+
     @abc.abstractmethod
     def insert(self, entity: ET) -> None:
         """
@@ -79,6 +80,7 @@ class SearchParams(Generic[Filter]):
     """
     Definição de parametros de busca
     """
+
     page: Optional[int] = 1
     per_page: Optional[int] = 10
     sort: Optional[str] = None
@@ -136,6 +138,7 @@ class SearchResult(Generic[ET, Filter]):
     """
     Definição resultados de uma busca
     """
+
     items: List[ET]
     current_page: int
     per_page: int
@@ -169,6 +172,7 @@ class InMemoryRepository(RepositoryInterface[ET], abc.ABC):
     """
     Repositorio com as principais operações CRUD em memória
     """
+
     items: List[ET] = field(default_factory=lambda: [])
 
     def insert(self, entity: ET) -> None:
@@ -211,6 +215,7 @@ class InMemorySearchableRepository(
     """
     Repositório que herda as principais operacoes de CRUD mais o SEARCH
     """
+
     def search(self, params: SearchParams[Filter]) -> SearchResult[ET, Filter]:
         items_filtered = self._apply_filter(self.items, params.filters)
         items_sorted = self._apply_sort(items_filtered, params.sort, params.sort_direction)

@@ -15,6 +15,7 @@ class Entity(ABC):
     """
     Classe Entidade
     """
+
     unique_entity_id: UniqueEntityId = field(default_factory=lambda: UniqueEntityId())
 
     # pylint: disable=C0103

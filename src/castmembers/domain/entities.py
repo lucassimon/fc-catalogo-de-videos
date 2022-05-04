@@ -19,6 +19,7 @@ class CastMember:
     """
     Entidade representando um elenco
     """
+
     name: str
     kind: str = CastMemberModel.KIND_DIRECTOR
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS

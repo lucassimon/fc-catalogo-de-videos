@@ -18,6 +18,7 @@ class Genre:
     """
     Representa os dados da entidade genero
     """
+
     title: str
     slug: str
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS

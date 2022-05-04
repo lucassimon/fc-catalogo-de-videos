@@ -12,6 +12,7 @@ class PublishCreatedVideoToQueue(InterfaceRabbitMQ):
     """
     Classe que inicializa as configurações do rabbitmq e a fila
     """
+
     def __init__(self, rabbitmq_conn, rabbitmq_channel):
         self.conn = rabbitmq_conn
         self.channel = rabbitmq_channel

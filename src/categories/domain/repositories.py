@@ -15,6 +15,7 @@ class CategoryRepository(RepositoryInterface[Category], abc.ABC):
     """
     Classe para tratar uma categoria
     """
+
     pass
 
 
@@ -22,4 +23,5 @@ class CategoryInMemoryRepository(CategoryRepository, InMemoryRepository[Category
     """
     Classe para tratar um repositorio em memória
     """
+
     pass

@@ -16,6 +16,7 @@ class CategoryValidator(DRFValidator):
     """
     Classe para validar uma categoria utilizando o serialier do DRF
     """
+
     def validate(self, serializer_class: serializers.Serializer, data: Dict) -> bool:
         """
         Metodo para validar

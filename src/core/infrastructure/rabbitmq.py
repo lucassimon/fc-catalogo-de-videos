@@ -17,6 +17,7 @@ class RabbitMQ:
     """
     A class to do a connection
     """
+
     @staticmethod
     def connect():
         """
@@ -46,6 +47,7 @@ class InterfacePublishToQueue(ABC):
     """
     Interface to publish messages
     """
+
     conn = None
     channel = None
     exchange = None
@@ -100,7 +102,7 @@ class InterfacePublishToQueue(ABC):
         self.publish(message)
 
     def message_to_json(self, message: Dict):
-        """"
+        """ "
         Transforms a message dict to a json
         """
         try:
@@ -114,6 +116,7 @@ class InterfaceRabbitMQ(InterfacePublishToQueue):
     """
     Interface with connect and publish methods
     """
+
     def connect(self):
         if self.exchange_dlx and self.queue_dl and self.routing_key_dl:
             arguments = {

@@ -22,6 +22,7 @@ class Category(Entity):
     """
     Representa a entidade categoria e seus dados
     """
+
     title: str
     slug: Optional[str] = ""
     description: Optional[str] = ""

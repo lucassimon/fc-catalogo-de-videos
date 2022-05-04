@@ -9,6 +9,7 @@ class CategoryValidatorFactory:
     """
     Representa uma factory pattern para criar um validator
     """
+
     @staticmethod
     def create():
         """
