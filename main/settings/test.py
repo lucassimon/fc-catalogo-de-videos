@@ -1,5 +1,9 @@
+import tempfile
+
 from .base import *  # noqa
 from .base import env
+
+from pathlib import Path
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -24,3 +28,5 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+MEDIA_ROOT = Path(tempfile.gettempdir())
