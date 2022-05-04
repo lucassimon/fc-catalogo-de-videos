@@ -19,7 +19,9 @@ def make_video_data():
     return {
         "title": video_data.title,
         "description": "some item",
-        "categories": [category_pk,],
+        "categories": [
+            category_pk,
+        ],
         "genres": [genre.pk.__str__()],
         "year_launched": video_data.year_launched,
         "rating": video_data.rating,
