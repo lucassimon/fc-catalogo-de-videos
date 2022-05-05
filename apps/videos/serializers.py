@@ -26,9 +26,11 @@ class VideoCreateSerializer(serializers.ModelSerializer):
         """
         Check that the blog post is about Django.
         """
+        categories_ids = self.get_initial()["categories"]
+
         for genre in value:
             try:
-                utils.check_genres_are_in_categories(genre.pk, self.get_initial()["categories"])
+                utils.check_genres_are_in_categories(genre.pk, categories_ids)
             except Exception as exc:
                 raise serializers.ValidationError(exc.__str__())
 
