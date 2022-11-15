@@ -46,14 +46,14 @@ lint:
 	@pytlint .
 
 lint_black:
-	@black --check apps/ src/
+	@docker run --rm --volume $(pwd):/src --workdir /src pyfound/black:latest_release black --check .
 
 lint_isort:
 	@isort --check-only apps/ src/
 
 ## @ formatacao
 black:
-	@black apps/ src/
+	@docker run --rm --volume $(pwd):/src --workdir /src pyfound/black:latest_release black .
 
 isort:
 	@isort apps/ src/
