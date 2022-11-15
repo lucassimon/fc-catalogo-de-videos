@@ -43,7 +43,8 @@ clean-build: clean
 	rm -rf *.egg-info
 
 lint:
-	@pytlint .
+	@pylint src/
+	@pylint apps/
 
 lint_black:
 	@docker run --rm --volume $(pwd):/src --workdir /src pyfound/black:latest_release black --check .
