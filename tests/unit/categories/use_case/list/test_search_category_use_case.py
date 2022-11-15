@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 from src.categories.application.use_cases.output import CategoryOutputDTO, CategoryOutputMapper
 from src.core.application.use_case import UseCase
-
+from src.core.application.dto import PaginationOutputMapper
 
 from src.categories.application.use_cases.search.input import SearchCategoryInput
 from src.categories.application.use_cases.search.output import SearchCategoryOutput
@@ -12,16 +12,12 @@ from src.categories.application.use_cases.search.output import SearchCategoryOut
 from src.categories.application.use_cases.search.use_case import SearchCategoriesUseCase
 from src.categories.infrastructure.repositories import CategoryInMemoryRepository
 from src.categories.domain.entities import Category
+from src.categories.domain.repositories import CategoryRepository
 
 
 @pytest.mark.unit
 def test_is_subclass():
     assert issubclass(SearchCategoriesUseCase, UseCase)
-
-
-@pytest.mark.unit
-def test_to__output():
-    pass
 
 
 @pytest.mark.unit
@@ -177,3 +173,46 @@ def test_execute_with_pagination_and_sort_filter():
     )
 
     assert result == expected
+
+
+@pytest.mark.unit
+def test_to_output_when_empty_response():
+
+    default_props = {
+        "total": 0,
+        "current_page": 1,
+        "per_page": 2,
+        "sort": None,
+        "sort_direction": None,
+        "filters": None,
+    }
+
+    result = CategoryRepository.SearchResult(items=[], **default_props)
+    repo = CategoryInMemoryRepository()
+    use_case = SearchCategoriesUseCase(repo)
+    output = use_case._SearchCategoriesUseCase__to_output(result=result)  # pylint: disable=protected-access
+
+    assert output == SearchCategoryOutput(
+        items=[], total=0, current_page=1, last_page=0, per_page=2, sort=None, sort_direction=None, filters=None
+    )
+
+
+@pytest.mark.unit
+def test_to_output_with_category():
+    entity = Category(title="movie")
+    default_props = {
+        "total": 1,
+        "current_page": 1,
+        "per_page": 2,
+        "sort": None,
+        "sort_direction": None,
+        "filters": None,
+    }
+
+    result = CategoryRepository.SearchResult(items=[entity], **default_props)
+    repo = CategoryInMemoryRepository()
+    use_case = SearchCategoriesUseCase(repo)
+    output = use_case._SearchCategoriesUseCase__to_output(result=result)  # pylint: disable=protected-access
+
+    items = [CategoryOutputMapper.to_output(klass=CategoryOutputDTO, category=entity)]
+    assert output == PaginationOutputMapper.from_child(SearchCategoryOutput).to_output(items, result)

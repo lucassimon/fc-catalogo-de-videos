@@ -28,7 +28,7 @@ class Category(Entity):
     description: Optional[str] = ""
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS
     is_deleted: bool = False
-    created_at: Optional[datetime] = field(default_factory=lambda: now())
+    created_at: Optional[datetime] = field(default_factory=now)
 
     def __post_init__(self):
         self.validate()

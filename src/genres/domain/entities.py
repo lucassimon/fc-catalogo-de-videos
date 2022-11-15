@@ -23,5 +23,5 @@ class Genre:
     slug: str
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS
     is_deleted: bool = False
-    code: Optional[str] = field(default_factory=lambda: uuidv4())
-    created_at: Optional[datetime] = field(default_factory=lambda: now())
+    code: Optional[str] = field(default_factory=uuidv4)
+    created_at: Optional[datetime] = field(default_factory=now)

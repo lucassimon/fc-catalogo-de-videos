@@ -3,7 +3,7 @@ Output retornando os dados de uma categoria
 """
 
 # Python
-from typing import Optional
+from typing import TypeVar, Optional
 from datetime import datetime
 from dataclasses import dataclass
 
@@ -21,9 +21,12 @@ class CategoryOutputDTO:
     status: Optional[int] = 1
 
 
+Output = TypeVar("Output", bound=CategoryOutputDTO)
+
+
 class CategoryOutputMapper:
     @staticmethod
-    def to_output(klass, category: Category) -> CategoryOutputDTO:
+    def to_output(klass: Output, category: Category) -> Output:
         return klass(
             id=category.id,
             title=category.title,

@@ -17,7 +17,7 @@ class UniqueEntityId:
     """
 
     # pylint: disable=C0103
-    id: str = field(default_factory=lambda: uuidv4())
+    id: str = field(default_factory=uuidv4)
 
     def __post_init__(self):
         id_value = str(self.id) if isinstance(self.id, uuid.UUID) else self.id

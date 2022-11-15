@@ -29,9 +29,9 @@ class Video:
     duration: int = 50
     status: Optional[int] = ActivatorModel.ACTIVE_STATUS
     is_deleted: bool = False
-    code: Optional[str] = field(default_factory=lambda: uuidv4())
+    code: Optional[str] = field(default_factory=uuidv4)
     thumb_file: Optional[str] = ""
     banner_file: Optional[str] = ""
     trailer_file: Optional[str] = ""
     video_file: Optional[str] = ""
-    created_at: Optional[datetime] = field(default_factory=lambda: now())
+    created_at: Optional[datetime] = field(default_factory=now)
