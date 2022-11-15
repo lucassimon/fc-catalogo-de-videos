@@ -6,7 +6,7 @@ Modulo seedwork para repositories classes
 import abc
 import math
 from typing import Any, List, Generic, TypeVar, Optional
-from dataclasses import field, dataclass
+from dataclasses import Field, field, dataclass
 
 # Apps
 from src.core.domain.entities import Entity
@@ -78,7 +78,7 @@ class SearchableRepositoryInterface(Generic[ET, Input, Output], RepositoryInterf
 @dataclass(slots=True, kw_only=True)
 class SearchParams(Generic[Filter]):
     """
-    Definição de parametros de busca
+    Definição de parametros de busca genérico
     """
 
     page: Optional[int] = 1
@@ -130,13 +130,19 @@ class SearchParams(Generic[Filter]):
             return default
 
     def _get_dataclass_field(self, field_name):
+        # pylint: disable=no-member
         return SearchParams.__dataclass_fields__[field_name]
+
+    @classmethod
+    def get_field(cls, entity_field: str) -> Field:
+        # pylint: disable=no-member
+        return cls.__dataclass_fields__[entity_field]
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
 class SearchResult(Generic[ET, Filter]):
     """
-    Definição resultados de uma busca
+    Definição resultados de uma busca genérico
     """
 
     items: List[ET]

@@ -64,6 +64,6 @@ class Category(Entity):
         Instancia um validador e executa o metodo validate
         """
         validator = CategoryValidatorFactory.create()
-        is_valid = validator.validate(serializer_class=CategorySerializer, data=self.to_dict())
+        is_valid = validator.check(serializer_class=CategorySerializer, data=self.to_dict())
         if not is_valid:
             raise EntityValidationException(validator.errors)

@@ -4,7 +4,7 @@ Modulo seedwork para uma Entidade
 
 # Python
 from abc import ABC
-from dataclasses import field, asdict, dataclass
+from dataclasses import Field, field, asdict, dataclass
 
 # Apps
 from src.core.domain.unique_entity_id import UniqueEntityId
@@ -35,3 +35,8 @@ class Entity(ABC):
         entity_dict["id"] = self.id
 
         return entity_dict
+
+    @classmethod
+    def get_field(cls, entity_field: str) -> Field:
+        # pylint: disable=no-member
+        return cls.__dataclass_fields__[entity_field]

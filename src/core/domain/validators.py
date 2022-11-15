@@ -33,7 +33,7 @@ class ValidatorFieldInterface(abc.ABC, Generic[PropsValidated]):
 
 class DRFValidator(ValidatorFieldInterface[PropsValidated]):
     """
-    Interface para validação de serializers do django rest framework
+    Validação de serializers do django rest framework
     """
 
     def validate(self, validator: serializers.Serializer) -> bool:

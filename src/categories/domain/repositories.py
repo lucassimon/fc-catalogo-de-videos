@@ -5,23 +5,38 @@ Define os repositories para a categoria
 import abc
 
 # Apps
-from src.core.domain.repositories import InMemoryRepository, RepositoryInterface
+from src.core.domain.repositories import SearchParams as DefaultSearchParams
+from src.core.domain.repositories import SearchResult as DefaultSearchResult
+from src.core.domain.repositories import SearchableRepositoryInterface
 
 # Local
 from .entities import Category
 
 
-class CategoryRepository(RepositoryInterface[Category], abc.ABC):
+class _SearchParams(DefaultSearchParams):
+    """
+    Categories Search Result
+    Privadas do modulo
+    Sendo utilizadas com o typing da classe e da innerclass
+    """
+
+    pass
+
+
+class _SearchResult(DefaultSearchResult):
+    """
+    Categories Search Result
+    Privadas do modulo
+    Sendo utilizadas com o typing da classe e da innerclass
+    """
+
+    pass
+
+
+class CategoryRepository(SearchableRepositoryInterface[Category, _SearchParams, _SearchResult], abc.ABC):
     """
     Classe para tratar uma categoria
     """
 
-    pass
-
-
-class CategoryInMemoryRepository(CategoryRepository, InMemoryRepository[Category]):
-    """
-    Classe para tratar um repositorio em memória
-    """
-
-    pass
+    SearchParams = _SearchParams
+    SearchResult = _SearchResult

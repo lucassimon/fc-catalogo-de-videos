@@ -2,9 +2,9 @@
 from dataclasses import FrozenInstanceError, is_dataclass
 
 # Third
-import ipdb
+
 import pytest
-from devtools import debug as ddebug
+
 from django_extensions.db.models import ActivatorModel
 
 # Apps
@@ -23,6 +23,8 @@ def test_category_constructor_default_params():
         title="some test",
         slug="some-test",
     )
+
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
     assert category.title == data["title"]
     assert category.slug == data["slug"]
@@ -36,6 +38,7 @@ def test_category_constructor():
         description="some description",
         status=ActivatorModel.ACTIVE_STATUS,
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
 
     assert category.title == data["title"]
@@ -50,9 +53,11 @@ def test_is_immutable():
         title="some test",
         slug="some-test",
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
     with pytest.raises(FrozenInstanceError):
-        category.title = 'set name'
+        category.title = "set name"
+
 
 @pytest.mark.unit
 def test_category_set_some_attribute():
@@ -62,8 +67,10 @@ def test_category_set_some_attribute():
         description="some description",
         status=ActivatorModel.ACTIVE_STATUS,
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
-    category._set('title', 'new title')
+    # pylint: disable=protected-access
+    category._set("title", "new title")
     assert category.title == "new title"
 
 
@@ -75,6 +82,7 @@ def test_category_activate():
         description="some description",
         status=ActivatorModel.INACTIVE_STATUS,
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
     category.activate()
     assert category.status == ActivatorModel.ACTIVE_STATUS
@@ -88,6 +96,7 @@ def test_category_deactivate():
         description="some description",
         status=ActivatorModel.ACTIVE_STATUS,
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
     category.deactivate()
     assert category.status == ActivatorModel.INACTIVE_STATUS
@@ -101,6 +110,7 @@ def test_category_update():
         description="some description",
         status=ActivatorModel.INACTIVE_STATUS,
     )
+    # pylint: disable=unexpected-keyword-arg
     category = entities.Category(**data)
 
     new_data = dict(
@@ -125,66 +135,65 @@ def test_category_title_is_invalid():
     )
 
     with pytest.raises(EntityValidationException) as assert_error:
+        # pylint: disable=unexpected-keyword-arg
         entities.Category(**data)
 
-    assert assert_error.value.error['title'] == ['Not a valid string.']
+    assert assert_error.value.error["title"] == ["Not a valid string."]
 
 
 @pytest.mark.unit
 def test_category_title_is_too_long():
     data = dict(
-        title='a' * 256,
+        title="a" * 256,
         slug="some-test",
         description="some description",
         status=ActivatorModel.ACTIVE_STATUS,
     )
 
     with pytest.raises(EntityValidationException) as assert_error:
+        # pylint: disable=unexpected-keyword-arg
         entities.Category(**data)
 
-    assert assert_error.value.error['title'] == ['Ensure this field has no more than 255 characters.']
-
+    assert assert_error.value.error["title"] == ["Ensure this field has no more than 255 characters."]
 
 
 @pytest.mark.unit
 def test_category_status_is_invalid():
     data = dict(
-        title='some test',
+        title="some test",
         slug="some-test",
         description="some description",
         status=3,
     )
 
     with pytest.raises(EntityValidationException) as assert_error:
+        # pylint: disable=unexpected-keyword-arg
         entities.Category(**data)
 
-    assert assert_error.value.error['status'] == ['"3" is not a valid choice.']
+    assert assert_error.value.error["status"] == ['"3" is not a valid choice.']
 
 
 @pytest.mark.unit
 def test_category_description_is_invalid():
     data = dict(
-        title='some test',
+        title="some test",
         slug="some-test",
         description=5,
     )
 
     with pytest.raises(EntityValidationException) as assert_error:
+        # pylint: disable=unexpected-keyword-arg
         entities.Category(**data)
 
-    assert assert_error.value.error['description'] == ['Not a valid string.']
+    assert assert_error.value.error["description"] == ["Not a valid string."]
 
 
 @pytest.mark.unit
 def test_category_is_deleted_is_invalid():
-    data = dict(
-        title='some test',
-        slug="some-test",
-        description='some description',
-        is_deleted='1'
-    )
+    data = dict(title="some test", slug="some-test", description="some description", is_deleted="1")
 
     with pytest.raises(EntityValidationException) as assert_error:
+        # pylint: disable=unexpected-keyword-arg
         entities.Category(**data)
 
-    assert assert_error.value.error['is_deleted'] == ['Must be a valid boolean.']
+    assert assert_error.value.error["is_deleted"] == ["Must be a valid boolean."]
