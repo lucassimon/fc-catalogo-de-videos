@@ -4,6 +4,8 @@ O Problema a ser resolvido:
 
 Como administrador de uma plataforma de exibição de filmes, documentarios ou séries, quero poder administrar categorias, generos, elenco e os videos em uma pagina administrativa.
 
+![Visao Geral](./static/overview/contexto.png)
+
 ## Regras de negócio
 
 Por ordem de prioridade
