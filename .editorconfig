@@ -18,7 +18,7 @@ indent_size = 4
 skip = build,.tox,.venv
 src_paths=isort,test
 
-[*.{html,css,scss,json,yml}]
+[*.{html,css,scss,json,yml,puml}]
 indent_style = space
 indent_size = 2
 
