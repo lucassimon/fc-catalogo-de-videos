@@ -11,6 +11,7 @@ import pytest
 )
 def test_health_check(language_code, language_text, api_client):
     url = reverse("healthcheck")
+
     response = api_client.get(
         url,
         content_type="application/json",

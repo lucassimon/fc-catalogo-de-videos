@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-05 09:28-0600\n"
+"POT-Creation-Date: 2022-12-10 13:19-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,18 +69,80 @@ msgstr "Diretor"
 msgid "Actor"
 msgstr "Ator"
 
-#: main/settings/base.py:141
+#: apps/core/messages.py:18
+msgid "Video"
+msgstr ""
+
+#: apps/core/messages.py:19
+msgid "Videos"
+msgstr ""
+
+#: apps/core/messages.py:20
+msgid "Free"
+msgstr ""
+
+#: apps/core/messages.py:21
+msgid "Ten years old"
+msgstr ""
+
+#: apps/core/messages.py:22
+msgid "Twelve years old"
+msgstr ""
+
+#: apps/core/messages.py:23
+msgid "Fourteen years old"
+msgstr ""
+
+#: apps/core/messages.py:24
+msgid "Sixteen years old"
+msgstr ""
+
+#: apps/core/messages.py:25
+msgid "Eighteen years old"
+msgstr ""
+
+#: apps/core/messages.py:26
+msgid "Rating"
+msgstr ""
+
+#: apps/core/messages.py:27
+msgid "Year launched"
+msgstr ""
+
+#: apps/core/messages.py:28
+msgid "Opened"
+msgstr ""
+
+#: apps/core/messages.py:29
+msgid "Duration"
+msgstr ""
+
+#: apps/core/messages.py:30
+#, python-format
+msgid "The object %(title)s is inactive or deleted"
+msgstr ""
+
+#: apps/core/messages.py:31
+#, python-format
+msgid "The %(title)s genre does not belonging for any category"
+msgstr ""
+
+#: apps/core/messages.py:32
+msgid "Files"
+msgstr ""
+
+#: main/settings/base.py:139
 msgid "English"
 msgstr "Inglês"
 
-#: main/settings/base.py:142
+#: main/settings/base.py:140
 msgid "German"
 msgstr "Alemão"
 
-#: main/settings/base.py:143
+#: main/settings/base.py:141
 msgid "Portuguese Brazil"
 msgstr "Português do Brasil"
 
-#: main/settings/base.py:144
+#: main/settings/base.py:142
 msgid "Spanish"
 msgstr "Espanhol"

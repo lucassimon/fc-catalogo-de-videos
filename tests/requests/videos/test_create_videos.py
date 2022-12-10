@@ -123,7 +123,7 @@ def test_create_a_video_with_invalid_category(
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     res = response.json()
 
-    assert res == {"categories": [f'Invalid pk "{category_inactive.pk}" - object does not exist.']}
+    assert res == {'code': 400, 'name': 'Bad Request', 'description': 'Bad request syntax or unsupported method', 'errors': {'categories': [f'Invalid pk "{category_inactive.pk}" - object does not exist.']}, 'exception': 'ValidationError'}
 
 
 @pytest.mark.webtest
@@ -155,7 +155,7 @@ def test_create_a_video_with_deleted_genre(_, api_client):
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     res = response.json()
 
-    assert res == {"genres": [f'Invalid pk "{genre_deleted.pk}" - object does not exist.']}
+    assert res == {'code': 400, 'name': 'Bad Request', 'description': 'Bad request syntax or unsupported method', 'errors': {'genres': [f'Invalid pk "{genre_deleted.pk}" - object does not exist.']}, 'exception': 'ValidationError'}
 
 
 @pytest.mark.webtest
@@ -190,7 +190,7 @@ def test_create_a_video_with_genre_do_not_belongs_for_any_category(
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     res = response.json()
 
-    assert res == {"genres": [f"The {genre.title} genre does not belonging for any category"]}
+    assert res == {'code': 400, 'name': 'Bad Request', 'description': 'Bad request syntax or unsupported method', 'errors': {'genres': [f'The {genre.title} genre does not belonging for any category']}, 'exception': 'ValidationError'}
 
 
 @pytest.mark.webtest

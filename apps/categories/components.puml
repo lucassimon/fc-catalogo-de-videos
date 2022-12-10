@@ -1,0 +1,74 @@
+@startuml
+
+
+cloud {
+  [POST /api/v2/categories/]
+  [GET /api/v2/categories/]
+  [PUT /api/v2/categories/<uuid:pk>/]
+  [GET /api/v2/categories/<uuid:pk>/]
+  [DELETE /api/v2/categories/<uuid:pk>/]
+}
+
+
+package "apps.categories.api.v2.views" {
+  [CategoryView]
+  [ListCreateCategoriesView]
+}
+
+package "apps.categories.management.commands" {
+  [SearchCategoryCommand]
+  [RetrieveCategoryCommand]
+  [UpdateCategoryCommand]
+  [DeleteCategoryCommand]
+}
+
+package "kernel_catalogo_videos.categories.application" {
+  [SearchCategoryUseCase]
+  [GetCategoryUseCase]
+  [UpdateCategoryUseCase]
+  [DeleteCategoryUseCase]
+}
+
+package "apps.categories.repositories" {
+  [CategoryDjangoRepository]
+}
+
+
+database "Postgres" {
+  folder "Categories" {
+    [Category]
+  }
+}
+
+
+[PUT /api/v2/categories/<uuid:pk>/] --> [CategoryView]
+[GET /api/v2/categories/<uuid:pk>/] --> [CategoryView]
+[DELETE /api/v2/categories/<uuid:pk>/] --> [CategoryView]
+
+[POST /api/v2/categories/] --> [ListCreateCategoriesView]
+[GET /api/v2/categories/] --> [ListCreateCategoriesView]
+
+
+[ListCreateCategoriesView] --> [SearchCategoryCommand]
+
+
+[CategoryView] --> [RetrieveCategoryCommand]
+[CategoryView] --> [UpdateCategoryCommand]
+[CategoryView] --> [DeleteCategoryCommand]
+
+[SearchCategoryCommand] --> [SearchCategoryUseCase]
+[SearchCategoryUseCase] --> [CategoryDjangoRepository]
+
+[RetrieveCategoryCommand] --> [GetCategoryUseCase]
+[GetCategoryUseCase] --> [CategoryDjangoRepository]
+
+[UpdateCategoryCommand] --> [UpdateCategoryUseCase]
+[UpdateCategoryUseCase] --> [CategoryDjangoRepository]
+
+[DeleteCategoryCommand] --> [DeleteCategoryUseCase]
+[DeleteCategoryUseCase] --> [CategoryDjangoRepository]
+
+
+[CategoryDjangoRepository] --> [Category]
+
+@enduml

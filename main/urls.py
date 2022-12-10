@@ -19,8 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-from django.urls import path, include
-
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
@@ -34,6 +32,10 @@ urlpatterns = [
     path(
         "api/v1/",
         include(("apps.core.v1_urls", "core"), namespace="v1"),
+    ),
+    path(
+        "api/v2/",
+        include(("apps.core.v2_urls", "core"), namespace="v2"),
     ),
 ]
 

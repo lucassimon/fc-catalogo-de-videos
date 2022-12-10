@@ -6,6 +6,7 @@ django-storages==1.12.3
 django-cors-headers==3.11.0
 django-extensions==3.1.5
 drf-spectacular==0.22.0
+kernel-catalogo-videos==0.1.8
 python-dateutil==2.8.2
 pytz==2022.1
 psycopg2==2.9.3
