@@ -1,7 +1,12 @@
 version: '3.8'
 
+networks:
+  fc:
+    name: fc-network
+    driver: bridge
+
 volumes:
-  postgres_data:
+  pgdata:
   static_volume:
 
 services:
@@ -12,18 +17,28 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - default
+      - fc
+
   redis:
     image: redis:alpine
-    container_name: redis
+    networks:
+      - default
+      - fc
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
     ports:
         - 5672:5672
         - 15672:15672
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - default
+      - fc
+
   celery:
     restart: always
     build:
@@ -55,6 +70,10 @@ services:
       - redis
       - catalog-svc
       - rabbitmq
+    networks:
+      - default
+      - fc
+
   catalog-svc:
     user: api
     build:
@@ -88,3 +107,6 @@ services:
       CATALOG_VIDEOS_DEAD_RK: catalog_videos_created.dead
       CATALOG_VIDEOS: catalog_videos_created
       CATALOG_VIDEOS_RK: catalog_videos_created
+    networks:
+      - default
+      - fc
