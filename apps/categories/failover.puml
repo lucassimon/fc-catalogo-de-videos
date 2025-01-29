@@ -1,0 +1,16 @@
+@startuml failover
+start
+
+:Executar caso de uso;
+
+if (is_failover) then (sim)
+  :criar conexão com o rabbitmq;
+  :setup da exchange,fila,binds;
+  :disparar mensagem para a fila com os dados da request;
+  stop
+else (não)
+  :seguir o fluxo normal do caso de uso;
+  stop
+endif
+
+@enduml

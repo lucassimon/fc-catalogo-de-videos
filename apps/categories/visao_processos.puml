@@ -1,0 +1,78 @@
+@startuml visao_processos
+
+
+[Sistema]
+
+
+package "internal.application.usecase" {
+  [UploadFilesUseCase]
+  [UploadPreSignedUseCase]
+  [GetMediaUseCase]
+  [GetMediaUrlUseCase]
+  [DownloadMediaUseCase]
+  [DeleteMediaUseCase]
+}
+
+package "internal.application.services" {
+  [UploadService]
+  [UploadPreSignedService]
+  [GetMediaService]
+  [GetMediaUrlService]
+  [DownloadMediaService]
+  [DeleteMediaService]
+}
+
+
+package "internal.application.usecase.authorization.service" {
+  [AuthorizationService]
+}
+
+package "internal.adapters.http.handlers" {
+  [UploadV1Handler]
+}
+
+package "internal.adapters.client" {
+  [ClientHttp]
+}
+
+
+[ClientHttp] --> [UploadV1Handler] :http
+[UploadV1Handler] <-- [Sistema]
+
+[Sistema] ..> [DeleteMediaUseCase]
+[Sistema] ..> [DownloadMediaUseCase]
+[Sistema] ..> [GetMediaUrlUseCase]
+[Sistema] ..> [GetMediaUseCase]
+[Sistema] ..> [UploadPreSignedUseCase]
+[Sistema] ..> [UploadFilesUseCase]
+
+[Sistema] --> [AuthorizationService] :uses
+
+[DeleteMediaUseCase] --> [DeleteMediaService]
+[DeleteMediaService] --> [db] :tcp
+[DeleteMediaService] --> [bucket] :tcp
+
+[DownloadMediaUseCase] --> [DownloadMediaService]
+[DownloadMediaService] --> [db] :tcp
+[DownloadMediaService] --> [bucket] :tcp
+
+
+[GetMediaUrlUseCase] --> [GetMediaUrlService]
+[GetMediaUrlService] --> [db] :tcp
+[GetMediaUrlService] --> [bucket] :tcp
+
+
+[GetMediaUseCase] --> [GetMediaService]
+[GetMediaService] --> [db] :tcp
+[GetMediaService] --> [bucket] :tcp
+
+[UploadPreSignedUseCase] --> [UploadPreSignedService]
+[UploadPreSignedService] --> [db] :tcp
+[UploadPreSignedService] --> [bucket] :tcp
+
+
+[UploadFilesUseCase] --> [UploadService]
+[UploadService] --> [db] :tcp
+[UploadService] --> [bucket] :tcp
+
+@enduml

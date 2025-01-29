@@ -23,7 +23,6 @@ class Command(BaseCommand):
     help = 'Create category'
 
     def add_arguments(self, parser):
-        parser.add_argument('category_id', type=str, help='Category UUID')
         parser.add_argument('title', '--title', type=str, help='Define the title')
         parser.add_argument('description', '--description', type=str, help='Define the description')
         parser.add_argument('status', type=int, help='Indicates active or inactive')
@@ -37,7 +36,7 @@ class Command(BaseCommand):
             "is_deleted": kwargs['is_deleted'],
         }
 
-        CreateCategoryCommand.run(payload=payload, *args, pk=kwargs["category_id"])
+        CreateCategoryCommand.run(payload=payload, *args, **kwargs)
 
 
 

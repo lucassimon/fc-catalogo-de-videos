@@ -1,0 +1,48 @@
+@startuml implementacao_entidade
+
+
+class Media {
+  Id UIID
+  Name string
+  ContentType string
+  Link string
+  Provider string
+  Bucket string
+  Directory string
+  Size int64
+  Title string
+  Description string
+  Alt string
+
+  GetId()
+  GetName()
+  GetBucket()
+}
+
+class Document {
+  Id UUID
+  UserId UUID
+  MediaId UUID
+  Kind string
+}
+
+class User {
+  Id UUID
+  Email string
+  Password string
+}
+
+class Profile {
+  Id UUID
+  UserId UUID
+  AvatarId UUID
+  FirstName string
+  LastName string
+}
+
+User "1" -- "1" Profile
+Profile "1" -- "many" Media
+User "1" -- "many" Document
+Media "many" -- "1" Document
+
+@enduml

@@ -1,0 +1,156 @@
+@startuml
+
+package adapters {
+  package http {
+      class Webserver {
+          create()
+          serve()
+      }
+
+      class UploadHandler {
+          dbAdapter
+          upload()
+          uploadPreSignedUrl()
+      }
+
+      class MediaHandler {
+          dbAdapter
+          get()
+          download()
+          getPublicUrl()
+          delete()
+      }
+  }
+
+  package dbs {
+      class Postgres {
+          dsn string
+          open()
+          close()
+      }
+
+      class Redis {
+          dsn string
+          open()
+          close()
+      }
+
+      class RabbitMQ {
+          dsn string
+          open()
+          close()
+      }
+  }
+
+  package bucket {
+      class BucketFactory {
+          create()
+      }
+
+      class ProviderGCP {
+          handler
+          upload()
+      }
+
+      class ProviderAWS {
+          session    *session.Session
+          client     *s3.S3
+          bucketName string
+          region     string
+          upload()
+      }
+
+      class ProviderDO {
+          session    *session.Session
+          client     *s3.S3
+          bucketName string
+          region     string
+          upload()
+      }
+  }
+}
+
+package application {
+  package repositories {
+      class MediaDB {
+          adapter *Postgres
+          Create(media *entity.MediaEntity) (*entity.MediaEntity, error)
+          FindAll(page, limit int, sort string) ([]entity.MediaEntity, error)
+          FindByID(id string) (*entity.MediaEntity, error)
+          Delete(id string) error
+      }
+  }
+  package services {
+      class UploadService {
+          bucket *Bucket
+          repository *MediaDB
+          Upload(ctx context.Context, input_params MediaInput)
+          Save(ctx context.Context, media *entity.MediaEntity)
+      }
+
+      class GetMediaService {
+          bucket *Bucket
+          repository *MediaDB
+          Get(ctx context.Context, id *uuid) (*entity.MediaEntity, error)
+          GetUrl(ctx context.Context, id *uuid) (string, error)
+      }
+
+      class DeleteMediaUrlService {
+          bucket *Bucket
+          repository *MediaDB
+          DeleteFile(key string)
+          Delete(ctx context.Context, id *uuid) (bool, error)
+      }
+  }
+
+  package usecase {
+      class UploadFilesUseCase {
+        service UploadService
+        Execute(ctx context.Context, input_params MediaInput)
+      }
+
+      class GetMediaUseCase {
+        service GetMediaService
+        Execute(ctx context.Context, input_params MediaInput)
+      }
+
+      class GetMediaPublicUrlUseCase {
+        service GetMediaService
+        Execute(ctx context.Context, input_params MediaInput)
+      }
+
+      class DeleteMediaUseCase {
+        service DeleteMediaUrlService
+        Execute(ctx context.Context, input_params MediaInput)
+      }
+  }
+}
+
+package domains {
+  package entities {
+      class MediaEntity {
+          Id UIID
+          Name string
+          ContentType string
+          Link string
+          Provider string
+          Bucket string
+          Directory string
+          Size int64
+          Title string
+          Description string
+          Alt string
+
+          GetId()
+          GetName()
+          GetBucket()
+      }
+  }
+}
+
+
+UploadHandler <|-- Webserver
+MediaHandler <|-- Webserver
+
+
+@enduml

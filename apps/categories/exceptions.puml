@@ -1,0 +1,29 @@
+@startuml exceptions
+
+
+
+class Exception { }
+
+class MediaInputError {}
+
+class DatabaseConnectionError {}
+
+class DatabaseOperationalError {}
+
+class BucketGCSError {}
+
+class BucketDigitalOceanError {}
+
+class BucketAWSError {}
+
+
+
+
+Exception <|-- MediaInputError
+Exception <|-- DatabaseConnectionError
+Exception <|-- DatabaseOperationalError
+Exception <|-- BucketGCSError
+Exception <|-- BucketDigitalOceanError
+Exception <|-- BucketAWSError
+
+@enduml

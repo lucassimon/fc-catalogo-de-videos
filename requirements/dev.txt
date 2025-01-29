@@ -5,12 +5,12 @@
 # black==21.10b0
 # black==22.3.0
 # typed-ast==1.5.2
-flake8==4.0.1
-flake8-blind-except==0.2.1
-flake8-builtins==1.5.3
-flake8-isort==4.1.1
-flake8-logging-format==0.6.0
-flake8-rst-docstrings==0.2.5
+# flake8==4.0.1
+# flake8-blind-except==0.2.1
+# flake8-builtins==1.5.3
+# flake8-isort==4.1.1
+# flake8-logging-format==0.6.0
+# flake8-rst-docstrings==0.2.5
 ipdb==0.13.9
 isort==5.10.1
 devtools[pygments]==0.8.0

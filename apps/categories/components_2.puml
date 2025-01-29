@@ -1,0 +1,54 @@
+@startuml
+
+
+
+cloud {
+  [POST /uploads/]
+}
+
+package "internal.adapters.http.chi.handlers.v1" {
+  [UploadV1Handler]
+}
+
+package "internal.adapters.buckets" {
+  [BucketFactory]
+  [Storage]
+}
+
+package "internal.adapters.db" {
+  [MediaDB]
+}
+
+package "internal.domain.entities" {
+  [MediaEntity]
+}
+
+package "internal.application.usecase.upload.use_case" {
+  [UploadFilesUseCase]
+  [UploadService]
+}
+
+database "Postgres" {
+
+  [Media]
+
+}
+
+
+
+[POST /uploads/] --> [UploadV1Handler]
+
+[UploadV1Handler] --> [MediaDB]
+[UploadV1Handler] --> [UploadFilesUseCase]
+
+[UploadFilesUseCase] --> [UploadService]
+[UploadFilesUseCase] --> [MediaEntity]
+
+[UploadService] --> [MediaDB]
+[UploadService] --> [BucketFactory]
+
+[BucketFactory] -> [Storage]
+
+[MediaDB] --> [Media]
+
+@enduml

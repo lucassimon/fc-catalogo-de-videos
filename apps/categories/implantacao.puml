@@ -1,0 +1,49 @@
+@startuml implantacao
+
+component ClusterKubernetes {
+  component "Workers" {
+    component "Worker Activate User" as worker01
+    component "Send SMS" as worker02
+    component "Send Telegram" as worker03
+    component "Worker .... N" as workerN
+  }
+
+  component "Backend" {
+    node medias
+    node notification
+    node auth
+    node loans
+  }
+
+  component "utilidades" {
+    node graylog
+    node elasticsearch
+    node kibana
+  }
+}
+
+database postgres
+database rabbitmq
+database mongo
+component "ThirdAPI"
+
+cloud gcs
+cloud s3
+cloud sendgrid
+
+[client]->[load_balancer]
+[load_balancer] <-> ClusterKubernetes
+
+Backend <-> postgres :tcp/ip
+Backend -> s3 :tcp/ip
+Backend -> gcs :tcp/ip
+Backend -> mongo :tcp/ip
+Backend -> rabbitmq :tcp/ip
+
+utilidades -> rabbitmq :tcp/ip
+utilidades -> mongo :tcp/ip
+
+Workers -> sendgrid :tcp/ip
+loans -> ThirdAPI :http/json
+
+@enduml

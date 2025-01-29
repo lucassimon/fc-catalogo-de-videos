@@ -1,0 +1,25 @@
+@startuml implementacao_entidade
+
+package domains {
+  package entities {
+      class MediaEntity {
+          Id UIID
+          Name string
+          ContentType string
+          Link string
+          Provider string
+          Bucket string
+          Directory string
+          Size int64
+          Title string
+          Description string
+          Alt string
+
+          GetId()
+          GetName()
+          GetBucket()
+      }
+  }
+}
+
+@enduml
